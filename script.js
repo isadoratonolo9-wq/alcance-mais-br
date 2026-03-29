@@ -1,0 +1,689 @@
+document.addEventListener('DOMContentLoaded', () => {
+
+    /* FAQ Accordion Logic */
+    const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+    accordionHeaders.forEach(header => {
+        header.addEventListener('click', () => {
+            const body = header.nextElementSibling;
+            header.classList.toggle('active');
+            if (header.classList.contains('active')) {
+                body.style.maxHeight = body.scrollHeight + 'px';
+            } else {
+                body.style.maxHeight = 0;
+            }
+        });
+    });
+
+    /* Pricing Calculator Data */
+    const pricingData = {
+        instagram: {
+            seguidores: [
+                { label: "0 seguidores", price: 0.00, old: 0.00 },
+                { label: "100 seguidores", price: 5.90, old: 8.85 },
+                { label: "500 seguidores", price: 19.90, old: 29.85 },
+                { label: "1.000 seguidores", price: 39.90, old: 59.85 },
+                { label: "1.500 seguidores", price: 59.90, old: 89.85 },
+                { label: "2.000 seguidores", price: 79.90, old: 119.85 },
+                { label: "3.000 seguidores", price: 99.90, old: 149.85, confetti: true },
+                { label: "4.000 seguidores", price: 139.90, old: 209.85 },
+                { label: "5.000 seguidores", price: 179.90, old: 269.85 },
+                { label: "6.000 seguidores", price: 209.90, old: 314.85 },
+                { label: "7.000 seguidores", price: 249.90, old: 374.85 },
+                { label: "8.000 seguidores", price: 279.90, old: 419.85 },
+                { label: "10.000 seguidores", price: 299.90, old: 449.85, confetti: true },
+                { label: "20.000 seguidores", price: 599.90, old: 899.85 },
+                { label: "30.000 seguidores", price: 899.90, old: 1349.85, confetti: true }
+            ],
+            curtidas: [
+                { label: "0 curtidas", price: 0.00, old: 0.00 },
+                { label: "100 curtidas", price: 8.90, old: 13.35 },
+                { label: "200 curtidas", price: 12.90, old: 19.35 },
+                { label: "400 curtidas", price: 15.90, old: 23.85 },
+                { label: "600 curtidas", price: 19.90, old: 29.85 },
+                { label: "800 curtidas", price: 24.90, old: 37.35 },
+                { label: "1.000 curtidas", price: 29.90, old: 44.85, confetti: true },
+                { label: "1.200 curtidas", price: 36.90, old: 55.35 },
+                { label: "1.400 curtidas", price: 41.90, old: 62.85 },
+                { label: "1.600 curtidas", price: 46.90, old: 70.35 },
+                { label: "1.800 curtidas", price: 50.90, old: 76.35 },
+                { label: "2.200 curtidas", price: 61.90, old: 92.85 },
+                { label: "2.400 curtidas", price: 67.90, old: 101.85 },
+                { label: "2.600 curtidas", price: 71.90, old: 107.85 },
+                { label: "2.800 curtidas", price: 78.90, old: 118.35 },
+                { label: "3.000 curtidas", price: 85.90, old: 128.85 },
+                { label: "4.000 curtidas", price: 113.90, old: 170.85 },
+                { label: "5.000 curtidas", price: 142.90, old: 214.35, confetti: true },
+                { label: "8.000 curtidas", price: 227.90, old: 341.85 },
+                { label: "10.000 curtidas", price: 287.90, old: 431.85, confetti: true }
+            ],
+            views: [
+                { label: "0 views", price: 0.00, old: 0.00 },
+                { label: "1.000 views", price: 8.90, old: 13.35 },
+                { label: "2.000 views", price: 17.90, old: 26.85 },
+                { label: "3.000 views", price: 26.90, old: 40.35 },
+                { label: "4.000 views", price: 35.90, old: 53.85 },
+                { label: "5.000 views", price: 44.90, old: 67.35, confetti: true },
+                { label: "6.000 views", price: 53.90, old: 80.85 },
+                { label: "7.000 views", price: 62.90, old: 94.35 },
+                { label: "8.000 views", price: 71.90, old: 107.85 },
+                { label: "10.000 views", price: 89.90, old: 134.85, confetti: true },
+                { label: "12.000 views", price: 105.90, old: 158.85 },
+                { label: "13.000 views", price: 113.90, old: 170.85 },
+                { label: "14.000 views", price: 121.90, old: 182.85 },
+                { label: "18.000 views", price: 153.90, old: 230.85 },
+                { label: "20.000 views", price: 169.90, old: 254.85 },
+                { label: "30.000 views", price: 199.90, old: 299.85, confetti: true },
+                { label: "50.000 views", price: 259.90, old: 389.85, confetti: true }
+            ]
+        },
+        tiktok: {
+            seguidores: [
+                { label: "0 seguidores", price: 0.00, old: 0.00 },
+                { label: "500 seguidores", price: 29.90, old: 44.85 },
+                { label: "1.000 seguidores", price: 57.90, old: 86.85 },
+                { label: "1.500 seguidores", price: 87.90, old: 131.85 },
+                { label: "2.000 seguidores", price: 109.90, old: 164.85 },
+                { label: "2.500 seguidores", price: 134.90, old: 202.35 },
+                { label: "3.000 seguidores", price: 157.90, old: 236.85, confetti: true },
+                { label: "3.500 seguidores", price: 179.90, old: 269.85 },
+                { label: "4.000 seguidores", price: 199.90, old: 299.85 },
+                { label: "4.500 seguidores", price: 219.90, old: 329.85 },
+                { label: "5.000 seguidores", price: 239.90, old: 359.85, confetti: true },
+                { label: "5.500 seguidores", price: 259.90, old: 389.85 },
+                { label: "6.000 seguidores", price: 279.90, old: 419.85 },
+                { label: "7.000 seguidores", price: 319.90, old: 479.85 },
+                { label: "8.000 seguidores", price: 359.90, old: 539.85 },
+                { label: "9.000 seguidores", price: 399.90, old: 599.85 },
+                { label: "10.000 seguidores", price: 439.90, old: 659.85, confetti: true }
+            ],
+            curtidas: [
+                { label: "0 curtidas", price: 0.00, old: 0.00 },
+                { label: "200 curtidas", price: 14.90, old: 22.35 },
+                { label: "400 curtidas", price: 27.90, old: 41.85 },
+                { label: "600 curtidas", price: 39.90, old: 59.85 },
+                { label: "800 curtidas", price: 49.90, old: 74.85 },
+                { label: "1.000 curtidas", price: 59.90, old: 89.85, confetti: true },
+                { label: "1.400 curtidas", price: 79.90, old: 119.85 },
+                { label: "1.800 curtidas", price: 99.90, old: 149.85 },
+                { label: "2.200 curtidas", price: 119.90, old: 179.85 },
+                { label: "2.600 curtidas", price: 139.90, old: 209.85 },
+                { label: "3.200 curtidas", price: 169.90, old: 254.85 },
+                { label: "3.600 curtidas", price: 189.90, old: 284.85 },
+                { label: "4.000 curtidas", price: 209.90, old: 314.85 },
+                { label: "5.000 curtidas", price: 259.90, old: 389.85, confetti: true }
+            ],
+            views: [
+                { label: "0 views", price: 0.00, old: 0.00 },
+                { label: "1.000 views", price: 9.90, old: 14.85 },
+                { label: "2.000 views", price: 18.90, old: 28.35 },
+                { label: "3.000 views", price: 27.90, old: 41.85 },
+                { label: "4.000 views", price: 36.90, old: 55.35 },
+                { label: "5.000 views", price: 45.90, old: 68.85, confetti: true },
+                { label: "6.000 views", price: 54.90, old: 82.35 },
+                { label: "7.000 views", price: 63.90, old: 95.85 },
+                { label: "8.000 views", price: 72.90, old: 109.35 },
+                { label: "9.000 views", price: 81.90, old: 122.85 },
+                { label: "10.000 views", price: 89.90, old: 134.85, confetti: true },
+                { label: "11.000 views", price: 97.90, old: 146.85 },
+                { label: "12.000 views", price: 105.90, old: 158.85 },
+                { label: "13.000 views", price: 113.90, old: 170.85 },
+                { label: "14.000 views", price: 121.90, old: 182.85 },
+                { label: "15.000 views", price: 129.90, old: 194.85, confetti: true },
+                { label: "16.000 views", price: 137.90, old: 206.85 },
+                { label: "17.000 views", price: 145.90, old: 218.85 },
+                { label: "18.000 views", price: 153.90, old: 230.85 },
+                { label: "19.000 views", price: 161.90, old: 242.85 },
+                { label: "20.000 views", price: 169.90, old: 254.85, confetti: true }
+            ]
+        }
+    };
+
+    let activePlatform = 'instagram'; // default
+
+    const rSeg = document.getElementById('range-seguidores');
+    const rCur = document.getElementById('range-curtidas');
+    const rView = document.getElementById('range-views');
+
+    function formatMoney(value) {
+        return 'R$ ' + value.toFixed(2).replace('.', ',');
+    }
+
+    let lastConfettiStates = { seg: -1, cur: -1, view: -1 };
+    let initialLoad = true;
+    function fireConfetti() {
+        if (window.confetti && !initialLoad) {
+            confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 }, zIndex: 9999 });
+        }
+    }
+
+    function initSlidersRanges() {
+        if(!rSeg) return;
+        const data = pricingData[activePlatform];
+        rSeg.max = data.seguidores.length - 1;
+        rCur.max = data.curtidas.length - 1;
+        rView.max = data.views.length - 1;
+    }
+
+    function updateCart() {
+        if(!rSeg) return;
+        const data = pricingData[activePlatform];
+        
+        // Ensure max is correct
+        if(rSeg.max != data.seguidores.length - 1) initSlidersRanges();
+
+        // Safe bounds
+        let sVal = Math.min(rSeg.value, data.seguidores.length - 1);
+        let cVal = Math.min(rCur.value, data.curtidas.length - 1);
+        let vVal = Math.min(rView.value, data.views.length - 1);
+
+        const segItem = data.seguidores[sVal];
+        const curItem = data.curtidas[cVal];
+        const viewItem = data.views[vVal];
+
+        // Confetti logic
+        if (segItem.confetti && lastConfettiStates.seg !== sVal) { fireConfetti(); }
+        lastConfettiStates.seg = sVal;
+        
+        if (curItem.confetti && lastConfettiStates.cur !== cVal) { fireConfetti(); }
+        lastConfettiStates.cur = cVal;
+        
+        if (viewItem.confetti && lastConfettiStates.view !== vVal) { fireConfetti(); }
+        lastConfettiStates.view = vVal;
+
+        // Update Labels
+        document.getElementById('label-seguidores').textContent = segItem.label;
+        document.getElementById('label-curtidas').textContent = curItem.label;
+        document.getElementById('label-views').textContent = viewItem.label;
+
+        // Update Individual Prices
+        document.getElementById('price-seguidores').textContent = formatMoney(segItem.price);
+        document.getElementById('price-curtidas').textContent = formatMoney(curItem.price);
+        document.getElementById('price-views').textContent = formatMoney(viewItem.price);
+
+        // Calculate Totals
+        const currentTotal = segItem.price + curItem.price + viewItem.price;
+        const oldTotal = segItem.old + curItem.old + viewItem.old;
+
+        // Apply Totals
+        const currentElements = document.querySelectorAll('.current-price, .total-current');
+        const oldElements = document.querySelectorAll('.old-price, .total-old');
+
+        currentElements.forEach(el => el.textContent = formatMoney(currentTotal));
+        
+        oldElements.forEach(el => {
+            if(oldTotal > 0) {
+                el.style.display = 'inline-block';
+                el.textContent = formatMoney(oldTotal);
+            } else {
+                el.style.display = 'none';
+            }
+        });
+
+        // Update ranges CSS variable for background progress
+        updateRangeProgress(rSeg);
+        updateRangeProgress(rCur);
+        updateRangeProgress(rView);
+        
+        initialLoad = false;
+    }
+
+    function updateRangeProgress(slider) {
+        let max = slider.max || 1;
+        const val = (slider.value - slider.min) / (max - slider.min) * 100;
+        slider.style.setProperty('--value', val + '%');
+    }
+
+    if(rSeg) {
+        rSeg.addEventListener('input', updateCart);
+        rCur.addEventListener('input', updateCart);
+        rView.addEventListener('input', updateCart);
+        initSlidersRanges();
+        updateCart(); // Initialize
+    }
+
+    // Expose platform switcher to global scope
+    window.changePlatform = function(platform) {
+        activePlatform = platform;
+        
+        // Reset sliders to 0 or 1 depending on preference. Let's reset to 0 to be safe.
+        rSeg.value = 0;
+        rCur.value = 0;
+        rView.value = 0;
+        
+        const topBarTitle = document.getElementById('top-bar-title');
+        const topBarIcon = document.getElementById('top-bar-icon-container');
+        
+        if (platform === 'instagram') {
+            topBarTitle.textContent = 'Serviços Instagram';
+            topBarIcon.innerHTML = '<i data-feather="instagram" class="bar-icon"></i>';
+            topBarIcon.style.background = 'linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)';
+        } else {
+            topBarTitle.textContent = 'Serviços TikTok';
+            topBarIcon.innerHTML = '<svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="bar-icon"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>';
+            topBarIcon.style.background = '#000000';
+        }
+        
+        if(window.feather) { feather.replace(); }
+        
+        updateCart();
+        
+        // Smooth scroll to section and focus input
+        document.getElementById('custom-order').scrollIntoView({ behavior: 'smooth' });
+        setTimeout(() => {
+            document.getElementById('order-username').focus();
+        }, 500);
+    }
+
+    /* --- Scroll Reveal Logic --- */
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { rootMargin: '0px 0px -50px 0px', threshold: 0.1 });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    /* --- Hero Particles System --- */
+    const canvas = document.getElementById('hero-particles');
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = document.querySelector('.hero').offsetHeight;
+
+        let particles = [];
+        const mouse = { x: null, y: null, radius: 150 };
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = document.querySelector('.hero').offsetHeight;
+            initParticles();
+        });
+
+        document.querySelector('.hero').addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            mouse.x = e.clientX - rect.left;
+            mouse.y = e.clientY - rect.top;
+        });
+        document.querySelector('.hero').addEventListener('mouseleave', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.size = Math.random() * 2 + 1.5;
+                this.baseX = this.x;
+                this.baseY = this.y;
+                this.density = (Math.random() * 20) + 1;
+                this.vx = (Math.random() - 0.5) * 1.5;
+                this.vy = (Math.random() - 0.5) * 1.5;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(90, 44, 201, 0.7)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.closePath();
+                ctx.fill();
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > width) this.vx = -this.vx;
+                if (this.y < 0 || this.y > height) this.vy = -this.vy;
+
+                // Mouse interactivity
+                if (mouse.x != null) {
+                    let dx = mouse.x - this.x;
+                    let dy = mouse.y - this.y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    let forceDirectionX = dx / distance;
+                    let forceDirectionY = dy / distance;
+                    let maxDistance = mouse.radius;
+                    let force = (maxDistance - distance) / maxDistance;
+                    let directionX = forceDirectionX * force * this.density;
+                    let directionY = forceDirectionY * force * this.density;
+
+                    if (distance < mouse.radius) {
+                        this.x -= directionX;
+                        this.y -= directionY;
+                    }
+                }
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < 80; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+                for (let j = i; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < 100) {
+                        ctx.strokeStyle = 'rgba(90, 44, 201,' + (1 - distance / 100) * 0.2 + ')';
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+
+        initParticles();
+        animate();
+    }
+
+    /* =========================================
+       CHECKOUT & UPSELL LOGIC
+    ========================================= */
+    const btnAvancar = document.getElementById('btn-avancar');
+    const checkoutPanel = document.getElementById('checkout-panel');
+    const calculatorSetup = document.getElementById('calculator-setup');
+    const promoContainer = document.getElementById('promo-container');
+    const dynamicInputs = document.getElementById('checkout-dynamic-inputs');
+    const usernameInput = document.getElementById('order-username');
+    
+    let promoSelections = { seguidores: false, curtidas: false, views: false };
+
+    if (btnAvancar) {
+        btnAvancar.addEventListener('click', () => {
+            const data = pricingData[activePlatform];
+            const sVal = parseInt(rSeg.value);
+            const cVal = parseInt(rCur.value);
+            const vVal = parseInt(rView.value);
+
+            // 1. Validação do Username (@)
+            if (sVal > 0 && (!usernameInput.value || usernameInput.value.trim() === "")) {
+                const wrap = usernameInput.closest('.input-wrap');
+                wrap.classList.add('shake', 'shake-input');
+                usernameInput.focus();
+                setTimeout(() => wrap.classList.remove('shake', 'shake-input'), 400);
+                return;
+            }
+
+            // 2. Preparar Checkout
+            promoContainer.innerHTML = '';
+            dynamicInputs.innerHTML = '';
+            promoSelections = { seguidores: false, curtidas: false, views: false };
+
+            // Gerar Promos
+            if (sVal > 0) createPromoCard('seguidores', data.seguidores[sVal]);
+            if (cVal > 0) createPromoCard('curtidas', data.curtidas[cVal]);
+            if (vVal > 0) createPromoCard('views', data.views[vVal]);
+
+            // Gerar Inputs Dinâmicos (Links)
+            if (cVal > 0) {
+                dynamicInputs.innerHTML += `
+                    <div class="input-wrap" style="margin-bottom:0.75rem;">
+                        <i data-feather="link"></i>
+                        <input type="text" id="link-curtidas" placeholder="Link do post para Curtidas">
+                    </div>
+                `;
+            }
+            if (vVal > 0) {
+                dynamicInputs.innerHTML += `
+                    <div class="input-wrap">
+                        <i data-feather="link"></i>
+                        <input type="text" id="link-views" placeholder="Link do post para Views">
+                    </div>
+                `;
+            }
+
+            feather.replace();
+
+            // Alternar Telas
+            calculatorSetup.style.display = 'none';
+            checkoutPanel.style.display = 'block';
+            updateCheckoutTotal();
+            
+            // Scroll para o topo do card
+            checkoutPanel.scrollIntoView({ behavior: 'smooth' });
+        });
+    }
+
+    function createPromoCard(type, originalItem) {
+        const promoPrice = originalItem.price * 0.8; // 20% OFF
+        const card = document.createElement('div');
+        card.className = 'promo-card';
+        
+        let icon = type === 'seguidores' ? 'user-plus' : (type === 'curtidas' ? 'heart' : 'eye');
+        let label = originalItem.label.split(' ')[0]; // Pega o número (ex: 500)
+
+        card.innerHTML = `
+            <div class="promo-icon"><i data-feather="${icon}"></i></div>
+            <div class="promo-details">
+                <div class="promo-title">
+                    + ${label} ${type} (PROMO)
+                    <span class="promo-badge">20% OFF</span>
+                </div>
+                <div class="promo-price-row">
+                    <span style="text-decoration:line-through; color:#94a3b8; font-size:0.85rem; margin-right:0.4rem;">
+                        ${formatMoney(originalItem.price)}
+                    </span>
+                    ${formatMoney(promoPrice)}
+                </div>
+            </div>
+            <button class="promo-btn"><i data-feather="plus"></i></button>
+        `;
+
+        card.addEventListener('click', () => {
+            card.classList.toggle('active');
+            promoSelections[type] = card.classList.contains('active');
+            updateCheckoutTotal();
+        });
+
+        promoContainer.appendChild(card);
+    }
+
+    function updateCheckoutTotal() {
+        const data = pricingData[activePlatform];
+        let baseTotal = data.seguidores[rSeg.value].price + data.curtidas[rCur.value].price + data.views[rView.value].price;
+        let baseOld = data.seguidores[rSeg.value].old + data.curtidas[rCur.value].old + data.views[rView.value].old;
+        
+        let promoTotal = 0;
+        if (promoSelections.seguidores) promoTotal += (data.seguidores[rSeg.value].price * 0.8);
+        if (promoSelections.curtidas) promoTotal += (data.curtidas[rCur.value].price * 0.8);
+        if (promoSelections.views) promoTotal += (data.views[rView.value].price * 0.8);
+
+        const finalPrice = baseTotal + promoTotal;
+        const finalOld = baseOld + (promoTotal / 0.8); // Aproximação do valor cheio anterior
+
+        document.getElementById('checkout-final-price').textContent = formatMoney(finalPrice);
+        const oldEl = document.getElementById('checkout-old-price');
+        if (finalOld > finalPrice) {
+            oldEl.textContent = formatMoney(finalOld);
+            oldEl.style.display = 'inline-block';
+        } else {
+            oldEl.style.display = 'none';
+        }
+    }
+
+    // Botão Finalizar
+    const btnFechar = document.getElementById('btn-fechar-pedido');
+    if (btnFechar) {
+        btnFechar.addEventListener('click', async () => {
+            const nome = document.getElementById('chk-nome').value;
+            const tel = document.getElementById('chk-telefone').value;
+            const email = document.getElementById('chk-email').value;
+            const username = document.getElementById('order-username').value;
+            
+            if (!nome || !tel || !email) {
+                alert('Por favor, preencha todos os campos de contato.');
+                return;
+            }
+
+            btnFechar.innerText = "Processando...";
+            btnFechar.disabled = true;
+
+            // Coletar dados do pedido
+            const data = pricingData[activePlatform];
+            const seg = data.seguidores[rSeg.value];
+            const cur = data.curtidas[rCur.value];
+            const view = data.views[rView.value];
+            const total = document.getElementById('checkout-final-price').textContent;
+
+            // 1. Salvar na Planilha do Google (Se configurada)
+            const SHEET_URL = "SEU_LINK_AQUI"; // Substitua pelo link que você me mandar
+            if (SHEET_URL !== "SEU_LINK_AQUI") {
+                try {
+                    await fetch(SHEET_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            nome, whatsapp: tel, email, perfil: username,
+                            pedido: `${seg.label}, ${cur.label}, ${view.label}`,
+                            total
+                        })
+                    });
+                } catch (err) { console.error("Erro planilha:", err); }
+            }
+
+            // 2. Gerar Mensagem de WhatsApp
+            let message = `🚀 *NOVO PEDIDO - ALCANCE MAIS BR*\n\n`;
+            message += `👤 *Cliente:* ${nome}\n`;
+            message += `📱 *WhatsApp:* ${tel}\n`;
+            message += `📧 *E-mail:* ${email}\n`;
+            message += `🔑 *Perfil/Username:* @${username}\n\n`;
+            message += `🛒 *ÍTENS ESCOLHIDOS:* \n`;
+            
+            if (seg.price > 0) message += `- ${seg.label} (${activePlatform})\n`;
+            if (cur.price > 0) {
+                const link = document.getElementById('link-curtidas')?.value || 'Não informado';
+                message += `- ${cur.label} (${activePlatform}) / Link: ${link}\n`;
+            }
+            if (view.price > 0) {
+                const link = document.getElementById('link-views')?.value || 'Não informado';
+                message += `- ${view.label} (${activePlatform}) / Link: ${link}\n`;
+            }
+
+            // Promos
+            if (promoSelections.seguidores || promoSelections.curtidas || promoSelections.views) {
+                message += `\n🎁 *PROMOÇÕES ADICIONAIS:* \n`;
+                if (promoSelections.seguidores) message += `- + ${seg.label} (Upsell 20% OFF)\n`;
+                if (promoSelections.curtidas) message += `- + ${cur.label} (Upsell 20% OFF)\n`;
+                if (promoSelections.views) message += `- + ${view.label} (Upsell 20% OFF)\n`;
+            }
+
+            message += `\n💰 *VALOR TOTAL:* ${total}\n`;
+            message += `💳 *PAGAMENTO:* PIX`;
+
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/554497085637?text=${encodedMessage}`;
+            
+            // 3. Abrir WhatsApp (ou Mercado Pago futuramente)
+            window.open(whatsappUrl, '_blank');
+            
+            btnFechar.innerText = "Fechar pedido →";
+            btnFechar.disabled = false;
+        });
+    }
+
+    // Persistência de Dados (Local Storage)
+    const formFields = ['order-username', 'chk-nome', 'chk-telefone', 'chk-email'];
+    
+    function saveProgress() {
+        const formData = {};
+        formFields.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) formData[id] = el.value;
+        });
+        localStorage.setItem('alcance_mais_form', JSON.stringify(formData));
+    }
+
+    function loadProgress() {
+        const saved = localStorage.getItem('alcance_mais_form');
+        if (saved) {
+            const formData = JSON.parse(saved);
+            formFields.forEach(id => {
+                const el = document.getElementById(id);
+                if (el && formData[id]) el.value = formData[id];
+            });
+        }
+    }
+
+    formFields.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('input', saveProgress);
+    });
+
+    loadProgress();
+
+    /* =========================================
+       SOCIAL PROOF NOTIFICATIONS (FOMO)
+    ========================================= */
+    const socialProofData = {
+        names: ["Sofia O.", "Marcos R.", "Ana B.", "Gabriel S.", "Julia M.", "Lucas P.", "Beatriz F.", "Rodrigo T.", "Camila L.", "Felipe G."],
+        locations: ["São Paulo", "Rio de Janeiro", "Curitiba", "Belo Horizonte", "Salvador", "Porto Alegre", "Brasília", "Fortaleza"],
+        services: [
+            { type: "seguidores", platform: "Instagram", amounts: ["500", "1.000", "2.000", "5.000"] },
+            { type: "curtidas", platform: "Instagram", amounts: ["100", "500", "1.000"] },
+            { type: "views", platform: "Instagram", amounts: ["1.000", "5.000", "10.000"] },
+            { type: "seguidores", platform: "TikTok", amounts: ["500", "1.000", "2.500"] },
+            { type: "curtidas", platform: "TikTok", amounts: ["200", "1.000", "2.000"] }
+        ]
+    };
+
+    function createSocialProofContainer() {
+        const container = document.createElement('div');
+        container.id = 'social-proof-container';
+        document.body.appendChild(container);
+        return container;
+    }
+
+    function showNotification() {
+        const container = document.getElementById('social-proof-container') || createSocialProofContainer();
+        
+        const name = socialProofData.names[Math.floor(Math.random() * socialProofData.names.length)];
+        const service = socialProofData.services[Math.floor(Math.random() * socialProofData.services.length)];
+        const amount = service.amounts[Math.floor(Math.random() * service.amounts.length)];
+        const time = Math.floor(Math.random() * 55) + 2; // 2 a 57 minutos
+
+        const html = `
+            <div class="social-notification">
+                <div class="social-avatar">${name[0]}</div>
+                <div class="social-content">
+                    <strong>${name}</strong> acaba de encomendar<br>
+                    <strong>${amount} ${service.type}</strong> no ${service.platform}.
+                    <span class="social-time">${time} minutos atrás</span>
+                </div>
+            </div>
+        `;
+
+        container.innerHTML = html;
+        const notification = container.querySelector('.social-notification');
+
+        // Trigger animation
+        setTimeout(() => notification.classList.add('show'), 100);
+
+        // Hide after 6 seconds
+        setTimeout(() => {
+            notification.classList.remove('show');
+        }, 6000);
+    }
+
+    // Start cycling every 25 seconds
+    setInterval(showNotification, 25000);
+    
+    // Show the first one after 5 seconds of page load
+    setTimeout(showNotification, 5000);
+});
