@@ -542,18 +542,22 @@ document.addEventListener('DOMContentLoaded', () => {
             const total = document.getElementById('checkout-final-price').textContent;
 
             // 1. Salvar na Planilha do Google (Se configurada)
-            const SHEET_URL = "SEU_LINK_AQUI"; // Substitua pelo link que você me mandar
+            const SHEET_URL = "https://script.google.com/macros/s/AKfycbxYEksMsCLJ4HufxC1NRjCB_7VHARrCJvSHkbtqJmZ7rJPd7ClTuLdLAKXV8Qr7wMTL/exec";
             if (SHEET_URL !== "SEU_LINK_AQUI") {
                 try {
-                    await fetch(SHEET_URL, {
+                    // Envia os dados como parâmetros de URL para máxima compatibilidade com o Google
+                    const queryParams = new URLSearchParams({
+                        nome: nome,
+                        whatsapp: tel,
+                        email: email,
+                        perfil: username,
+                        pedido: `${seg.label}, ${cur.label}, ${view.label}`,
+                        total: total
+                    });
+
+                    await fetch(SHEET_URL + "?" + queryParams.toString(), {
                         method: 'POST',
-                        mode: 'no-cors',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            nome, whatsapp: tel, email, perfil: username,
-                            pedido: `${seg.label}, ${cur.label}, ${view.label}`,
-                            total
-                        })
+                        mode: 'no-cors'
                     });
                 } catch (err) { console.error("Erro planilha:", err); }
             }
@@ -588,13 +592,11 @@ document.addEventListener('DOMContentLoaded', () => {
             message += `💳 *PAGAMENTO:* PIX`;
 
             const encodedMessage = encodeURIComponent(message);
-            const whatsappUrl = `https://wa.me/554497085637?text=${encodedMessage}`;
+            // 3. Feedback Final (Aguardando Chaves do PIX)
+            alert('Sucesso! Seus dados foram salvos na Planilha. Já estamos preparando o seu PIX!');
             
-            // 3. Abrir WhatsApp (ou Mercado Pago futuramente)
-            window.open(whatsappUrl, '_blank');
-            
-            btnFechar.innerText = "Fechar pedido →";
-            btnFechar.disabled = false;
+            btnFechar.innerText = "Pedido Enviado ✅";
+            btnFechar.disabled = true;
         });
     }
 
