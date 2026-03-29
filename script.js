@@ -140,6 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     let activePlatform = 'instagram'; // default
+    let isPromoPath = false; // Flag para saber se veio pela oferta de 1000+300
 
     const rSeg = document.getElementById('range-seguidores');
     const rCur = document.getElementById('range-curtidas');
@@ -406,92 +407,115 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (btnAvancar) {
         btnAvancar.addEventListener('click', () => {
+            isPromoPath = false; // Se clicou em avançar pela régua, não é o caminho da promo fixa
             const data = pricingData[activePlatform];
             const sVal = parseInt(rSeg.value);
             const cVal = parseInt(rCur.value);
             const vVal = parseInt(rView.value);
+            const username = document.getElementById('order-username').value;
 
             // 1. Validação do Username (@)
-            if (sVal > 0 && (!usernameInput.value || usernameInput.value.trim() === "")) {
-                const wrap = usernameInput.closest('.input-wrap');
+            if (sVal > 0 && (!username || username.trim() === "")) {
+                const wrap = document.querySelector('.card-profile-input .input-wrap');
                 wrap.classList.add('shake', 'shake-input');
-                usernameInput.focus();
+                document.getElementById('order-username').focus();
                 setTimeout(() => wrap.classList.remove('shake', 'shake-input'), 400);
                 return;
             }
 
+            // Sync with checkout username
+            document.getElementById('chk-username').value = username;
+
             // 2. Preparar Checkout
-            promoContainer.innerHTML = '';
-            dynamicInputs.innerHTML = '';
-            promoSelections = { seguidores: false, curtidas: false, views: false };
-
-            // Gerar Promos
-            if (sVal > 0) createPromoCard('seguidores', data.seguidores[sVal]);
-            if (cVal > 0) createPromoCard('curtidas', data.curtidas[cVal]);
-            if (vVal > 0) createPromoCard('views', data.views[vVal]);
-
-            // Gerar Inputs Dinâmicos (Links)
-            if (cVal > 0) {
-                dynamicInputs.innerHTML += `
-                    <div class="input-wrap" style="margin-bottom:0.75rem;">
-                        <i data-feather="link"></i>
-                        <input type="text" id="link-curtidas" placeholder="Link do post para Curtidas">
-                    </div>
-                `;
-            }
-            if (vVal > 0) {
-                dynamicInputs.innerHTML += `
-                    <div class="input-wrap">
-                        <i data-feather="link"></i>
-                        <input type="text" id="link-views" placeholder="Link do post para Views">
-                    </div>
-                `;
-            }
-
-            feather.replace();
-
-            // Alternar Telas
-            calculatorSetup.style.display = 'none';
-            checkoutPanel.style.display = 'block';
-            updateCheckoutTotal();
-            
-            // Scroll para o topo do card
-            checkoutPanel.scrollIntoView({ behavior: 'smooth' });
+            openCheckoutPanel();
         });
+    }
+
+    function openCheckoutPanel() {
+        const data = pricingData[activePlatform];
+        const sVal = parseInt(rSeg.value);
+        const cVal = parseInt(rCur.value);
+        const vVal = parseInt(rView.value);
+
+        const dynamicContainer = document.getElementById('dynamic-bumps-container');
+        const linkContainer = document.getElementById('checkout-link-inputs'); // Container for URLs
+
+        dynamicContainer.innerHTML = '';
+        linkContainer.innerHTML = '';
+        promoSelections = { seguidores: false, curtidas: false, views: false };
+
+        // Determine if we are on the "Promo Path" (1000 Followers Package)
+        const isPromoPath = (activePlatform === 'instagram' && rSeg.value == 3);
+
+        // 1. Gerar Inputs Dinâmicos (Links) PRIMEIRO
+        if (cVal > 0) {
+            linkContainer.innerHTML += `
+                <div class="input-wrap" style="margin-bottom:0.75rem;">
+                    <i data-feather="link"></i>
+                    <input type="text" id="link-curtidas" placeholder="Link do post para Curtidas">
+                </div>
+            `;
+        }
+        if (vVal > 0) {
+            linkContainer.innerHTML += `
+                <div class="input-wrap" style="margin-bottom:2rem;">
+                    <i data-feather="link"></i>
+                    <input type="text" id="link-views" placeholder="Link do post para Views">
+                </div>
+            `;
+        }
+
+        // 2. Gerar Promos (Upsells) em estilo Order Bump DEPOIS
+        if (sVal > 0 && !isPromoPath) createPromoCard('seguidores', data.seguidores[sVal]);
+        if (cVal > 0) createPromoCard('curtidas', data.curtidas[cVal]);
+        if (vVal > 0) createPromoCard('views', data.views[vVal]);
+
+        feather.replace();
+
+        // Alternar Telas
+        calculatorSetup.style.display = 'none';
+        checkoutPanel.style.display = 'block';
+        updateCheckoutTotal();
+        
+        // Scroll para o topo do card
+        checkoutPanel.scrollIntoView({ behavior: 'smooth' });
     }
 
     function createPromoCard(type, originalItem) {
         const promoPrice = originalItem.price * 0.8; // 20% OFF
         const card = document.createElement('div');
-        card.className = 'promo-card';
+        card.className = 'order-bump-box dynamic-upsell-bump';
+        card.dataset.type = type;
         
         let icon = type === 'seguidores' ? 'user-plus' : (type === 'curtidas' ? 'heart' : 'eye');
         let label = originalItem.label.split(' ')[0]; // Pega o número (ex: 500)
 
         card.innerHTML = `
-            <div class="promo-icon"><i data-feather="${icon}"></i></div>
-            <div class="promo-details">
-                <div class="promo-title">
-                    + ${label} ${type} (PROMO)
-                    <span class="promo-badge">20% OFF</span>
-                </div>
-                <div class="promo-price-row">
-                    <span style="text-decoration:line-through; color:#94a3b8; font-size:0.85rem; margin-right:0.4rem;">
-                        ${formatMoney(originalItem.price)}
-                    </span>
-                    ${formatMoney(promoPrice)}
-                </div>
+            <input type="checkbox" class="bump-checkbox">
+            <div class="bump-badge-discount">🔥 20% OFF EXTRA</div>
+            <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom: 0.25rem;">
+                <i data-feather="${icon}" style="color:#6366f1; width:20px;"></i>
+                <strong style="color:#4338ca; font-size:1rem;">OFERTA: +${label} ${type}</strong>
             </div>
-            <button class="promo-btn"><i data-feather="plus"></i></button>
+            <p style="font-size:0.875rem; color:#6b7280; font-weight:600; margin: 0;">Dobre seu pedido agora por apenas <strong>${formatMoney(promoPrice)}</strong>.</p>
         `;
 
-        card.addEventListener('click', () => {
-            card.classList.toggle('active');
-            promoSelections[type] = card.classList.contains('active');
+        card.addEventListener('click', (e) => {
+            if (e.target.type === 'checkbox') return;
+            const chk = card.querySelector('input[type="checkbox"]');
+            chk.checked = !chk.checked;
+            chk.dispatchEvent(new Event('change', { bubbles: true }));
+        });
+
+        const chk = card.querySelector('input[type="checkbox"]');
+        chk.addEventListener('change', () => {
+            card.classList.toggle('active', chk.checked);
+            promoSelections[type] = chk.checked;
+            if (chk.checked) fireConfetti();
             updateCheckoutTotal();
         });
 
-        promoContainer.appendChild(card);
+        document.getElementById('dynamic-bumps-container').appendChild(card);
     }
 
     function updateCheckoutTotal() {
@@ -504,8 +528,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (promoSelections.curtidas) promoTotal += (data.curtidas[rCur.value].price * 0.8);
         if (promoSelections.views) promoTotal += (data.views[rView.value].price * 0.8);
 
-        const finalPrice = baseTotal + promoTotal;
-        const finalOld = baseOld + (promoTotal / 0.8); // Aproximação do valor cheio anterior
+        // Order Bump Logic
+        const bumpCheck = document.getElementById('chk-order-bump');
+        const bumpActive = bumpCheck ? bumpCheck.checked : false;
+        const bumpPrice = 31.92; // +1300 seguidores (promo price)
+        const bumpOld = 39.90; // base price for followers is 39.90 for 1000, 1300 refined
+
+        const finalPrice = baseTotal + promoTotal + (bumpActive ? bumpPrice : 0);
+        const finalOld = baseOld + (promoTotal / 0.8) + (bumpActive ? bumpOld : 0);
 
         document.getElementById('checkout-final-price').textContent = formatMoney(finalPrice);
         const oldEl = document.getElementById('checkout-old-price');
@@ -517,6 +547,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Listener for Order Bump
+    document.addEventListener('change', (e) => {
+        if (e.target.id === 'chk-order-bump') {
+            updateCheckoutTotal();
+            const card = document.getElementById('order-bump-card');
+            if (e.target.checked) {
+                card.classList.add('active'); // Use standard green style
+                fireConfetti();
+            } else {
+                card.classList.remove('active');
+            }
+        }
+    });
+
+    document.addEventListener('click', (e) => {
+        const card = e.target.closest('#order-bump-card');
+        if (card && e.target.id !== 'chk-order-bump') {
+            const chk = document.getElementById('chk-order-bump');
+            chk.checked = !chk.checked;
+            chk.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+    });
+
     // Botão Finalizar
     const btnFechar = document.getElementById('btn-fechar-pedido');
     if (btnFechar) {
@@ -524,10 +577,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const nome = document.getElementById('chk-nome').value;
             const tel = document.getElementById('chk-telefone').value;
             const email = document.getElementById('chk-email').value;
-            const username = document.getElementById('order-username').value;
+            const username = document.getElementById('chk-username').value;
+            const bumpActive = document.getElementById('chk-order-bump').checked;
             
-            if (!nome || !tel || !email) {
-                alert('Por favor, preencha todos os campos de contato.');
+            if (!nome || !tel || !email || !username) {
+                alert('Por favor, preencha todos os campos, incluindo seu perfil (@).');
                 return;
             }
 
@@ -551,7 +605,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         whatsapp: tel,
                         email: email,
                         perfil: username,
-                        pedido: `${seg.label}, ${cur.label}, ${view.label}`,
+                        pedido: `${isPromoPath ? 'PROMO 1.000 + 300 Bonus (1.300 total)' : seg.label}, ${cur.label}, ${view.label}${bumpActive ? ' + ORDER BUMP (+1.300 seg)' : ''}`,
                         total: total
                     });
 
@@ -567,10 +621,14 @@ document.addEventListener('DOMContentLoaded', () => {
             message += `👤 *Cliente:* ${nome}\n`;
             message += `📱 *WhatsApp:* ${tel}\n`;
             message += `📧 *E-mail:* ${email}\n`;
-            message += `🔑 *Perfil/Username:* @${username}\n\n`;
+            message += `🔑 *Perfil/Username:* @${username.replace('@', '')}\n\n`;
             message += `🛒 *ÍTENS ESCOLHIDOS:* \n`;
             
-            if (seg.price > 0) message += `- ${seg.label} (${activePlatform})\n`;
+            if (seg.price > 0) {
+                const label = isPromoPath ? 'PROMO: 1.000 + 300 Bônus (1.300 total)' : seg.label;
+                message += `- ${label} (${activePlatform})\n`;
+            }
+            if (bumpActive) message += `- *ORDER BUMP EXCLUSIVO:* +1.300 seguidores reais\n`;
             if (cur.price > 0) {
                 const link = document.getElementById('link-curtidas')?.value || 'Não informado';
                 message += `- ${cur.label} (${activePlatform}) / Link: ${link}\n`;
@@ -592,8 +650,11 @@ document.addEventListener('DOMContentLoaded', () => {
             message += `💳 *PAGAMENTO:* PIX`;
 
             const encodedMessage = encodeURIComponent(message);
-            // 3. Feedback Final (Aguardando Chaves do PIX)
-            alert('Sucesso! Seus dados foram salvos na Planilha. Já estamos preparando o seu PIX!');
+            const whatsappURL = `https://wa.me/5544997162210?text=${encodedMessage}`;
+            
+            // 3. Abrir WhatsApp e Feedback Final
+            window.open(whatsappURL, '_blank');
+            alert('Sucesso! Seu pedido foi registrado. Estamos te redirecionando para o WhatsApp para concluir o pagamento via PIX!');
             
             btnFechar.innerText = "Pedido Enviado ✅";
             btnFechar.disabled = true;
@@ -688,4 +749,30 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Show the first one after 5 seconds of page load
     setTimeout(showNotification, 5000);
+    /* --- Auto-select Promo Package --- */
+    window.selectPromoPackage = function() {
+        // 1. Ensure we are on Instagram platform (as the promo specifies followers)
+        if (activePlatform !== 'instagram') {
+            window.changePlatform('instagram');
+        }
+
+        // 2. Set sliders: 1.000 followers is index 3 in pricingData.instagram.seguidores
+        if (rSeg) {
+            rSeg.value = 3; 
+            rCur.value = 0;
+            rView.value = 0;
+            
+            // 3. Update the cart status BEFORE opening checkout to fix the "bug"
+            updateCart();
+            
+            // 4. Marcar como caminho Promo
+            isPromoPath = true;
+            
+            // 5. Skip sliders and go directly to checkout
+            openCheckoutPanel();
+
+            // Optional: Fire some confetti!
+            fireConfetti();
+        }
+    };
 });

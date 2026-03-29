@@ -63,9 +63,29 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 ============================ */
 .section-title { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; line-height: 1.2; letter-spacing: -0.5px; }
 .section-subtitle { color: var(--text-muted); font-size: 1.125rem; margin-bottom: 2.5rem; }
-.highlight { background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block; }
+.highlight { background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; display: inline-block; }
 .highlight-underline { position: relative; z-index: 1; }
 .highlight-underline::after { content: ''; position: absolute; bottom: 2px; left: 0; width: 100%; height: 8px; background: #e0e7ff; z-index: -1; border-radius: 4px; }
+
+.social-header-badge {
+    display: inline-block;
+    color: var(--primary);
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    background: rgba(90, 44, 201, 0.08);
+    padding: 0.4rem 1rem;
+    border-radius: 99px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.section-subtitle {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+    font-weight: 500;
+}
 
 /* ============================
     BUTTONS
@@ -80,6 +100,72 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .btn-outline { border: 2px solid #e2e8f0; color: var(--text-dark); border-radius: 12px; }
 .btn-outline:hover { border-color: var(--primary); color: var(--primary); background: #f8fafc; }
 .btn-block { width: 100%; padding: 1rem; }
+
+/* --- Premium 3D Hero CTA (Instagram Gradient) --- */
+.btn-cta-hero {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(45deg, #F09433, #E6683C, #DC2743, #CC2366, #BC1888);
+    color: white;
+    font-weight: 800;
+    font-size: 1.4rem;
+    padding: 1.15rem 3rem;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    
+    /* 3D Depth Layer - Dark Pink/Purple for Instagram feel */
+    box-shadow: 0 8px 0 #831843, 0 15px 25px rgba(220, 39, 67, 0.4);
+    
+    transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform: translateY(-4px); 
+    user-select: none;
+}
+
+.btn-cta-hero:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #831843, 0 10px 20px rgba(220, 39, 67, 0.3);
+    filter: brightness(1.1);
+    color: white;
+}
+
+.btn-cta-hero:active {
+    transform: translateY(4px);
+    box-shadow: 0 0px 0 #831843, 0 5px 10px rgba(0,0,0,0.1);
+}
+
+.cta-wrapper {
+    margin-top: 2.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.25rem; /* Distância idêntica em cima e embaixo para simetria total */
+}
+
+.cta-micro-details {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Coreto para centralizar o texto/ícones */
+    gap: 0.5rem;
+    background: rgba(241, 245, 249, 0.8);
+    padding: 0.6rem 1.25rem;
+    border-radius: 99px;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+@media (min-width: 1024px) {
+    .cta-wrapper {
+        align-items: flex-start; /* Keep left aligned for left-aligned text */
+    }
+}
+
 
 /* ============================
     NAVBAR
@@ -98,6 +184,102 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .nav-links .btn { padding: 0.5rem 1rem; font-size: 0.95rem; }
 @media (max-width: 768px) { .nav-links a:not(.btn) { display: none; } }
 @media (min-width: 768px) { .logo { font-size: 1.5rem; } .nav-links .btn { padding: 0.85rem 1.5rem; font-size: 1.05rem; } }
+
+/* =========================================
+   UI SEPARATORS & DIVIDERS
+========================================= */
+.section-divider-text {
+    width: 100%;
+    text-align: center;
+    position: relative;
+    margin: 3rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.manual-order-title {
+    text-align: center;
+    font-size: 1.15rem;
+    font-weight: 900;
+    color: var(--primary); /* Destaque em roxo */
+    letter-spacing: 0.35rem; /* Visual moderno e espaçado */
+    margin-bottom: 2.5rem;
+    text-transform: uppercase;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+.manual-order-title::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: var(--primary);
+    border-radius: 99px;
+    opacity: 0.3;
+}
+
+/* =========================================
+   ORDER BUMP & PREMIUM PROMOS (REUSABLE)
+========================================= */
+.order-bump-box {
+    position: relative;
+    margin-bottom: 1.5rem;
+    padding: 1.25rem;
+    border: 2px dashed #6366f1;
+    border-radius: 1.25rem;
+    background: #f5f3ff;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    animation: bumpSoftPulse 5s infinite;
+}
+
+@keyframes bumpSoftPulse {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
+    50% { transform: scale(1.01); box-shadow: 0 10px 25px rgba(99, 102, 241, 0.15); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
+}
+
+.order-bump-box:hover {
+    border-color: #4f46e5;
+    background: #eef2ff;
+    transform: translateY(-2px);
+}
+
+.order-bump-box.active {
+    border-color: #22c55e !important;
+    background: #f0fdf4 !important;
+    border-style: solid !important;
+    animation: none !important; /* Para de pulsar quando selecionado */
+}
+
+.bump-checkbox {
+    position: absolute;
+    right: 1.25rem;
+    top: 1.25rem;
+    width: 24px;
+    height: 24px;
+    accent-color: #22c55e;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.bump-badge-discount {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.08);
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.75rem; /* Space below badge */
+}
 
 /* ============================
     HERO SECTION
@@ -119,7 +301,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .proof-rating .stars { letter-spacing: -2px; font-size: 1.15rem; }
 
 .hero .headline { font-size: 2rem; font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem; letter-spacing: -1px; }
-.hero .subheadline { font-size: 1rem; color: var(--text-muted); margin-bottom: 2rem; max-width: 600px; margin-inline: auto; }
+.hero .subheadline { font-size: 1rem; color: var(--text-muted); margin-bottom: 0px; max-width: 600px; margin-inline: auto; }
 @media (min-width: 1024px) { .hero .headline { font-size: 4rem; } .hero .subheadline { margin-left: 0; font-size: 1.125rem; } }
 
 .trust-indicators { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 2rem; color: var(--text-muted); font-size: 0.875rem; font-weight: 500; }
@@ -153,22 +335,77 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .social-pill {
     position: relative;
-    overflow: hidden;
-    display: flex; align-items: center; gap: 1.25rem;
-    padding: 1rem 3rem 1rem 1.25rem;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px);
-    border-radius: 1.5rem; border: 1px solid #e2e8f0;
-    font-weight: 700; font-size: 1.25rem; color: var(--text-dark);
+    overflow: visible; /* Changed from hidden to show floating tags */
+    display: flex; align-items: center; gap: 1.5rem;
+    padding: 1.25rem 2.5rem 1.25rem 2rem;
+    background: #ffffff;
+    border-radius: 2rem; border: 2px solid #f1f5f9;
+    font-weight: 700; color: var(--text-dark);
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
     transform-style: preserve-3d;
+    isolation: isolate; /* Create new stacking context */
     z-index: 1;
 }
-.social-pill:hover { 
-    transform: translateY(-8px) rotateX(10deg) rotateY(-5deg) scale(1.03); 
-    box-shadow: -10px 15px 30px rgba(0,0,0,0.08), 10px 15px 30px rgba(0,0,0,0.05); 
-    border-color: #cbd5e1; 
+
+.pill-featured {
+    transform: scale(1.05);
+    border-color: #f1f5f9;
+    box-shadow: 0 15px 40px rgba(220, 39, 67, 0.15);
+}
+
+.pill-featured:hover {
+    transform: translateY(-10px) scale(1.07);
+    box-shadow: 0 25px 50px rgba(220, 39, 67, 0.2);
+}
+
+.featured-tag {
+    position: absolute;
+    top: -12px;
+    right: 20px;
+    background: linear-gradient(135deg, #FF4B2B, #FF416C);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 0.35rem 0.75rem;
+    border-radius: 99px;
+    box-shadow: 0 5px 15px rgba(255, 65, 108, 0.4);
+    z-index: 10;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    animation: bounceMinor 2s infinite;
+}
+
+@keyframes bounceMinor {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+}
+
+.pill-text-wrapper {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 0.15rem;
+}
+
+.pill-title {
+    font-size: 1.15rem;
+    font-weight: 800;
+}
+
+.pill-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    font-style: italic;
+}
+
+.pill-instagram:hover {
+    box-shadow: 0 20px 40px rgba(214, 36, 159, 0.15);
+}
+
+.pill-tiktok:hover {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
 .pill-text {
@@ -203,6 +440,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     position: relative;
     z-index: 2;
     transform-style: preserve-3d;
+    transform: translateZ(20px);
     animation: spinCoin 4s linear infinite;
     box-shadow: 0 5px 15px rgba(0,0,0,0.15), inset 0 2px 2px rgba(255,255,255,0.4), inset 0 -2px 5px rgba(0,0,0,0.2);
 }
@@ -434,6 +672,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 /* Base styling for our custom CSS slider */
 .custom-slider {
     -webkit-appearance: none;
+    appearance: none;
     width: 100%;
     height: 6px;
     background: #e2e8f0;
@@ -603,6 +842,131 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 @keyframes slideUp {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================
+   FEATURED PROMO CARD (REDE/REGUA)
+========================================= */
+.promo-package-card {
+    background: #ffffff;
+    border-radius: 1.5rem;
+    border: 3px solid #6366f1; /* Indigo focus to stand out */
+    padding: 2.5rem 2rem 2.25rem;
+    margin-bottom: 3.5rem;
+    position: relative;
+    box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.25);
+}
+
+.promo-badge-hot {
+    position: absolute;
+    top: -15px;
+    left: 2rem;
+    background: linear-gradient(135deg, #f97316, #ef4444);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 0.4rem 1.25rem;
+    border-radius: 99px;
+    letter-spacing: 0.05em;
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+}
+
+.promo-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; /* Better balance */
+}
+
+@media (min-width: 768px) {
+    .promo-content { flex-direction: row; align-items: start; }
+    .promo-text { flex: 1; padding-right: 2.5rem; border-right: 1px solid #f1f5f9; }
+    .promo-pricing-box { width: 340px; padding-left: 2rem; display: flex; flex-direction: column; justify-content: center; }
+}
+
+.promo-title {
+    font-size: 1.5rem;
+    font-weight: 900;
+    line-height: 1.4;
+    margin-bottom: 1.5rem;
+    color: var(--text-dark);
+}
+
+.promo-bullets {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+}
+
+.promo-bullets li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.bullet-icon {
+    width: 20px;
+    height: 20px;
+    color: #22c55e;
+}
+
+.promo-pricing-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.price-old {
+    text-decoration: line-through;
+    color: #94a3b8;
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: -0.25rem;
+}
+
+.price-current {
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+    letter-spacing: -2px;
+}
+
+.btn-promo-cta {
+    width: 100%;
+    font-size: 1.15rem;
+    padding: 1.15rem;
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+    animation: pulseGlow 3s infinite;
+}
+
+@keyframes pulseGlow {
+    0% { box-shadow: 0 0 0 0 rgba(90, 44, 201, 0.4); }
+    70% { box-shadow: 0 0 0 15px rgba(90, 44, 201, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(90, 44, 201, 0); }
+}
+
+.promo-scarcity {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #ef4444;
+    line-height: 1.4;
+}
+
+/* Redes / Monte o seu pedido (Custom styling for sliders below) */
+.monte-pedido-card { 
+    background: #ffffff;
+    border-radius: 1.5rem; 
+    border: 1px solid #f1f5f9;
+    padding: 2.5rem;
+    margin-bottom: 3rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
 }
 
 .promo-card {
