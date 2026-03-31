@@ -16,8 +16,6 @@
     
     <!-- Feather Icons for lightweight SVGs -->
     <script src="https://unpkg.com/feather-icons"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 </head>
 <body>
     
@@ -34,32 +32,9 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="hero" style="position: relative; overflow: hidden;" id="home">
+    <section class="hero" id="home">
         <canvas id="hero-particles"></canvas>
-        
-        <!-- FLUTUANTES 3D (NOVOS LOGOS) -->
-        <div class="floating-brand instagram-float-1">
-            <i data-feather="instagram"></i>
-            <div class="zap-badge">⚡</div>
-        </div>
-        <div class="floating-brand tiktok-float-1">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9a8.2 8.2 0 0 0 4.79 1.52V7.07a4.85 4.85 0 0 1-1.02-.38z"/>
-            </svg>
-            <div class="zap-badge">⚡</div>
-        </div>
-        <div class="floating-brand instagram-float-2">
-            <i data-feather="instagram"></i>
-            <div class="zap-badge">⚡</div>
-        </div>
-        <div class="floating-brand tiktok-float-2">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9a8.2 8.2 0 0 0 4.79 1.52V7.07a4.85 4.85 0 0 1-1.02-.38z"/>
-            </svg>
-            <div class="zap-badge">⚡</div>
-        </div>
-
-        <div class="container hero-grid" style="position: relative; z-index: 10;">
+        <div class="container hero-grid">
             <div class="hero-content reveal">
                 <div class="hero-social-proof">
                     <div class="avatars">
@@ -81,7 +56,7 @@
                 <p class="subheadline">Receba seguidores brasileiros, reais e relevantes com entrega automática e reposição garantida.</p>
                 
                 <div class="cta-wrapper reveal delay-1" style="align-items:center;">
-                    <a href="#evidencia" class="btn-cta-hero" style="box-shadow: 0 10px 25px rgba(238, 42, 123, 0.4); text-transform: uppercase;">Começar agora 🚀</a>
+                    <a href="#evidencia" class="btn-cta-hero">Começar agora 🚀</a>
                     <p class="cta-micro-details">✔ Sem senha • ✔ Entrega automática • ✔ 100% seguro</p>
                 </div>
             </div>
@@ -126,63 +101,163 @@
     <!-- Custom Order Section (Calculadora) -->
     <section class="custom-order-section" id="custom-order">
         <div class="container custom-order-container reveal">
-            <div id="selection-steps">
+            <div class="calculator-container">
+            <div id="calculator-setup">
                 
-                <!-- Step 2: Service Selection (Seguidores, Curtidas, Views) -->
-                <div id="service-selection-container" class="service-selection-section reveal" style="display: none;">
-                    <h3 class="step-title-premium">O que você quer aumentar no seu perfil?</h3>
-                    <div id="service-buttons-grid" class="service-grid">
-                        <!-- Botões injetados via JS -->
+                <!-- Instagram Premium Promo -->
+                <div id="promo-instagram" class="promo-premium-card promo-insta reveal">
+                    <div class="promo-premium-badge">🔥 Oferta de Primeira Compra</div>
+                    <div class="promo-premium-icon">
+                        <div class="insta-logo-3d">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <circle cx="12" cy="12" r="4.5"></circle>
+                                <circle cx="17.5" cy="6.5" r="1.2" fill="white" stroke="none"></circle>
+                            </svg>
+                        </div>
                     </div>
-                </div>
-
-                <!-- Step 3: Package Grid -->
-                <div id="package-selection-container" class="package-selection-section reveal" style="display: none; margin-top: 3rem;">
-                    <h3 class="step-title-premium">Escolha o pacote ideal</h3>
+                    <h3 class="promo-premium-title">1.300 Seguidores</h3>
+                    <div class="promo-premium-subtitle">
+                        <i data-feather="zap" style="width:20px; color:#f59e0b;"></i>
+                        <span style="color:white; font-weight:800;">Pelo preço de 1.000 seguidores.</span>
+                    </div>
                     
-                    <!-- Destaque (Hero Card) -->
-                    <div id="package-hero" class="package-hero-container"></div>
+                    <div class="promo-premium-price-box">
+                        <div class="promo-premium-old-price">de R$ 59,85</div>
+                        <div class="promo-premium-current-price">R$ 39,90</div>
+                        <div style="color: #10b981; font-size: 0.85rem; font-weight: 700; margin-top: 0.5rem;">por R$ 39,90 - Oferta exclusiva</div>
+                    </div>
+                    
+                    <button class="promo-premium-btn" onclick="selectPromoPackage()">Comprar Agora</button>
+                    
+                    <div class="promo-premium-footer">
+                        <div class="promo-footer-item">
+                            <i data-feather="shopping-cart"></i>
+                            <span>Mais de 11.357 vendas realizadas</span>
+                        </div>
+                    </div>
+                </div>
 
-                    <!-- Grade Principal -->
-                    <div id="package-grid" class="package-grid">
-                        <!-- Cards de pacotes injetados via JS -->
+                <!-- TikTok Premium Promo -->
+                <div id="promo-tiktok" class="promo-premium-card promo-tiktok reveal" style="display: none;">
+                    <div class="promo-premium-badge">⚡ Oferta Relâmpago ⚡</div>
+                    <div class="promo-premium-icon">
+                        <div class="tiktok-logo-3d">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" stroke="none">
+                                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9a8.2 8.2 0 0 0 4.79 1.52V7.07a4.85 4.85 0 0 1-1.02-.38z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <h3 class="promo-premium-title">1.300 Seguidores</h3>
+                    <div class="promo-premium-subtitle">
+                        <i data-feather="zap" style="width:20px; color:#00f2fe;"></i>
+                        <span style="color:white; font-weight:800;">Pelo preço de 1.000 seguidores.</span>
+                    </div>
+                    
+                    <div class="promo-premium-price-box">
+                        <div class="promo-premium-old-price">de R$ 86,85</div>
+                        <div class="promo-premium-current-price">R$ 57,90</div>
+                        <div style="color: #00f2fe; font-size: 0.85rem; font-weight: 700; margin-top: 0.5rem;">por R$ 57,90 - Oferta limitada</div>
+                    </div>
+                    
+                    <button class="promo-premium-btn" style="background: linear-gradient(90deg, #00f2fe, #3b82f6); box-shadow: 0 10px 20px rgba(0, 242, 254, 0.2);" onclick="selectPromoPackage()">Comprar Agora</button>
+                    
+                    <div class="promo-premium-footer">
+                        <div class="promo-footer-item">
+                            <i data-feather="shopping-cart"></i>
+                            <span>Mais de 11.357 vendas realizadas</span>
+                        </div>
+                    </div>
+                </div>
+
+            <!-- Card Monte seu pedido -->
+            <div class="monte-pedido-card monte-pedido-premium">
+                <div class="monte-pedido-badge">⭐ Mais Escolhido</div>
+                <h3 class="manual-order-title-premium">Monte seu pedido</h3>
+                <p class="manual-order-subtitle-premium">Personalize exatamente o que você precisa</p>
+                
+                <div class="card-profile-input" style="margin-bottom: 1.5rem;">
+                    <div class="input-wrap highlighted-input-wrap-dark">
+                        <span class="at-symbol-dark">@</span>
+                        <input type="text" id="order-username" placeholder="seu_perfil_aqui" class="header-input-dark form-glow">
+                    </div>
+                    <p style="font-size:0.75rem; color:rgba(255,255,255,0.45); margin-top:0.5rem; font-weight:600;">Onde vamos entregar seus seguidores?</p>
+                </div>
+                
+                <div class="sliders-wrapper">
+                    <!-- Slider 1 -->
+                    <div class="slider-group">
+                        <div class="slider-info">
+                            <span class="slider-label slider-label-dark" id="label-seguidores">100 seguidores</span>
+                            <span class="slider-price slider-price-dark" id="price-seguidores">R$ 5,90</span>
+                        </div>
+                        <div class="slider-control">
+                            <input type="range" id="range-seguidores" class="custom-slider custom-slider-teal" min="0" max="5" value="0">
+                        </div>
                     </div>
 
-                    <!-- Outras Opções (Lista) -->
-                    <div id="package-others" class="package-others-container"></div>
+                    <!-- Slider 2 -->
+                    <div class="slider-group">
+                        <div class="slider-info">
+                            <span class="slider-label slider-label-dark" id="label-curtidas">0 curtidas</span>
+                            <span class="slider-price slider-price-dark" id="price-curtidas">R$ 0,00</span>
+                        </div>
+                        <div class="slider-control">
+                            <input type="range" id="range-curtidas" class="custom-slider custom-slider-teal" min="0" max="4" value="0">
+                        </div>
+                    </div>
+
+                    <!-- Slider 3 -->
+                    <div class="slider-group">
+                        <div class="slider-info">
+                            <span class="slider-label slider-label-dark" id="label-views">0 views</span>
+                            <span class="slider-price slider-price-dark" id="price-views">R$ 0,00</span>
+                        </div>
+                        <div class="slider-control">
+                            <input type="range" id="range-views" class="custom-slider custom-slider-teal" min="0" max="4" value="0">
+                        </div>
+                    </div>
                 </div>
 
-            </div> <!-- close selection-steps -->
-        </div>
-        </div>
-    </section>
-
-    <!-- NOVO: Checkout Panel Modal Overlay -->
-    <div id="checkout-modal-overlay" class="checkout-modal-overlay">
-        <div id="checkout-panel" class="monte-pedido-card modal-card">
-            <div class="card-header" id="modal-default-header" style="display:flex; justify-content: space-between; align-items:center; margin-bottom: 2rem;">
-                <h3 style="margin:0; font-size:1.6rem; font-weight:900; color:#1e293b;">Finalizar pedido</h3>
-                <div style="cursor: pointer; padding: 0.5rem;" onclick="resetCheckout()">
-                    <i data-feather="x" style="width:24px; height:24px; color:#94a3b8;"></i>
+                <!-- Footer do card -->
+                <div class="card-footer-row card-footer-dark">
+                    <span class="total-label-text" style="color:rgba(255,255,255,0.7);">Total</span>
+                    <div class="total-prices">
+                        <span class="total-old" id="bottom-old-price">R$ 8,85</span>
+                        <span class="total-current insta-grad-text" id="bottom-current-price">R$ 5,90</span>
+                    </div>
                 </div>
+                
+                <button class="btn btn-block btn-avancar-premium" id="btn-avancar">Montar meu pacote &rarr;</button>
+
             </div>
+            </div> <!-- close calculator-setup -->
+            
+            <!-- NOVO: Checkout Panel -->
+            <div id="checkout-panel" class="monte-pedido-card" style="display: none;">
+                <div class="card-header">
+                    <div style="display:flex; align-items:center; gap:0.75rem;">
+                        <i data-feather="arrow-left" id="btn-voltar-checkout" style="cursor: pointer; width:20px; color:var(--primary);" onclick="document.getElementById('checkout-panel').style.display='none'; document.getElementById('calculator-setup').style.display='block'; feather.replace();"></i>
+                        <h3 style="margin:0;">Finalizar pedido</h3>
+                    </div>
+                </div>
                 
                 <div id="checkout-dynamic-inputs" class="checkout-form" style="margin-top: 1rem;">
                     <div class="input-wrap highlighted-input-wrap" style="margin-bottom: 1rem; border-color: var(--primary);">
                         <span class="at-symbol">@</span>
-                        <input type="text" id="chk-username" placeholder="Seu perfil do Instagram/TikTok *" class="header-input" style="height: 50px; font-weight:800; font-size:1.1rem;" required>
+                        <input type="text" id="chk-username" placeholder="seu_perfil_aqui" class="header-input" style="height: 50px; font-weight:800; font-size:1.1rem;">
                     </div>
                     <div class="input-wrap">
                         <i data-feather="user"></i>
-                        <input type="text" id="chk-nome" placeholder="Nome Completo *" required>
+                        <input type="text" id="chk-nome" placeholder="Nome Completo">
                     </div>
                     <div class="input-wrap" style="margin-top: 0.75rem;">
                         <i data-feather="phone"></i>
-                        <input type="tel" id="chk-telefone" placeholder="WhatsApp (DDD + Número) *" required>
+                        <input type="text" id="chk-telefone" placeholder="WhatsApp (DDD + Número)">
                     </div>
                     <div class="input-wrap" style="margin-top: 0.75rem; margin-bottom: 2rem;">
                         <i data-feather="mail"></i>
-                        <input type="email" id="chk-email" placeholder="Seu melhor e-mail *" required>
+                        <input type="text" id="chk-email" placeholder="Seu melhor e-mail">
                     </div>
 
                     <!-- Dynamic Link Inputs (Will be injected here) -->
@@ -206,7 +281,7 @@
                         <span style="font-weight: 800; color: var(--text-dark); font-size: 1.2rem;">Total:</span>
                         <div style="text-align: right;">
                             <span class="old-price" id="checkout-old-price" style="display: none; font-size: 1rem; color: #94a3b8; text-decoration: line-through; margin-right: 0.5rem;"></span>
-                            <span class="current-price" id="checkout-final-price-main" style="font-size: 2rem; font-weight: 900; color: var(--primary);">R$ 0,00</span>
+                            <span class="current-price" id="checkout-final-price" style="font-size: 2rem; font-weight: 900; color: var(--primary);">R$ 0,00</span>
                         </div>
                     </div>
                 </div>
@@ -216,7 +291,7 @@
                         <span style="font-size:1.25rem; font-weight:700; color:var(--text-dark);">Total:</span>
                         <div class="total-prices">
                             <span class="total-old" id="checkout-old-price" style="display:none; text-decoration:line-through; font-size:1rem; margin-right:0.5rem;">R$ 0,00</span>
-                            <span class="total-current" id="checkout-final-price-summary" style="font-size:1.5rem; font-weight:800; color:var(--text-dark);">R$ 0,00</span>
+                            <span class="total-current" id="checkout-final-price" style="font-size:1.5rem; font-weight:800; color:var(--text-dark);">R$ 0,00</span>
                         </div>
                     </div>
                     
@@ -235,15 +310,12 @@
                         </label>
                     </div>
                 </div>
-                <!-- NOVO BOTÃO DE FECHAR PEDIDO COM CADEADO -->
-                <button class="btn btn-primary btn-block" id="btn-fechar-pedido" style="display:flex; justify-content:center; align-items:center; gap:0.5rem; text-transform:uppercase; font-weight:800;">
-                    <i data-feather="lock" style="width:18px;"></i> Fechar pedido &rarr;
-                </button>
-            </div>
 
+                <button class="btn btn-primary btn-block" id="btn-fechar-pedido">Fechar pedido &rarr;</button>
             </div>
         </div>
-    </div>
+        </div>
+    </section>
 
     <!-- Benefits Section -->
     <section class="benefits-section">
@@ -270,11 +342,6 @@
                     <div class="b-icon">🎧</div>
                     <h4>Suporte 24h</h4>
                     <p>Equipe pronta para te ajudar a qualquer momento do dia ou da noite.</p>
-                </div>
-                <div class="benefit-item reveal delay-5">
-                    <div class="b-icon">🔄</div>
-                    <h4>Reposição Garantida</h4>
-                    <p>Qualquer conta que parar de seguir nos primeiros dias é reposta automaticamente.</p>
                 </div>
             </div>
         </div>
@@ -316,22 +383,6 @@
                     </div>
                 </div>
 
-            </div>
-        </div>
-    </section>
-
-    <!-- Final CTA Section -->
-    <section class="final-cta-section" style="padding: 2rem 1rem 5rem; background: #fff;">
-        <div class="container" style="max-width: 800px;">
-            <div class="final-cta-card reveal" style="background: linear-gradient(135deg, #ee2a7b, #6228d7); border-radius: 2rem; padding: 4rem 2rem; text-align: center; color: white; box-shadow: 0 20px 40px rgba(98, 40, 215, 0.25);">
-                <h2 style="font-size: 2.5rem; font-weight: 900; margin-bottom: 1rem; line-height: 1.2;">Agora é sua vez de crescer</h2>
-                <p style="font-size: 1.1rem; margin-bottom: 2.5rem; color: rgba(255,255,255,0.9); max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.6;">Mesmo depois da entrega, seu perfil continua protegido: todos os serviços têm reposição garantida para sustentar seu crescimento.</p>
-                
-                <button class="btn btn-cta-pulse" onclick="document.getElementById('custom-order').scrollIntoView({ behavior: 'smooth' })">Mudei de ideia e quero turbinar meu perfil 🚀</button>
-                
-                <div style="margin-top: 1.5rem; font-size: 0.9rem; font-weight: 600; color: rgba(255,255,255,0.8); display: flex; align-items: center; justify-content: center; gap: 0.4rem;">
-                    <i data-feather="zap" style="width: 16px; height: 16px; color: #f9ce34;"></i> Oferta por tempo limitado
-                </div>
             </div>
         </div>
     </section>
