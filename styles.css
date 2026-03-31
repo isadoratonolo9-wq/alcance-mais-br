@@ -2221,297 +2221,721 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 
 .service-card .s-icon { display: none; } /* Using emojis in text now */
 
+/* =========================================
+   PREMIUM DARK/NEON PACKAGE CARDS
+========================================= */
+
+/* Base Layout for all cards */
+.package-card {
+    position: relative;
+    background: #000;
+    border-radius: 2rem;
+    padding: 2.5rem 1.5rem 2rem;
+    margin-bottom: 2rem;
+    color: white;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 2px solid transparent; /* Neon border set by JS/platform */
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    overflow: visible;
+}
+
+/* Platform-specific Neon Borders */
+[data-platform="instagram"] .package-card { border-color: #d6249f; box-shadow: 0 0 20px rgba(214, 36, 159, 0.15), 0 20px 50px rgba(0,0,0,0.5); }
+[data-platform="tiktok"] .package-card { border-color: #00f2fe; box-shadow: 0 0 20px rgba(0, 242, 254, 0.15), 0 20px 50px rgba(0,0,0,0.5); }
+
+/* Hero Package Specific (Gold) */
+.package-card.hero {
+    border-color: #f9ce34 !important;
+    border-width: 4px;
+    box-shadow: 0 0 40px rgba(249, 206, 52, 0.3), 0 30px 60px rgba(0,0,0,0.6) !important;
+    transform: scale(1.02);
+}
+
+.package-card:hover {
+    transform: translateY(-10px) scale(1.03);
+    z-index: 10;
+}
+
+/* Badge: OFERTA RELÂMPAGO */
+.package-lightning-badge {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, #f9ce34, #ee9617);
+    color: #000;
+    padding: 0.5rem 1.75rem;
+    border-radius: 99px;
+    font-size: 0.8rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 5px 15px rgba(249, 206, 52, 0.4);
+    white-space: nowrap;
+    z-index: 5;
+}
+
+/* Card Header Info */
+.package-top-info { margin-bottom: 1.5rem; }
+.insta-logo-3d, .tiktok-logo-3d {
+    width: 60px;
+.social-time {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.2rem;
+}
+
+@media (max-width: 768px) {
+    #social-proof-container {
+        left: 1rem;
+        bottom: 1rem;
+    }
+    .social-notification {
+        max-width: none;
+        width: 100%;
+    }
+}
+
+/* =========================================
+   STEP-BY-STEP SELECTION UI
+========================================= */
+.step-title-premium {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 2rem;
+    position: relative;
+}
 
 
-/* Package Section Layout */
-.package-selection-section {
+
+.custom-order-section {
+    padding: 6rem 0;
+    background: #ffffff; /* Sincronizado com o resto do site */
+    position: relative;
+    overflow: hidden;
+}
+
+.custom-order-section h2 {
+    color: #1e293b !important;
+    margin-bottom: 3rem;
+}
+
+.service-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
     max-width: 1000px;
     margin: 0 auto;
 }
 
-.package-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
-    margin-top: 2rem;
-}
-
-@media (min-width: 1024px) {
-    .package-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-/* Package Hero (Oferta Principal) */
-.package-hero-container {
-    margin-bottom: 2.5rem;
-}
-
-
-/* Package Hero (Oferta Principal) DARK */
-/* Package Hero (Oferta Principal) - Vertical High Conversion */
-.package-card.hero {
-    flex-direction: column;
-    padding: 5rem 2rem 3.5rem;
-    background: #111;
-    color: white;
-    border: 4px solid #f9ce34;
-    text-align: center;
-    align-items: center;
-    gap: 1rem;
-    border-radius: 3rem;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.6), 0 0 50px rgba(249, 206, 52, 0.3);
-    max-width: 550px;
-    margin: 6rem auto 3rem;
+.service-card {
     position: relative;
-    overflow: visible; 
-    scroll-margin-top: 151px;
-    transition: all 0.3s ease;
-}
-
-@media (max-width: 768px) {
-    .package-card.hero {
-        padding: 4rem 1.5rem 2.5rem;
-        margin-top: 5rem;
-        border-radius: 2rem;
-    }
-    .package-card.hero .package-qty { font-size: 2.8rem !important; }
-    .package-card.hero .package-current-price { font-size: 3.5rem !important; }
-    .package-card.hero .package-subtitle { font-size: 1.1rem !important; }
-}
-
-.package-hero-badge {
-    background: linear-gradient(90deg, #f9ce34, #ee9617);
-    color: #000;
-    padding: 0.6rem 2rem;
-    border-radius: 99px;
-    font-size: 0.85rem;
-    font-weight: 900;
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-}
-
-.package-card.hero .network-icon {
-    width: 90px;
-    height: 90px;
-    margin-bottom: 0.5rem;
-    filter: drop-shadow(0 0 15px rgba(238, 42, 123, 0.5)); /* Efeito 3D/Brilho Instagram */
-}
-
-.platform-tiktok .package-card.hero .network-icon {
-    filter: drop-shadow(0 0 15px rgba(0, 242, 234, 0.5)); /* Efeito 3D/Brilho TikTok */
-}
-
-.package-card.hero .package-qty { 
-    color: white; 
-    font-size: 4rem; 
-    margin: 0; 
-    font-weight: 900;
-    line-height: 1;
-}
-
-.package-card.hero .package-subtitle {
-    color: #999;
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-top: -0.5rem;
-}
-
-.package-card.hero .package-price-box {
-    margin: 1.5rem 0;
-}
-
-.package-card.hero .package-old-price { 
-    color: #ff4d4d; 
-    font-size: 1.3rem;
-    text-decoration: line-through;
-    margin-bottom: 0.5rem;
-}
-
-.package-card.hero .package-current-price { 
-    color: white; 
-    font-size: 5rem; 
-    font-weight: 950;
-    letter-spacing: -2px;
-}
-.package-card.hero .btn-package { 
-    background: linear-gradient(90deg, #f9ce34, #ee9617);
-    color: #000;
-    font-weight: 900;
-    font-size: 1.3rem;
-    padding: 1.5rem;
-    box-shadow: 0 10px 30px rgba(249, 206, 52, 0.3);
+    background: white;
     border: none;
-}
-
-/* Hero Theme (Dark/Golden) - THE DEFINITIVE PREMIUM STYLE */
-.package-card.hero {
-    background: #000 !important;
-    color: white !important;
-    border: 4px solid #f9ce34 !important;
-    border-radius: 3rem;
-    padding: 5rem 2rem 3.5rem;
+    border-radius: 24px;
+    padding: 2rem;
     text-align: center;
+    cursor: pointer;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
-    max-width: 550px;
-    margin: 6rem auto 3rem;
-    position: relative;
-    overflow: visible; 
-    box-shadow: 
-        0 40px 80px rgba(0,0,0,0.8), 
-        0 0 60px rgba(249, 206, 52, 0.3),
-        inset 0 0 20px rgba(255,255,255,0.05) !important;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    z-index: 5;
+    justify-content: center;
+    gap: 0.85rem;
+    min-width: 280px;
+    
+    /* 3D Realistic Depth - Premium style */
+    transform: translateY(-8px);
+    box-shadow: 0 10px 0 #e2e8f0, 0 20px 40px rgba(0,0,0,0.06);
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    user-select: none;
+    color: #1e293b;
+    border: 1px solid rgba(0,0,0,0.05);
 }
 
-.package-card.hero:hover {
-    transform: translateY(-12px) scale(1.02);
-    box-shadow: 
-        0 50px 100px rgba(0,0,0,0.9), 
-        0 0 80px rgba(249, 206, 52, 0.4) !important;
-    border-color: #fbbf24 !important;
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 0 #cbd5e1, 0 30px 50px rgba(0,0,0,0.1);
 }
 
-.package-card.hero .package-qty { 
+.service-card:active, .service-card.active {
+    transform: translateY(2px);
+    box-shadow: 0 0px 0 transparent, 0 5px 15px rgba(0,0,0,0.05) !important;
+}
+
+/* Service Button Gradients - Clean & High Contrast */
+/* Instagram Theme: Realistic 3D Gradient */
+[data-platform="instagram"] .service-card.serv-seguidores,
+[data-platform="instagram"] .service-card.serv-curtidas {
+    background: linear-gradient(135deg, #FF512F 0%, #DD2476 100%) !important;
     color: white !important;
-    font-size: 5rem !important; 
-    font-weight: 950 !important;
-    letter-spacing: -2px;
-    margin: 0;
-    line-height: 0.9;
-    text-shadow: 0 10px 20px rgba(0,0,0,0.5);
-}
-
-.package-card.hero .package-label {
-    color: #f9ce34 !important;
-    font-weight: 800;
-    font-size: 1.4rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-
-.package-card.hero .package-current-price { 
-    color: white !important;
-    font-size: 5.5rem !important; 
-    font-weight: 950 !important;
-    letter-spacing: -3px;
-    line-height: 1;
-}
-
-.package-card.hero .package-old-price {
-    color: #ef4444 !important;
-    font-size: 1.4rem;
-    font-weight: 700;
-    text-decoration: line-through !important;
-}
-
-.package-card.hero .btn-package {
-    background: linear-gradient(90deg, #f9ce34, #ee9617) !important;
-    color: #000 !important;
-    font-weight: 900 !important;
-    font-size: 1.4rem !important;
-    padding: 1.5rem 3rem !important;
-    border-radius: 99px !important;
-    box-shadow: 0 15px 35px rgba(249, 206, 52, 0.4) !important;
-    margin-top: 1rem;
-}
-
-.package-card.hero .feature-item i {
-    color: #f9ce34 !important;
-}
-
-.package-type-badge {
-    background: #f9ce34;
-    color: #000;
-    display: inline-block;
-    padding: 0.4rem 1.2rem;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 1rem;
-}
-
-.package-qty { font-size: 3.2rem; font-weight: 900; letter-spacing: -1px; margin-bottom: 0.25rem; }
-.package-label { font-size: 1.1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
-.package-current-price { font-size: 3.2rem; font-weight: 950; letter-spacing: -2px; margin-top: 0.5rem; }
-.package-old-price { text-decoration: line-through !important; font-weight: 600; font-size: 1.1rem; margin-bottom: -0.25rem; }
-
-.btn-package {
-    background: linear-gradient(135deg, #6366f1, #4338ca);
-    color: white;
-    font-size: 1.2rem;
-    padding: 1.25rem 2rem;
-    border-radius: 99px;
-    font-weight: 800;
-    box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
     border: none;
-    cursor: pointer;
-    transition: all 0.2s;
-    width: 100%;
+    box-shadow: 0 10px 0 #9f1a54, 0 20px 40px rgba(221, 36, 118, 0.3);
 }
 
-.btn-package:hover {
-    transform: scale(1.05);
-    box-shadow: 0 15px 30px rgba(99, 102, 241, 0.4);
+[data-platform="instagram"] .service-card.serv-seguidores:hover,
+[data-platform="instagram"] .service-card.serv-curtidas:hover {
+    box-shadow: 0 12px 0 #831843, 0 30px 50px rgba(221, 36, 118, 0.4);
 }
 
-.hero .btn-package {
-    background: linear-gradient(90deg, #f9ce34, #ee9617);
-    color: #000;
-    box-shadow: 0 10px 25px rgba(249, 206, 52, 0.3);
+[data-platform="tiktok"] .service-card.serv-seguidores,
+[data-platform="tiktok"] .service-card.serv-curtidas,
+[data-platform="tiktok"] .service-card.serv-views {
+    background: #000 !important;
+    border: 2px solid #00f2ea !important;
+    color: white !important;
+    box-shadow: 0 10px 0 #008c87, 0 20px 40px rgba(0, 242, 234, 0.2);
 }
 
-.feature-item { color: #bbb; }
-.feature-item i { color: #f9ce34; }
+[data-platform="tiktok"] .service-card:hover {
+    box-shadow: 0 12px 0 #00706c, 0 30px 50px rgba(0, 242, 234, 0.3);
+}
 
-/* Lightning Offer Badge (Optional logic) */
-.package-card::before {
-    content: '⚡ OFERTA RELÂMPAGO ⚡';
+.service-card h4 {
+    font-size: 1.5rem;
+    font-weight: 900;
+    margin: 0;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.service-card .service-subtitle {
+    font-size: 0.85rem;
+    font-weight: 600;
+    opacity: 0.9;
+    font-style: italic;
+    margin-top: -2px;
+}
+
+.service-card .s-icon { display: none; } /* Using emojis in text now */
+
+/* =========================================
+   PREMIUM DARK/NEON PACKAGE CARDS
+========================================= */
+
+/* Base Layout for all cards */
+.package-card {
+    position: relative;
+    background: #000;
+    border-radius: 2rem;
+    padding: 2.5rem 1.5rem 2rem;
+    margin-bottom: 2rem;
+    color: white;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 2px solid transparent; /* Neon border set by JS/platform */
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    overflow: visible;
+}
+
+/* Platform-specific Neon Borders */
+[data-platform="instagram"] .package-card { border-color: #d6249f; box-shadow: 0 0 20px rgba(214, 36, 159, 0.15), 0 20px 50px rgba(0,0,0,0.5); }
+[data-platform="tiktok"] .package-card { border-color: #00f2fe; box-shadow: 0 0 20px rgba(0, 242, 254, 0.15), 0 20px 50px rgba(0,0,0,0.5); }
+
+/* Hero Package Specific (Gold) */
+.package-card.hero {
+    border-color: #f9ce34 !important;
+    border-width: 4px;
+    box-shadow: 0 0 40px rgba(249, 206, 52, 0.3), 0 30px 60px rgba(0,0,0,0.6) !important;
+    transform: scale(1.02);
+}
+
+.package-card:hover {
+    transform: translateY(-10px) scale(1.03);
+    z-index: 10;
+}
+
+/* Badge: OFERTA RELÂMPAGO */
+.package-lightning-badge {
     position: absolute;
-    top: 0;
+    top: -15px;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
     background: linear-gradient(90deg, #f9ce34, #ee9617);
     color: #000;
-    padding: 0.75rem 2.5rem;
+    padding: 0.5rem 1.75rem;
     border-radius: 99px;
     font-size: 0.8rem;
     font-weight: 900;
-    z-index: 10;
-    display: none;
-    box-shadow: 0 10px 20px rgba(249, 206, 52, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 5px 15px rgba(249, 206, 52, 0.4);
     white-space: nowrap;
+    z-index: 5;
 }
 
-.package-card.hero::before, .package-card.featured::before {
-    display: block;
+/* Card Header Info */
+.package-top-info { margin-bottom: 1.5rem; }
+.insta-logo-3d, .tiktok-logo-3d {
+    width: 70px;
+    height: 70px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    position: relative;
+    box-shadow: 
+        inset 0 0 15px rgba(255,255,255,0.05),
+        0 10px 20px rgba(0,0,0,0.3);
+    transform: perspective(1000px) rotateY(15deg) rotateX(10deg);
+    transition: transform 0.3s ease;
 }
 
-/* Package Others (Lista Simples) */
-.package-others-container {
-    text-align: center;
-    background: #f8fafc;
-    padding: 2.5rem 1.5rem;
-    border-radius: 2rem;
-    border: 1px solid #e2e8f0;
+.package-card:hover .insta-logo-3d, 
+.package-card:hover .tiktok-logo-3d {
+    transform: perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1.1);
 }
-.package-others-title { font-size: 1.2rem; font-weight: 800; color: #475569; margin-bottom: 1.5rem; }
-.others-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; }
-.other-item-btn {
-    background: white;
-    padding: 0.6rem 1.25rem;
-    border-radius: 0.85rem;
-    border: 1px solid #e2e8f0;
-    font-weight: 700;
+
+.insta-logo-3d i { 
+    color: #fff;
+    width: 34px; 
+    height: 34px; 
+    filter: drop-shadow(0 0 10px rgba(214, 36, 159, 0.8));
+}
+
+.tiktok-logo-3d svg { 
+    width: 34px; 
+    height: 34px; 
+    filter: drop-shadow(0 0 10px rgba(0, 242, 254, 0.8));
+}
+
+/* Typography Impact */
+.package-qty { 
+    font-size: 3rem; 
+    font-weight: 950; 
+    line-height: 0.9; 
+    margin-bottom: 0.5rem; 
+    letter-spacing: -2px;
+}
+
+.hero .package-qty {
+    font-size: 5.5rem;
+}
+
+.package-qty span { 
+    font-size: 1.1rem; 
+    font-weight: 800; 
+    color: #94a3b8; 
+    text-transform: uppercase; 
+    letter-spacing: 2px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 0.5rem;
+}
+
+.hero .package-qty span {
+    font-size: 1.5rem;
+}
+
+.package-subtitle { 
+    color: #64748b; 
+    font-size: 1rem; 
+    font-weight: 600; 
+    margin-top: 0.25rem;
+}
+
+.hero .package-subtitle {
+    font-size: 1.4rem;
+    color: #94a3b8;
+}
+
+/* Views Counter (FOMO) */
+.package-views-fomo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    padding: 0.35rem 0.85rem;
+    border-radius: 99px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+}
+.package-views-fomo i { width: 14px; height: 14px; }
+
+/* Pricing Box */
+.package-price-box { margin-bottom: 1.75rem; }
+.price-row-old { color: #94a3b8; text-decoration: line-through; font-size: 0.95rem; margin-bottom: 0.15rem; }
+.package-current-price { font-size: 3.5rem; font-weight: 950; letter-spacing: -2px; }
+.package-current-price span { font-size: 1.5rem; font-weight: 800; }
+.price-row-excl { color: #10b981; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; }
+
+/* Features */
+.package-features {
+    flex-grow: 1; /* Pushes button to bottom */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
+    text-align: left;
+}
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+    color: #cbd5e1;
+    font-weight: 600;
+}
+.feature-item i { width: 16px; height: 16px; color: #f9ce34; flex-shrink: 0; }
+
+/* Button CTA Yellow */
+.btn-package {
+    width: 100%;
+    background: linear-gradient(90deg, #f9ce34, #ee9617);
+    color: #000;
+    font-size: 1.15rem;
+    font-weight: 900;
+    padding: 1.15rem;
+    border-radius: 1rem;
+    border: none;
+    text-transform: uppercase;
+    box-shadow: 0 10px 25px rgba(249, 206, 52, 0.3);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    margin-top: auto; /* Aligns buttons at the bottom */
+}
+.btn-package:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(249, 206, 52, 0.4);
+    filter: brightness(1.1);
+}
+
+/* Footer Sales Count */
+.package-footer-sales {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
     color: #64748b;
+    font-weight: 700;
+    margin-top: 1rem;
+}
+.package-footer-sales i { width: 14px; height: 14px; }
+
+/* List of Extras */
+.package-others-container {
+    margin-top: 5rem;
+    text-align: center;
+    background: #0a0a0a;
+    padding: 3rem 2rem;
+    border-radius: 3rem;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+.package-others-title { color: white; font-size: 1.5rem; font-weight: 900; margin-bottom: 2rem; }
+.others-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+.other-item-btn {
+    background: #111;
+    color: #94a3b8;
+    padding: 0.75rem 1.5rem;
+    border-radius: 1rem;
+    border: 1px solid #333;
+    font-weight: 700;
     transition: all 0.2s;
     cursor: pointer;
 }
-.other-item-btn:hover { border-color: var(--primary); color: var(--primary); background: #f5f3ff; }
+.other-item-btn:hover { border-color: #f9ce34; color: white; background: #1a1a1a; }
 
+/* Grid Layout Fixes */
+.package-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 3rem;
+}
+
+.package-grid .package-card {
+    flex: 1 1 260px; /* Symmetrical resizing */
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    min-height: 600px; /* Ensure equal height */
+}
+
+.package-card-inner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.hero .package-lightning-badge {
+    background: linear-gradient(90deg, #f9ce34, #ee9617);
+    padding: 0.75rem 2.5rem;
+    font-size: 1rem;
+    box-shadow: 0 10px 20px rgba(249, 206, 52, 0.4);
+}
+
+/* =========================================
+   DESIGN FIEL – CÓPIA EXATA DO ANEXO
+========================================= */
+
+.package-card-fiel {
+    position: relative;
+    background: #0d0d0d;
+    border-radius: 30px;
+    padding: 3rem 1.75rem 2rem;
+    margin: 0 auto 2.5rem;
+    border: 2px solid #00ff88;
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.2);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 480px;
+    overflow: visible;
+    color: white;
+}
+
+[data-platform="tiktok"] .package-card-fiel {
+    border-color: #00f2ea;
+    box-shadow: 0 0 30px rgba(0, 242, 234, 0.2);
+}
+
+.package-card-fiel.hero {
+    border-color: #f9ce34;
+    box-shadow: 0 0 40px rgba(249, 206, 52, 0.3);
+}
+
+.package-card-fiel:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 0 45px rgba(0, 255, 136, 0.35);
+}
+
+[data-platform="tiktok"] .package-card-fiel:hover {
+    box-shadow: 0 0 45px rgba(0, 242, 234, 0.35);
+}
+
+.package-card-fiel.hero:hover {
+    box-shadow: 0 0 55px rgba(249, 206, 52, 0.45);
+}
+
+/* Badge topo */
+.package-badge-fiel {
+    position: absolute;
+    top: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, #f9ce34, #ee9617);
+    color: #000;
+    padding: 0.55rem 2rem;
+    border-radius: 99px;
+    font-size: 0.85rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    z-index: 10;
+    box-shadow: 0 5px 15px rgba(249,206,52,0.4);
+}
+
+/* Logo box */
+.logo-box-fiel {
+    width: 90px;
+    height: 90px;
+    border-radius: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.25rem;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
+
+.logo-box-fiel.insta-bg {
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+}
+
+.logo-box-fiel.tiktok-bg {
+    background: #111;
+    border: 2px solid rgba(0,242,234,0.3);
+}
+
+.logo-box-fiel i,
+.logo-box-fiel svg {
+    width: 48px;
+    height: 48px;
+    color: white;
+}
+
+/* Título quantidade */
+.qty-title-fiel {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #ffffff;
+    margin: 0 0 0.5rem;
+    line-height: 1;
+    letter-spacing: -1px;
+    text-transform: capitalize;
+}
+
+/* Subtítulo */
+.subtitle-fiel {
+    font-size: 1rem;
+    color: #94a3b8;
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+}
+
+/* Views pill */
+.views-pill-fiel {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(239, 68, 68, 0.12);
+    color: #ef4444;
+    padding: 0.4rem 1.1rem;
+    border-radius: 99px;
+    font-size: 0.82rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(239,68,68,0.2);
+}
+
+.views-pill-fiel i { width: 14px; height: 14px; }
+
+/* Preço principal */
+.price-main-fiel {
+    font-size: 4rem;
+    font-weight: 950;
+    color: #ffffff;
+    line-height: 1;
+    letter-spacing: -2px;
+    margin-bottom: 0.4rem;
+}
+
+/* Linha de preço antigo */
+.old-price-line-fiel {
+    font-size: 0.88rem;
+    color: #64748b;
+    margin-bottom: 2rem;
+}
+
+.old-price-line-fiel span:first-child {
+    text-decoration: line-through;
+    color: #f59e0b;
+}
+
+.old-price-line-fiel span:nth-child(2) {
+    color: #10b981;
+    font-weight: 800;
+}
+
+/* Botão COMPRAR AGORA */
+.btn-buy-fiel {
+    display: block;
+    width: 100%;
+    background: #f9ce34;
+    color: #000000;
+    padding: 1.2rem;
+    border-radius: 16px;
+    font-size: 1.25rem;
+    font-weight: 900;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 8px 22px rgba(249, 206, 52, 0.45);
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 1.25rem;
+}
+
+.btn-buy-fiel:hover {
+    transform: scale(1.03);
+    filter: brightness(1.08);
+    box-shadow: 0 12px 30px rgba(249, 206, 52, 0.55);
+}
+
+/* Rodapé vendas */
+.sales-row-fiel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #64748b;
+}
+
+.sales-row-fiel i { width: 15px; height: 15px; }
+
+/* Card content wrapper */
+.card-content-fiel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Grid dos pacotes principais */
+#package-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    padding: 1rem 0 2rem;
+}
+
+#package-grid .package-card-fiel {
+    flex: 1 1 260px;
+    max-width: 280px;
+}
+
+/* Hero card centralizado e maior */
+#package-hero .package-card-fiel {
+    max-width: 480px;
+    margin: 2rem auto;
+    padding-top: 4rem;
+}
+
+@media (max-width: 768px) {
+    #package-grid .package-card-fiel {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+}
+
+/* =========================================
+   HERO SCROLL BUTTON
+========================================= */
+.hero-scroll-btn {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    color: white;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+    z-index: 20;
+    animation: bounceDown 2s infinite;
+    text-decoration: none;
+}
+
+.hero-scroll-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.8);
+    transform: translateX(-50%) scale(1.1);
+}
+
+@keyframes bounceDown {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+}

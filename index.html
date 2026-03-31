@@ -34,10 +34,9 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="hero" style="position: relative; overflow: hidden;" id="home">
+    <section class="hero" id="home" style="min-height:100vh; display:flex; flex-direction:column; justify-content:center; position:relative; overflow:hidden;">
         <canvas id="hero-particles"></canvas>
         
-        <!-- FLUTUANTES 3D (NOVOS LOGOS) -->
         <div class="floating-brand instagram-float-1">
             <i data-feather="instagram"></i>
             <div class="zap-badge">⚡</div>
@@ -59,8 +58,8 @@
             <div class="zap-badge">⚡</div>
         </div>
 
-        <div class="container hero-grid" style="position: relative; z-index: 10;">
-            <div class="hero-content reveal">
+        <div class="container hero-grid" style="position:relative; z-index:10; flex:1; display:flex; align-items:center; justify-content:center;">
+            <div class="hero-content reveal" style="width:100%;">
                 <div class="hero-social-proof">
                     <div class="avatars">
                         <img src="https://i.pravatar.cc/100?img=47" alt="User 1">
@@ -80,12 +79,18 @@
                 <h1 class="headline">Deixe seu perfil relevante em minutos com mais <span class="highlight">seguidores</span> e <span class="highlight">curtidas</span></h1>
                 <p class="subheadline">Receba seguidores brasileiros, reais e relevantes com entrega automática e reposição garantida.</p>
                 
-                <div class="cta-wrapper reveal delay-1" style="align-items:center; display: flex; flex-direction: column; gap: 10px;">
-                    <a href="#evidencia" class="btn-cta-hero" style="box-shadow: 0 10px 25px rgba(238, 42, 123, 0.4); text-transform: uppercase;">Começar agora 🚀</a>
+                <div class="cta-wrapper reveal delay-1" style="align-items:center; display:flex; flex-direction:column; gap:10px;">
+                    <a href="#evidencia" class="btn-cta-hero" style="box-shadow:0 10px 25px rgba(238,42,123,0.4); text-transform:uppercase;">Começar agora 🚀</a>
                     <p class="cta-micro-details">✔ Sem senha • ✔ Entrega automática • ✔ 100% seguro</p>
                 </div>
             </div>
         </div>
+
+        <a href="#evidencia" class="hero-scroll-btn" aria-label="Rolar para baixo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="28" height="28">
+                <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+        </a>
     </section>
 
     <!-- Social Buttons Section -->
@@ -128,31 +133,22 @@
         <div class="container custom-order-container reveal">
             <div id="selection-steps">
                 
-                <!-- Step 2: Service Selection (Seguidores, Curtidas, Views) -->
+                <!-- Step 2: Service Selection -->
                 <div id="service-selection-container" class="service-selection-section reveal" style="display: none;">
                     <h3 class="step-title-premium">O que você quer aumentar no seu perfil?</h3>
-                    <div id="service-buttons-grid" class="service-grid">
-                        <!-- Botões injetados via JS -->
-                    </div>
+                    <div id="service-buttons-grid" class="service-grid"></div>
                 </div>
 
                 <!-- Step 3: Package Grid -->
                 <div id="package-selection-container" class="package-selection-section reveal" style="display: none; margin-top: 3rem;">
                     <h3 class="step-title-premium">Escolha o pacote ideal</h3>
                     
-                    <!-- Destaque (Hero Card) -->
-                    <div id="package-hero" class="package-hero-container"></div>
-
-                    <!-- Grade Principal -->
-                    <div id="package-grid" class="package-grid">
-                        <!-- Cards de pacotes injetados via JS -->
-                    </div>
-
-                    <!-- Outras Opções (Lista) -->
+                    <div id="package-hero" class="package-hero-container" style="overflow:visible; padding-top:30px;"></div>
+                    <div id="package-grid" class="package-grid"></div>
                     <div id="package-others" class="package-others-container"></div>
                 </div>
 
-            </div> <!-- close selection-steps -->
+            </div>
         </div>
     </section>
 

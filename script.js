@@ -37,8 +37,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 { label: "100 curtidas", price: 8.90, old: 13.35 },
                 { label: "500 curtidas", price: 19.90, old: 29.85 },
                 { label: "1.000 curtidas", price: 29.90, old: 44.85, confetti: true },
+                { label: "2.000 curtidas", price: 54.90, old: 82.35 },
                 { label: "3.000 curtidas", price: 85.90, old: 128.85 },
-                { label: "5.000 curtidas", price: 142.90, old: 214.35, confetti: true }
+                { label: "5.000 curtidas", price: 142.90, old: 214.35, confetti: true },
+                { label: "10.000 curtidas", price: 279.90, old: 419.85, confetti: true },
+                { label: "20.000 curtidas", price: 549.90, old: 824.85 }
             ],
             views: [
                 { label: "0 views", price: 0.00, old: 0.00 },
@@ -53,14 +56,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 { label: "0 seguidores", price: 0.00, old: 0.00 },
                 { label: "500 seguidores", price: 29.90, old: 44.85 },
                 { label: "1.000 seguidores", price: 57.90, old: 86.85 },
+                { label: "3.000 seguidores", price: 149.90, old: 224.85 },
                 { label: "5.000 seguidores", price: 239.90, old: 359.85, confetti: true },
                 { label: "10.000 seguidores", price: 439.90, old: 659.85, confetti: true }
             ],
             curtidas: [
-                { label: "1.000 curtidas", price: 59.90, old: 89.85, confetti: true }
+                { label: "500 curtidas", price: 34.90, old: 52.35 },
+                { label: "1.000 curtidas", price: 59.90, old: 89.85, confetti: true },
+                { label: "3.000 curtidas", price: 159.90, old: 239.85 },
+                { label: "5.000 curtidas", price: 249.90, old: 374.85 },
+                { label: "10.000 curtidas", price: 479.90, old: 719.85 }
             ],
             views: [
-                { label: "10.000 views", price: 89.90, old: 134.85, confetti: true }
+                { label: "1.000 views", price: 9.90, old: 14.85 },
+                { label: "5.000 views", price: 47.90, old: 71.85 },
+                { label: "10.000 views", price: 89.90, old: 134.85, confetti: true },
+                { label: "50.000 views", price: 269.90, old: 404.85 }
             ]
         }
     };
@@ -117,66 +128,187 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderPackages() {
-        const grid = document.getElementById('package-grid');
-        if (!grid) return;
-        grid.innerHTML = '';
-        const data = pricingData[activePlatform][activeService];
+        const heroContainer = document.getElementById('package-hero');
+        const gridContainer = document.getElementById('package-grid');
+        const othersContainer = document.getElementById('package-others');
 
-        data.forEach(pkg => {
-            if (pkg.price === 0) return;
-            const card = document.createElement('div');
-            card.className = 'package-card reveal active';
-            card.innerHTML = `
-                <div class="package-qty">${pkg.label}</div>
-                <div class="package-price">R$ ${pkg.price.toFixed(2).replace('.', ',')}</div>
-                <button class="btn-package" onclick="openCheckoutWithPackage('${pkg.label}', ${pkg.price})">Escolher</button>
-            `;
-            grid.appendChild(card);
+        if (!heroContainer || !gridContainer) return;
+
+        heroContainer.innerHTML = '';
+        gridContainer.innerHTML = '';
+        if (othersContainer) othersContainer.innerHTML = '';
+
+        // Garantir espaco para o badge nao ser cortado (nao usar cssText - sobrescreve overflow)
+        heroContainer.style.paddingTop = '34px';
+        heroContainer.style.marginBottom = '2.5rem';
+        heroContainer.style.overflow = 'visible';
+
+        const allData = pricingData[activePlatform][activeService];
+        const parseQty = (label) => parseInt(label.replace(/\D/g, ''));
+
+        // --- 1. HEADLINE DINÂMICA ---
+        const stepTitle = document.querySelector('#package-selection-container .step-title-premium');
+        if (stepTitle) {
+            stepTitle.textContent = activeService === 'curtidas' ? 
+                "O que você quer impulsionar nos seus posts?" : 
+                "Escolha o pacote ideal para o seu perfil";
+        }
+
+        // --- 2. HERO OFFER (1.300 pelo preço de 1.000) ---
+        const price1kItem = allData.find(p => parseQty(p.label) === 1000);
+        if (price1kItem) {
+            heroContainer.appendChild(createPackageCard({
+                label: "1.300",
+                serviceText: activeService,
+                price: price1kItem.price,
+                old: price1kItem.old,
+                tag: "Oferta Primeira Compra",
+                subtitle: `Pelo preço de 1.000`,
+                hero: true
+            }));
+        }
+
+        // --- 3. MAIN GRID (Starter, Boost, Pro, Premium) ---
+        let mainGridItems = [];
+        if (activeService === 'curtidas') {
+            mainGridItems = [
+                { qty: 1000, desc: 'Entrega rápida e segura', featured: false },
+                { qty: 3000, desc: 'Entrega rápida e segura', featured: true, badge: 'MAIS ESCOLHIDO' },
+                { qty: 5000, desc: 'Entrega rápida e segura', featured: false },
+                { qty: 10000, desc: 'Entrega rápida e segura', featured: false }
+            ];
+        } else {
+            mainGridItems = [
+                { qty: 1000, desc: 'Entrega rápida e segura', featured: false },
+                { qty: 3000, desc: 'Entrega rápida e segura', featured: true, badge: 'MAIS ESCOLHIDO' },
+                { qty: 5000, desc: 'Entrega rápida e segura', featured: false },
+                { qty: 10000, desc: 'Entrega rápida e segura', featured: false }
+            ];
+        }
+
+        mainGridItems.forEach(item => {
+            const pkgData = allData.find(p => parseQty(p.label) === item.qty);
+            if (pkgData) {
+                gridContainer.appendChild(createPackageCard({
+                    label: pkgData.label.split(' ')[0],
+                    serviceText: activeService,
+                    price: pkgData.price,
+                    old: pkgData.old,
+                    featured: item.featured,
+                    tag: item.badge,
+                    subtitle: item.desc
+                }));
+            }
         });
     }
 
-    let selectedPackage = { label: '', price: 0 };
+    function createPackageCard(pkg) {
+        const isHero = !!pkg.hero;
+        const isFeatured = !!pkg.featured;
+        const neonColor = activePlatform === 'instagram' ? '#00ff88' : '#00f2ea';
+        const borderColor = isHero ? '#f9ce34' : neonColor;
+        const glowColor = isHero ? 'rgba(249,206,52,0.3)' : (activePlatform === 'instagram' ? 'rgba(0,255,136,0.25)' : 'rgba(0,242,234,0.25)');
 
-    window.openCheckoutWithPackage = function(label, price) {
-        selectedPackage = { label, price };
-        openCheckoutModal();
-    }
+        const viewsCount = Math.floor(Math.random() * (5000 - 3000) + 3000);
+        const salesCount = Math.floor(Math.random() * (450 - 350) + 350);
 
-    window.openCheckoutModal = function() {
-        const overlay = document.getElementById('checkout-modal-overlay');
-        overlay.classList.add('show');
-        document.body.style.overflow = 'hidden';
-        
-        updateCheckoutTotal();
-        startBumpCountdown();
-        randomizeScarcity();
-        
-        setTimeout(() => {
-            const fill = document.querySelector('.stock-fill');
-            if (fill) fill.style.width = '95%';
-        }, 300);
+        // Logo inline
+        const logoHtml = activePlatform === 'instagram'
+            ? `<div style="width:90px;height:90px;border-radius:22px;background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285AEB 90%);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;box-shadow:0 8px 20px rgba(0,0,0,0.5);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="46" height="46"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+              </div>`
+            : `<div style="width:90px;height:90px;border-radius:22px;background:#111;border:2px solid rgba(0,242,234,0.4);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;box-shadow:0 8px 20px rgba(0,0,0,0.5);">
+                <svg viewBox="0 0 24 24" fill="white" width="46" height="46"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9a8.2 8.2 0 0 0 4.79 1.52V7.07a4.85 4.85 0 0 1-1.02-.38z"/></svg>
+              </div>`;
 
-        if(window.feather) feather.replace();
-    }
+        // WRAPPER: tem overflow:visible e padding-top para o badge flutuar acima sem ser cortado
+        const wrapper = document.createElement('div');
+        wrapper.style.cssText = `
+            position:relative;
+            padding-top:${(isHero || isFeatured) ? '22px' : '0'};
+            max-width:${isHero ? '480px' : '290px'};
+            margin:${isHero ? '0 auto' : '0 auto'};
+            width:100%;
+            overflow:visible;
+        `;
 
-    window.updateCheckoutTotal = function() {
-        const txtQty = document.getElementById('txt-qty-header');
-        const txtPriceHeader = document.getElementById('txt-price-header');
-        if (txtQty) txtQty.textContent = selectedPackage.label;
-        if (txtPriceHeader) txtPriceHeader.textContent = formatMoney(selectedPackage.price);
+        // Badge: fica no wrapper, nao no card — escapa de qualquer overflow do card
+        if (isHero || isFeatured) {
+            const badge = document.createElement('div');
+            badge.style.cssText = `
+                position:absolute;
+                top:0;
+                left:50%;
+                transform:translateX(-50%);
+                background:linear-gradient(90deg,#f9ce34,#ee9617);
+                color:#000;
+                padding:0.55rem 2rem;
+                border-radius:99px;
+                font-size:0.85rem;
+                font-weight:900;
+                text-transform:uppercase;
+                letter-spacing:1px;
+                white-space:nowrap;
+                z-index:100;
+                box-shadow:0 5px 15px rgba(249,206,52,0.4);
+                font-family:inherit;
+            `;
+            badge.textContent = `⚡ ${pkg.tag || 'OFERTA RELÂMPAGO'} ⚡`;
+            wrapper.appendChild(badge);
+        }
 
-        const bumpPriceValue = selectedPackage.price * 0.8;
-        const bumpTitleTxt = document.getElementById('bump-title-text');
-        const bumpPriceCurrent = document.getElementById('bump-price-current');
-        
-        if (bumpTitleTxt) bumpTitleTxt.textContent = `Adicione +${selectedPackage.label} por apenas`;
-        if (bumpPriceCurrent) bumpPriceCurrent.textContent = formatMoney(bumpPriceValue);
+        // Card
+        const card = document.createElement('div');
+        card.style.cssText = `
+            position:relative;
+            background:#0d0d0d;
+            border-radius:28px;
+            border:2.5px solid ${borderColor};
+            box-shadow:0 0 35px ${glowColor}, 0 15px 40px rgba(0,0,0,0.4);
+            padding:${isHero ? '3rem 2.5rem 2.5rem' : '2.5rem 1.75rem 2rem'};
+            text-align:center;
+            color:#fff;
+            width:100%;
+            box-sizing:border-box;
+            transition:transform 0.3s ease, box-shadow 0.3s ease;
+        `;
 
-        const chk = document.getElementById('chk-order-bump');
-        const finalPrice = selectedPackage.price + (chk && chk.checked ? bumpPriceValue : 0);
-        
-        const btnFech = document.getElementById('btn-fechar-pedido');
-        if (btnFech) btnFech.textContent = chk && chk.checked ? `Continuar - ${formatMoney(finalPrice)}` : `Continuar`;
+        card.onmouseenter = () => {
+            card.style.transform = 'translateY(-6px)';
+            card.style.boxShadow = `0 0 50px ${glowColor}, 0 20px 50px rgba(0,0,0,0.5)`;
+        };
+        card.onmouseleave = () => {
+            card.style.transform = 'translateY(0)';
+            card.style.boxShadow = `0 0 35px ${glowColor}, 0 15px 40px rgba(0,0,0,0.4)`;
+        };
+
+        card.innerHTML = `
+            <div style="display:flex;flex-direction:column;align-items:center;">
+                ${logoHtml}
+                <h2 style="font-size:${isHero ? '2.8rem' : '2.2rem'};font-weight:900;color:#fff;margin:0 0 0.4rem;letter-spacing:-1px;line-height:1;font-family:inherit;">${pkg.label} <span style="font-size:${isHero ? '1.4rem' : '1.1rem'};font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:2px;">${pkg.serviceText}</span></h2>
+                <div style="font-size:0.95rem;color:#94a3b8;font-weight:600;margin-bottom:1.25rem;font-family:inherit;">⚡ ${pkg.subtitle}</div>
+
+                <div style="display:inline-flex;align-items:center;gap:0.5rem;background:rgba(239,68,68,0.12);color:#ef4444;padding:0.4rem 1.1rem;border-radius:99px;font-size:0.82rem;font-weight:800;margin-bottom:1.5rem;border:1px solid rgba(239,68,68,0.2);font-family:inherit;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    ${viewsCount} visualizações
+                </div>
+
+                <div style="font-size:${isHero ? '4.5rem' : '3.5rem'};font-weight:950;color:#fff;line-height:1;letter-spacing:-3px;margin-bottom:0.4rem;font-family:inherit;">R$ ${pkg.price.toFixed(2).replace('.', ',')}</div>
+                <div style="font-size:0.88rem;color:#64748b;margin-bottom:2rem;font-family:inherit;">de <span style="text-decoration:line-through;color:#f59e0b;">R$ ${pkg.old.toFixed(2).replace('.', ',')}</span> por <span style="color:#10b981;font-weight:800;">R$ ${pkg.price.toFixed(2).replace('.', ',')}</span> - Oferta exclusiva</div>
+
+                <button onclick="openCheckoutWithPackage('${pkg.label} ${pkg.serviceText}', ${pkg.price})" style="display:block;width:100%;background:#f9ce34;color:#000;padding:1.2rem;border-radius:14px;font-size:1.2rem;font-weight:900;border:none;cursor:pointer;box-shadow:0 8px 22px rgba(249,206,52,0.45);letter-spacing:0.5px;font-family:inherit;text-transform:uppercase;margin-bottom:1.25rem;">
+                    COMPRAR AGORA
+                </button>
+
+                <div style="display:flex;align-items:center;justify-content:center;gap:0.5rem;font-size:0.88rem;font-weight:700;color:#64748b;font-family:inherit;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                    ${salesCount} vendas realizadas
+                </div>
+            </div>
+        `;
+
+        wrapper.appendChild(card);
+        return wrapper; // Retorna o wrapper, nao o card diretamente
     }
 
     document.addEventListener('change', (e) => {
