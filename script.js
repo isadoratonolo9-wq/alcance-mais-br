@@ -140,17 +140,13 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     let activePlatform = 'instagram'; // default
-    let isPromoPath = false; // Flag para saber se veio pela oferta de 1000+300
-
-    const rSeg = document.getElementById('range-seguidores');
-    const rCur = document.getElementById('range-curtidas');
-    const rView = document.getElementById('range-views');
+    let activeService = null; 
+    let isPromoPath = false; 
 
     function formatMoney(value) {
         return 'R$ ' + value.toFixed(2).replace('.', ',');
     }
 
-    let lastConfettiStates = { seg: -1, cur: -1, view: -1 };
     let initialLoad = true;
     function fireConfetti() {
         if (window.confetti && !initialLoad) {
@@ -158,117 +154,158 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function initSlidersRanges() {
-        if(!rSeg) return;
-        const data = pricingData[activePlatform];
-        rSeg.max = data.seguidores.length - 1;
-        rCur.max = data.curtidas.length - 1;
-        rView.max = data.views.length - 1;
-    }
-
-    function updateCart() {
-        if(!rSeg) return;
-        const data = pricingData[activePlatform];
+    // --- Step 2: Show Service Buttons ---
+    window.changePlatform = function(platform) {
+        activePlatform = platform;
+        activeService = null;
         
-        // Ensure max is correct
-        if(rSeg.max != data.seguidores.length - 1) initSlidersRanges();
+        // UI Highlights
+        document.querySelectorAll('.social-pill').forEach(p => p.classList.remove('pill-featured'));
+        const activePill = document.querySelector(`.pill-${platform}`);
+        if(activePill) activePill.classList.add('pill-featured');
 
-        // Safe bounds
-        let sVal = Math.min(rSeg.value, data.seguidores.length - 1);
-        let cVal = Math.min(rCur.value, data.curtidas.length - 1);
-        let vVal = Math.min(rView.value, data.views.length - 1);
-
-        const segItem = data.seguidores[sVal];
-        const curItem = data.curtidas[cVal];
-        const viewItem = data.views[vVal];
-
-        // Confetti logic
-        if (segItem.confetti && lastConfettiStates.seg !== sVal) { fireConfetti(); }
-        lastConfettiStates.seg = sVal;
+        // Reset and Show Container
+        const serviceContainer = document.getElementById('service-selection-container');
+        const packageContainer = document.getElementById('package-selection-container');
         
-        if (curItem.confetti && lastConfettiStates.cur !== cVal) { fireConfetti(); }
-        lastConfettiStates.cur = cVal;
+        if (serviceContainer) serviceContainer.style.display = 'block';
+        if (packageContainer) packageContainer.style.display = 'none';
+
+        renderServiceButtons();
         
-        if (viewItem.confetti && lastConfettiStates.view !== vVal) { fireConfetti(); }
-        lastConfettiStates.view = vVal;
+        // Scroll to service section
+        setTimeout(() => {
+            if (serviceContainer) serviceContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 100);
 
-        // Update Labels
-        document.getElementById('label-seguidores').textContent = segItem.label;
-        document.getElementById('label-curtidas').textContent = curItem.label;
-        document.getElementById('label-views').textContent = viewItem.label;
-
-        // Update Individual Prices
-        document.getElementById('price-seguidores').textContent = formatMoney(segItem.price);
-        document.getElementById('price-curtidas').textContent = formatMoney(curItem.price);
-        document.getElementById('price-views').textContent = formatMoney(viewItem.price);
-
-        // Calculate Totals
-        const currentTotal = segItem.price + curItem.price + viewItem.price;
-        const oldTotal = segItem.old + curItem.old + viewItem.old;
-
-        // Apply Totals
-        const currentElements = document.querySelectorAll('.current-price, .total-current');
-        const oldElements = document.querySelectorAll('.old-price, .total-old');
-
-        currentElements.forEach(el => el.textContent = formatMoney(currentTotal));
-        
-        oldElements.forEach(el => {
-            if(oldTotal > 0) {
-                el.style.display = 'inline-block';
-                el.textContent = formatMoney(oldTotal);
-            } else {
-                el.style.display = 'none';
-            }
-        });
-
-        // Update ranges CSS variable for background progress
-        updateRangeProgress(rSeg);
-        updateRangeProgress(rCur);
-        updateRangeProgress(rView);
-        
+        if(window.feather) { feather.replace(); }
         initialLoad = false;
     }
 
-    function updateRangeProgress(slider) {
-        let max = slider.max || 1;
-        const val = (slider.value - slider.min) / (max - slider.min) * 100;
-        slider.style.setProperty('--value', val + '%');
-    }
+    function renderServiceButtons() {
+        const grid = document.getElementById('service-buttons-grid');
+        if (!grid) return;
+        grid.innerHTML = '';
 
-    if(rSeg) {
-        rSeg.addEventListener('input', updateCart);
-        rCur.addEventListener('input', updateCart);
-        rView.addEventListener('input', updateCart);
-        initSlidersRanges();
-        updateCart(); // Initialize
-    }
+        const services = [
+            { id: 'seguidores', label: 'Seguidores', icon: 'user-plus' },
+            { id: 'curtidas', label: 'Curtidas', icon: 'heart' }
+        ];
 
-    // Expose platform switcher to global scope
-    window.changePlatform = function(platform) {
-        activePlatform = platform;
-        
-        // Reset sliders
-        rSeg.value = 0;
-        rCur.value = 0;
-        rView.value = 0;
-        
-        const promoInsta  = document.getElementById('promo-instagram');
-        const promoTiktok = document.getElementById('promo-tiktok');
-
-        if (platform === 'instagram') {
-            if(promoInsta)  promoInsta.style.display  = 'block';
-            if(promoTiktok) promoTiktok.style.display = 'none';
-            // Rola direto para a oferta de primeira compra do Instagram
-            setTimeout(() => promoInsta && promoInsta.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
-        } else {
-            if(promoInsta)  promoInsta.style.display  = 'none';
-            if(promoTiktok) promoTiktok.style.display = 'block';
-            // Rola direto para a oferta de primeira compra do TikTok
-            setTimeout(() => promoTiktok && promoTiktok.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+        if (activePlatform === 'tiktok') {
+            services.push({ id: 'views', label: 'Visualizações', icon: 'eye' });
         }
+
+        services.forEach(s => {
+            const card = document.createElement('div');
+            card.className = 'service-card ripple';
+            card.onclick = () => selectService(s.id);
+            card.innerHTML = `
+                <div class="s-icon"><i data-feather="${s.icon}"></i></div>
+                <h4>${s.label}</h4>
+            `;
+            grid.appendChild(card);
+        });
+
+        feather.replace();
+    }
+
+    // --- Step 3: Show Packages ---
+    window.selectService = function(serviceId) {
+        activeService = serviceId;
+
+        // UI active state
+        document.querySelectorAll('.service-card').forEach(c => {
+            c.classList.remove('active');
+            if(c.querySelector('h4').innerText.toLowerCase().includes(serviceId.substring(0,3))) {
+                c.classList.add('active');
+            }
+        });
+
+        const packageContainer = document.getElementById('package-selection-container');
+        if (packageContainer) packageContainer.style.display = 'block';
+
+        renderPackages();
+
+        setTimeout(() => {
+            if (packageContainer) packageContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+    }
+
+    function renderPackages() {
+        const grid = document.getElementById('package-grid');
+        if (!grid) return;
+        grid.innerHTML = '';
+
+        const data = pricingData[activePlatform][activeService];
         
-        if(window.feather) { feather.replace(); }
-        updateCart();
+        // Se for seguidores, injetamos a oferta especial como primeiro item
+        if (activeService === 'seguidores') {
+            const promo = {
+                label: "1.300",
+                price: activePlatform === 'instagram' ? 39.90 : 57.90,
+                old: activePlatform === 'instagram' ? 59.85 : 86.85,
+                tag: "OFERTA DISPONÍVEL",
+                featured: true,
+                desc: "Oferta de Primeira Compra"
+            };
+            grid.appendChild(createPackageCard(promo));
+        }
+
+        // Renderizamos os outros pacotes do pricingData (filtrando o '0')
+        data.forEach((pkg, index) => {
+            if (pkg.price === 0) return;
+            // Para não duplicar o de 1000 se já for o da promo
+            if (activeService === 'seguidores' && pkg.label.includes("1.000")) return;
+            
+            grid.appendChild(createPackageCard({
+                label: pkg.label.split(' ')[0],
+                price: pkg.price,
+                old: pkg.old,
+                tag: pkg.confetti ? "MAIS VENDIDO" : null,
+                featured: pkg.confetti || false,
+                desc: pkg.label.split(' ')[1] || activeService
+            }));
+        });
+    }
+
+    function createPackageCard(pkg) {
+        const card = document.createElement('div');
+        card.className = `package-card ${pkg.featured ? 'featured' : ''} reveal active`;
+        
+        card.innerHTML = `
+            ${pkg.tag ? `<div class="package-badge">${pkg.tag}</div>` : ''}
+            <div class="package-qty">${pkg.label}</div>
+            <div class="package-label">${pkg.desc}</div>
+            
+            <div class="package-price-box">
+                ${pkg.old > pkg.price ? `<span class="package-old-price">de R$ ${pkg.old.toFixed(2).replace('.', ',')}</span>` : ''}
+                <div class="package-current-price"><span>R$</span> ${pkg.price.toFixed(2).split('.')[0]}<span>,${pkg.price.toFixed(2).split('.')[1]}</span></div>
+            </div>
+
+            <button class="btn-package" onclick="buyPackage('${pkg.label}', ${pkg.price})">Eu Quero Agora! 🚀</button>
+
+            <div class="package-features">
+                <div class="feature-item"><i data-feather="check-circle"></i> <span>Entrega automática</span></div>
+                <div class="feature-item"><i data-feather="check-circle"></i> <span>Reposição garantida</span></div>
+                <div class="feature-item"><i data-feather="check-circle"></i> <span>Sem senha necessária</span></div>
+            </div>
+        `;
+        
+        feather.replace();
+        return card;
+    }
+
+    window.buyPackage = function(label, price) {
+        // Redireciona para o WhatsApp com os detalhes do pacote
+        let message = `🚀 *NOVO PEDIDO - ALCANCE MAIS BR*\n\n`;
+        message += `🛒 *ÍTENS ESCOLHIDOS:* \n`;
+        message += `- ${label} ${activeService} no ${activePlatform}\n`;
+        message += `💰 *VALOR TOTAL:* R$ ${price.toFixed(2).replace('.', ',')}\n`;
+        message += `💳 *FORMA DE PAGAMENTO:* PIX`;
+
+        const whatsappURL = `https://wa.me/5544997162210?text=${encodeURIComponent(message)}`;
+        window.open(whatsappURL, '_blank');
     }
 
     /* --- Scroll Reveal Logic --- */
@@ -844,28 +881,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* --- Auto-select Promo Package --- */
     window.selectPromoPackage = function() {
-        // 1. Ensure we are on Instagram platform (as the promo specifies followers)
-        if (activePlatform !== 'instagram') {
-            window.changePlatform('instagram');
-        }
-
-        // 2. Set sliders: 1.000 followers is index 3 in pricingData.instagram.seguidores
-        if (rSeg) {
-            rSeg.value = 3; 
-            rCur.value = 0;
-            rView.value = 0;
-            
-            // 3. Update the cart status BEFORE opening checkout to fix the "bug"
-            updateCart();
-            
-            // 4. Marcar como caminho Promo
-            isPromoPath = true;
-            
-            // 5. Skip sliders and go directly to checkout
-            openCheckoutPanel();
-
-            // Optional: Fire some confetti!
-            fireConfetti();
-        }
+        // Encontra o botão de Seguidores na categoria correta
+        window.changePlatform(activePlatform);
+        setTimeout(() => {
+            window.selectService('seguidores');
+        }, 300);
+        fireConfetti();
     };
 });
