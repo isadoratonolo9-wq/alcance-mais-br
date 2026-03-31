@@ -543,12 +543,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const finalPrice = baseTotal + promoTotal + (bumpActive ? bumpPrice : 0);
         const finalOld = baseOld + (promoTotal / 0.8) + (bumpActive ? bumpOld : 0);
 
-        document.getElementById('checkout-final-price').textContent = formatMoney(finalPrice);
+        // Atualiza todos os IDs de preço no modal
+        const priceMain = document.getElementById('checkout-final-price-main');
+        const priceSummary = document.getElementById('checkout-final-price-summary');
         const oldEl = document.getElementById('checkout-old-price');
-        if (finalOld > finalPrice) {
+
+        if (priceMain) priceMain.textContent = formatMoney(finalPrice);
+        if (priceSummary) priceSummary.textContent = formatMoney(finalPrice);
+
+        if (finalOld > finalPrice && oldEl) {
             oldEl.textContent = formatMoney(finalOld);
             oldEl.style.display = 'inline-block';
-        } else {
+        } else if (oldEl) {
             oldEl.style.display = 'none';
         }
     }
@@ -586,43 +592,53 @@ document.addEventListener('DOMContentLoaded', () => {
             const username = document.getElementById('chk-username').value;
             const bumpActive = document.getElementById('chk-order-bump').checked;
             
-            if (!nome || !tel || !email || !username) {
-                alert('Por favor, preencha todos os campos, incluindo seu perfil (@).');
+            let formValid = true;
+            
+            // Helper to validate and highlight empty fields
+            const validateField = (id) => {
+                const el = document.getElementById(id);
+                if (!el.value.trim()) {
+                    el.classList.add('shake', 'shake-input');
+                    setTimeout(() => el.classList.remove('shake'), 500);
+                    formValid = false;
+                } else {
+                    el.classList.remove('shake-input');
+                }
+            };
+
+            validateField('chk-nome');
+            validateField('chk-telefone');
+            validateField('chk-email');
+            validateField('chk-username');
+
+            if (!formValid) {
+                alert('Oops! Parece que faltam algumas informações. Preencha os campos destacados em vermelho para continuarmos.');
                 return;
             }
 
             btnFechar.innerText = "Processando...";
             btnFechar.disabled = true;
 
-            // Coletar dados do pedido
+            // Coletar dados do pedido e CALCULAR valor numérico REAL
             const data = pricingData[activePlatform];
-            const seg = data.seguidores[rSeg.value];
-            const cur = data.curtidas[rCur.value];
-            const view = data.views[rView.value];
-            const total = document.getElementById('checkout-final-price').textContent;
+            const sVal = parseInt(rSeg.value);
+            const cVal = parseInt(rCur.value);
+            const vVal = parseInt(rView.value);
+            
+            const seg = data.seguidores[sVal];
+            const cur = data.curtidas[cVal];
+            const view = data.views[vVal];
 
-            // 1. Salvar na Planilha do Google (Se configurada)
-            const SHEET_URL = "https://script.google.com/macros/s/AKfycbxYEksMsCLJ4HufxC1NRjCB_7VHARrCJvSHkbtqJmZ7rJPd7ClTuLdLAKXV8Qr7wMTL/exec";
-            if (SHEET_URL !== "SEU_LINK_AQUI") {
-                try {
-                    // Envia os dados como parâmetros de URL para máxima compatibilidade com o Google
-                    const queryParams = new URLSearchParams({
-                        nome: nome,
-                        whatsapp: tel,
-                        email: email,
-                        perfil: username,
-                        pedido: `${isPromoPath ? 'PROMO 1.000 + 300 Bonus (1.300 total)' : seg.label}, ${cur.label}, ${view.label}${bumpActive ? ' + ORDER BUMP (+1.300 seg)' : ''}`,
-                        total: total
-                    });
+            let promoTotal = 0;
+            if (promoSelections.seguidores) promoTotal += (seg.price * 0.8);
+            if (promoSelections.curtidas) promoTotal += (cur.price * 0.8);
+            if (promoSelections.views) promoTotal += (view.price * 0.8);
+            
+            const bumpActiveFinal = document.getElementById('chk-order-bump').checked;
+            const finalNumericValue = seg.price + cur.price + view.price + promoTotal + (bumpActiveFinal ? 31.92 : 0);
+            const finalFormattedPrice = formatMoney(finalNumericValue);
 
-                    await fetch(SHEET_URL + "?" + queryParams.toString(), {
-                        method: 'POST',
-                        mode: 'no-cors'
-                    });
-                } catch (err) { console.error("Erro planilha:", err); }
-            }
-
-            // 2. Gerar Mensagem de WhatsApp
+            // --- GERAR MENSAGEM WHATSAPP ---
             let message = `🚀 *NOVO PEDIDO - ALCANCE MAIS BR*\n\n`;
             message += `👤 *Cliente:* ${nome}\n`;
             message += `📱 *WhatsApp:* ${tel}\n`;
@@ -634,7 +650,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const label = isPromoPath ? 'PROMO: 1.000 + 300 Bônus (1.300 total)' : seg.label;
                 message += `- ${label} (${activePlatform})\n`;
             }
-            if (bumpActive) message += `- *ORDER BUMP EXCLUSIVO:* +1.300 seguidores reais\n`;
+            if (bumpActiveFinal) message += `- *ORDER BUMP EXCLUSIVO:* +1.300 seguidores reais\n`;
             if (cur.price > 0) {
                 const link = document.getElementById('link-curtidas')?.value || 'Não informado';
                 message += `- ${cur.label} (${activePlatform}) / Link: ${link}\n`;
@@ -644,7 +660,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 message += `- ${view.label} (${activePlatform}) / Link: ${link}\n`;
             }
 
-            // Promos
             if (promoSelections.seguidores || promoSelections.curtidas || promoSelections.views) {
                 message += `\n🎁 *PROMOÇÕES ADICIONAIS:* \n`;
                 if (promoSelections.seguidores) message += `- + ${seg.label} (Upsell 20% OFF)\n`;
@@ -652,19 +667,61 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (promoSelections.views) message += `- + ${view.label} (Upsell 20% OFF)\n`;
             }
 
-            message += `\n💰 *VALOR TOTAL:* ${total}\n`;
-            message += `💳 *PAGAMENTO:* PIX`;
+            message += `\n💰 *VALOR TOTAL:* ${finalFormattedPrice}\n`;
+            message += `💳 *FORMA DE PAGAMENTO:* PIX (Aguardando comprovante no Zap)`;
 
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappURL = `https://wa.me/5544997162210?text=${encodedMessage}`;
+            const whatsappURL = `https://wa.me/5544997162210?text=${encodeURIComponent(message)}`;
             
-            // 3. Abrir WhatsApp e Feedback Final
+            // REDIRECIONAR IMEDIATAMENTE
             window.open(whatsappURL, '_blank');
-            alert('Sucesso! Seu pedido foi registrado. Estamos te redirecionando para o WhatsApp para concluir o pagamento via PIX!');
             
-            btnFechar.innerText = "Pedido Enviado ✅";
-            btnFechar.disabled = true;
+            btnFechar.innerText = "Fechar pedido →";
+            btnFechar.disabled = false;
+            closeCheckoutModal();
+
+            // Enviar Planilha em background
+            const SHEET_URL = "https://script.google.com/macros/s/AKfycbxYEksMsCLJ4HufxC1NRjCB_7VHARrCJvSHkbtqJmZ7rJPd7ClTuLdLAKXV8Qr7wMTL/exec";
+            fetch(SHEET_URL + "?" + new URLSearchParams({
+                nome, whatsapp: tel, email, perfil: username,
+                pedido: `${seg.label}, ${cur.label}, ${view.label}${bumpActiveFinal ? ' + BUMP' : ''}`, total: finalFormattedPrice
+            }).toString(), { method: 'POST', mode: 'no-cors' }).catch(e => {});
         });
+    }
+
+    /* --- RESET CHECKOUT LOGIC --- */
+    window.resetCheckout = function() {
+        // Limpar Campos
+        ['chk-nome', 'chk-telefone', 'chk-email', 'chk-username'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.value = '';
+        });
+        
+        // Resetar Order Bump
+        const bump = document.getElementById('chk-order-bump');
+        if (bump) {
+            bump.checked = false;
+            document.getElementById('order-bump-card')?.classList.remove('active');
+        }
+
+        // Parar Timer
+        if(window.pixInterval) clearInterval(window.pixInterval);
+
+        // Resetar UI do Modal
+        const defaultHeader = document.getElementById('modal-default-header');
+        if (defaultHeader) defaultHeader.style.display = 'flex';
+        
+        document.getElementById('checkout-dynamic-inputs').style.display = 'block';
+        document.querySelector('.checkout-summary').style.display = 'block';
+        document.getElementById('btn-fechar-pedido').style.display = 'flex';
+        
+        document.getElementById('checkout-panel').classList.remove('modal-expanded');
+        document.getElementById('checkout-pix-screen').style.display = 'none';
+
+        // Fechar Modal
+        closeCheckoutModal();
+        
+        // Forçar scroll para o início do modal
+        document.getElementById('checkout-panel').scrollTop = 0;
     }
 
     // Persistência de Dados (Local Storage)
@@ -752,6 +809,37 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Show the first one after 5 seconds of page load
     setTimeout(showNotification, 5000);
+
+    /* --- Promo Timer Logic --- */
+    function startPromoTimer() {
+        const timers = document.querySelectorAll('.promo-timer');
+        if(!timers || timers.length === 0) return;
+        
+        let timeLeft = sessionStorage.getItem('promoTimer');
+        if (!timeLeft) {
+            timeLeft = 15 * 60;
+        } else {
+            timeLeft = parseInt(timeLeft, 10);
+        }
+
+        const interval = setInterval(() => {
+            if (timeLeft <= 0) {
+                clearInterval(interval);
+                timers.forEach(t => t.innerText = "00:00");
+                return;
+            }
+            timeLeft--;
+            sessionStorage.setItem('promoTimer', timeLeft);
+            
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            const displayStr = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            timers.forEach(t => t.innerText = displayStr);
+        }, 1000);
+    }
+    startPromoTimer();
+
     /* --- Auto-select Promo Package --- */
     window.selectPromoPackage = function() {
         // 1. Ensure we are on Instagram platform (as the promo specifies followers)
