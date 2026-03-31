@@ -626,9 +626,56 @@ document.addEventListener('DOMContentLoaded', () => {
         feather.replace();
 
         // Alternar Telas
-        document.getElementById('checkout-modal-overlay').classList.add('show');
-        document.body.style.overflow = 'hidden'; // Evita rolagem do fundo
+            openCheckoutModal();
+        });
+    }
+
+    window.openCheckoutModal = function() {
+        const overlay = document.getElementById('checkout-modal-overlay');
+        overlay.classList.add('show');
+        document.body.style.overflow = 'hidden';
+        
         updateCheckoutTotal();
+        startBumpCountdown();
+        randomizeScarcity();
+        
+        // Animates progress bar on open
+        setTimeout(() => {
+            const fill = document.querySelector('.stock-fill');
+            if (fill) fill.style.width = '95%';
+        }, 300);
+
+        if(window.feather) feather.replace();
+    }
+
+    // Modal Scarcity Timer
+    let bumpTimerInterval;
+    function startBumpCountdown() {
+        if (bumpTimerInterval) clearInterval(bumpTimerInterval);
+        
+        let timeLeft = 5 * 60; // 5 minutes standard
+        const display = document.getElementById('bump-countdown');
+        
+        function updateTimer() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            if (display) display.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            if (timeLeft <= 0) {
+                clearInterval(bumpTimerInterval);
+                return;
+            }
+            timeLeft--;
+        }
+        
+        updateTimer();
+        bumpTimerInterval = setInterval(updateTimer, 1000);
+    }
+
+    function randomizeScarcity() {
+        const count = document.getElementById('txt-fomo-count');
+        if (count) {
+            count.textContent = Math.floor(Math.random() * (620 - 410) + 410);
+        }
     }
 
     window.closeCheckoutModal = function() {
@@ -645,116 +692,80 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function createPromoCard(type, originalItem) {
-        const promoPrice = originalItem.price * 0.8; // 20% OFF
-        const card = document.createElement('div');
-        card.className = 'order-bump-box dynamic-upsell-bump';
-        card.dataset.type = type;
-        
-        let icon = type === 'seguidores' ? 'user-plus' : (type === 'curtidas' ? 'heart' : 'eye');
-        let label = originalItem.label.split(' ')[0]; // Pega o número (ex: 500)
-
-        card.innerHTML = `
-            <input type="checkbox" class="bump-checkbox">
-            <div class="bump-badge-discount">🔥 20% OFF EXTRA</div>
-            <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom: 0.25rem;">
-                <i data-feather="${icon}" style="color:#6366f1; width:20px;"></i>
-                <strong style="color:#4338ca; font-size:1rem;">OFERTA: +${label} ${type}</strong>
-            </div>
-            <p style="font-size:0.875rem; color:#6b7280; font-weight:600; margin: 0;">Dobre seu pedido agora por apenas <strong>${formatMoney(promoPrice)}</strong>.</p>
-        `;
-
-        card.addEventListener('click', (e) => {
-            if (e.target.type === 'checkbox') return;
-            const chk = card.querySelector('input[type="checkbox"]');
-            chk.checked = !chk.checked;
-            chk.dispatchEvent(new Event('change', { bubbles: true }));
-        });
-
-        const chk = card.querySelector('input[type="checkbox"]');
-        chk.addEventListener('change', () => {
-            card.classList.toggle('active', chk.checked);
-            promoSelections[type] = chk.checked;
-            if (chk.checked) fireConfetti();
-            updateCheckoutTotal();
-        });
-
-        document.getElementById('dynamic-bumps-container').appendChild(card);
-    }
-
-    function updateCheckoutTotal() {
+    // --- DYNAMIC CHECKOUT TOTAL & ORDER BUMP ---
+    window.updateCheckoutTotal = function() {
         const data = pricingData[activePlatform];
-        let baseTotal = data.seguidores[rSeg.value].price + data.curtidas[rCur.value].price + data.views[rView.value].price;
-        let baseOld = data.seguidores[rSeg.value].old + data.curtidas[rCur.value].old + data.views[rView.value].old;
+        const sVal = parseInt(rSeg.value);
+        const cVal = parseInt(rCur.value);
+        const vVal = parseInt(rView.value);
         
-        let promoTotal = 0;
-        if (promoSelections.seguidores) promoTotal += (data.seguidores[rSeg.value].price * 0.8);
-        if (promoSelections.curtidas) promoTotal += (data.curtidas[rCur.value].price * 0.8);
-        if (promoSelections.views) promoTotal += (data.views[rView.value].price * 0.8);
+        const mainServiceSelected = sVal > 0 ? data.seguidores[sVal] : (cVal > 0 ? data.curtidas[cVal] : data.views[vVal]);
+        
+        if (!mainServiceSelected) return;
 
-        // Order Bump Logic
-        const bumpCheck = document.getElementById('chk-order-bump');
-        const bumpActive = bumpCheck ? bumpCheck.checked : false;
-        const bumpPrice = 31.92; // +1300 seguidores (promo price)
-        const bumpOld = 39.90; // base price for followers is 39.90 for 1000, 1300 refined
+        // Populate Modal Header
+        const txtQty = document.getElementById('txt-qty-header');
+        const txtPriceHeader = document.getElementById('txt-price-header');
+        if (txtQty) txtQty.textContent = mainServiceSelected.label;
+        if (txtPriceHeader) txtPriceHeader.textContent = formatMoney(mainServiceSelected.price);
 
-        const finalPrice = baseTotal + promoTotal + (bumpActive ? bumpPrice : 0);
-        const finalOld = baseOld + (promoTotal / 0.8) + (bumpActive ? bumpOld : 0);
+        // Calculate Order Bump (Same as main but 20% OFF)
+        const bumpPriceValue = mainServiceSelected.price * 0.8;
+        const bumpPriceOld = mainServiceSelected.price;
+        
+        const bumpTitleTxt = document.getElementById('bump-title-text');
+        const bumpPriceCurrent = document.getElementById('bump-price-current');
+        const bumpPriceOldEl = document.getElementById('bump-price-old');
+        
+        if (bumpTitleTxt) bumpTitleTxt.textContent = `Adicione +${mainServiceSelected.label} por apenas`;
+        if (bumpPriceCurrent) bumpPriceCurrent.textContent = formatMoney(bumpPriceValue);
+        if (bumpPriceOldEl) bumpPriceOldEl.textContent = `De ${formatMoney(bumpPriceOld)}`;
 
-        // Atualiza todos os IDs de preço no modal
-        const priceMain = document.getElementById('checkout-final-price-main');
-        const priceSummary = document.getElementById('checkout-final-price-summary');
-        const oldEl = document.getElementById('checkout-old-price');
-
-        if (priceMain) priceMain.textContent = formatMoney(finalPrice);
-        if (priceSummary) priceSummary.textContent = formatMoney(finalPrice);
-
-        if (finalOld > finalPrice && oldEl) {
-            oldEl.textContent = formatMoney(finalOld);
-            oldEl.style.display = 'inline-block';
-        } else if (oldEl) {
-            oldEl.style.display = 'none';
+        const chk = document.getElementById('chk-order-bump');
+        const isBumpChecked = chk && chk.checked;
+        
+        // Update Final Total for Redirect
+        const finalTotal = mainServiceSelected.price + (isBumpChecked ? bumpPriceValue : 0);
+        const totalFormatted = formatMoney(finalTotal);
+        
+        const btnFech = document.getElementById('btn-fechar-pedido');
+        if (btnFech && !btnFech.disabled) {
+           btnFech.textContent = isBumpChecked ? `Continuar - ${totalFormatted}` : `Continuar`;
         }
     }
 
-    // Listener for Order Bump
+    // Listener for Order Bump UX
     document.addEventListener('change', (e) => {
         if (e.target.id === 'chk-order-bump') {
-            updateCheckoutTotal();
             const card = document.getElementById('order-bump-card');
             if (e.target.checked) {
-                card.classList.add('active'); // Use standard green style
+                card.classList.add('active');
                 fireConfetti();
             } else {
                 card.classList.remove('active');
             }
+            updateCheckoutTotal();
         }
     });
 
     document.addEventListener('click', (e) => {
         const card = e.target.closest('#order-bump-card');
-        if (card && e.target.id !== 'chk-order-bump') {
+        if (card && e.target.tagName !== 'INPUT') {
             const chk = document.getElementById('chk-order-bump');
-            chk.checked = !chk.checked;
-            chk.dispatchEvent(new Event('change', { bubbles: true }));
+            if (chk) {
+                chk.checked = !chk.checked;
+                chk.dispatchEvent(new Event('change', { bubbles: true }));
+            }
         }
     });
 
-    // Botão Finalizar
+    // Botão Finalizar / Redirect para Checkout
     const btnFechar = document.getElementById('btn-fechar-pedido');
     if (btnFechar) {
         btnFechar.addEventListener('click', async () => {
-            const nome = document.getElementById('chk-nome').value;
-            const tel = document.getElementById('chk-telefone').value;
-            const email = document.getElementById('chk-email').value;
             const username = document.getElementById('chk-username').value;
             const bumpActive = document.getElementById('chk-order-bump').checked;
             
-            let formValid = true;
-            
-            // Helper to validate and highlight empty fields
-            const validateField = (id) => {
-                const el = document.getElementById(id);
                 if (!el.value.trim()) {
                     el.classList.add('shake', 'shake-input');
                     setTimeout(() => el.classList.remove('shake'), 500);

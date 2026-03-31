@@ -157,38 +157,8 @@
         </div>
     </section>
 
-    <!-- NOVO: Checkout Panel Modal Overlay -->
+    <!-- NOVO: Checkout Panel Modal Overlay (Premium Dark) -->
     <div id="checkout-modal-overlay" class="checkout-modal-overlay">
-        <div id="checkout-panel" class="monte-pedido-card modal-card">
-            <div class="card-header" id="modal-default-header" style="display:flex; justify-content: space-between; align-items:center; margin-bottom: 2rem;">
-                <h3 style="margin:0; font-size:1.6rem; font-weight:900; color:#1e293b;">Finalizar pedido</h3>
-                <div style="cursor: pointer; padding: 0.5rem;" onclick="resetCheckout()">
-                    <i data-feather="x" style="width:24px; height:24px; color:#94a3b8;"></i>
-                </div>
-            </div>
-                
-                <div id="checkout-dynamic-inputs" class="checkout-form" style="margin-top: 1rem;">
-                    <div class="input-wrap highlighted-input-wrap" style="margin-bottom: 1rem; border-color: var(--primary);">
-                        <span class="at-symbol">@</span>
-                        <input type="text" id="chk-username" placeholder="Seu perfil do Instagram/TikTok *" class="header-input" style="height: 50px; font-weight:800; font-size:1.1rem;" required>
-                    </div>
-                    <div class="input-wrap">
-                        <i data-feather="user"></i>
-                        <input type="text" id="chk-nome" placeholder="Nome Completo *" required>
-                    </div>
-                    <div class="input-wrap" style="margin-top: 0.75rem;">
-                        <i data-feather="phone"></i>
-                        <input type="tel" id="chk-telefone" placeholder="WhatsApp (DDD + Número) *" required>
-                    </div>
-                    <div class="input-wrap" style="margin-top: 0.75rem; margin-bottom: 2rem;">
-                        <i data-feather="mail"></i>
-                        <input type="email" id="chk-email" placeholder="Seu melhor e-mail *" required>
-                    </div>
-
-                    <!-- Dynamic Link Inputs (Will be injected here) -->
-                    <div id="checkout-link-inputs"></div>
-
-                    <!-- Dynamic Upsells (Will be injected here) -->
                     <div id="dynamic-bumps-container"></div>
                     
                     <!-- Static Order Bump -->
