@@ -587,10 +587,10 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     display: flex;
     align-items: center;
     background: #f8fafc;
-    border: 2px solid var(--primary);
+    border: 2px solid #ee2a7b;
     border-radius: 8px;
     padding: 0.25rem 0.5rem;
-    box-shadow: 0 0 0 4px rgba(90, 44, 201, 0.1);
+    box-shadow: 0 0 0 4px rgba(238, 42, 123, 0.1);
     transition: var(--transition);
 }
 .highlighted-input-wrap:focus-within {
@@ -600,7 +600,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 
 .at-symbol {
     font-weight: 800;
-    color: var(--primary);
+    color: #ee2a7b;
     font-size: 1.1rem;
     margin-right: 0.25rem;
 }
@@ -722,7 +722,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     position: relative;
     /* CSS Variables modified by JS */
     --value: 0%; 
-    background: linear-gradient(to right, #6c3ce9 var(--value), #e2e8f0 var(--value));
+    background: linear-gradient(to right, #ee2a7b var(--value), #e2e8f0 var(--value));
     cursor: pointer;
 }
 
@@ -734,7 +734,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     height: 24px;
     border-radius: 50%;
     background: #fff;
-    border: 3px solid #6c3ce9;
+    border: 3px solid #ee2a7b;
     cursor: pointer;
     box-shadow: 0 2px 6px rgba(0,0,0,0.15);
     transition: transform 0.1s;
@@ -749,7 +749,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     height: 20px;
     border-radius: 50%;
     background: #fff;
-    border: 3px solid #6c3ce9;
+    border: 3px solid #ee2a7b;
     cursor: pointer;
     box-shadow: 0 2px 6px rgba(0,0,0,0.15);
     transition: transform 0.1s;
@@ -805,16 +805,16 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 
 /* =========================================
-   PREMIUM DARK CARD — "MONTE SEU PEDIDO"
+   PREMIUM DARK CARD -> CHANGED TO LIGHT FOR INSTAGRAM THEME
 ========================================= */
 .monte-pedido-premium {
     position: relative;
-    background: #111;
-    border: 2px solid #10b981;
+    background: #fff;
+    border: 2px solid #ee2a7b;
     border-radius: 2rem;
     padding: 3rem 2rem 2rem;
     margin-bottom: 1.5rem;
-    box-shadow: 0 0 25px rgba(16, 185, 129, 0.15), 0 20px 50px rgba(0,0,0,0.3);
+    box-shadow: 0 0 25px rgba(238, 42, 123, 0.15), 0 20px 50px rgba(0,0,0,0.1);
     overflow: visible;
 }
 
@@ -823,15 +823,15 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     top: -14px;
     left: 50%;
     transform: translateX(-50%);
-    background: linear-gradient(90deg, #10b981, #34d399);
-    color: #000;
+    background: linear-gradient(90deg, #f9ce34, #ee2a7b, #6228d7);
+    color: #fff;
     font-size: 0.75rem;
     font-weight: 900;
     padding: 0.5rem 1.5rem;
     border-radius: 99px;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.5);
+    box-shadow: 0 4px 15px rgba(238, 42, 123, 0.5);
     white-space: nowrap;
     z-index: 10;
 }
@@ -840,37 +840,37 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     text-align: center;
     font-size: 1.6rem;
     font-weight: 900;
-    color: white;
+    color: #1e293b;
     margin-bottom: 0.4rem;
 }
 
 .manual-order-subtitle-premium {
     text-align: center;
     font-size: 0.9rem;
-    color: rgba(255,255,255,0.45);
+    color: #64748b;
     margin-bottom: 2rem;
     font-weight: 500;
 }
 
-/* Dark input */
+/* Custom input wrap */
 .highlighted-input-wrap-dark {
     display: flex;
     align-items: center;
-    background: rgba(255,255,255,0.04);
-    border: 2px solid #10b981;
+    background: #f8fafc;
+    border: 2px solid #ee2a7b;
     border-radius: 8px;
     padding: 0.25rem 0.75rem;
-    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+    box-shadow: 0 0 0 4px rgba(238, 42, 123, 0.1);
     transition: var(--transition);
 }
 .highlighted-input-wrap-dark:focus-within {
-    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.25);
-    background: rgba(255,255,255,0.07);
+    box-shadow: 0 0 0 4px rgba(238, 42, 123, 0.25);
+    background: #fff;
 }
 
 .at-symbol-dark {
     font-weight: 800;
-    color: #10b981;
+    color: #ee2a7b;
     font-size: 1.1rem;
     margin-right: 0.25rem;
 }
@@ -879,48 +879,48 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     border: none;
     font-size: 1.1rem;
     font-weight: 700;
-    color: white;
+    color: #1e293b;
     outline: none;
     background: transparent;
     padding: 0.5rem 0;
     width: 100%;
 }
-.header-input-dark::placeholder { color: rgba(255,255,255,0.3); font-weight: 500; }
+.header-input-dark::placeholder { color: #94a3b8; font-weight: 500; }
 
-/* Dark slider labels */
-.slider-label-dark { color: rgba(255,255,255,0.85); font-weight: 700; font-size: 1.05rem; }
-.slider-price-dark { color: #34d399; font-weight: 800; font-size: 1.05rem; }
+/* Slider labels */
+.slider-label-dark { color: #1e293b; font-weight: 700; font-size: 1.05rem; }
+.slider-price-dark { color: #ee2a7b; font-weight: 800; font-size: 1.05rem; }
 
 /* Teal slider track */
 .custom-slider-teal {
-    background: linear-gradient(to right, #10b981 var(--value, 0%), rgba(255,255,255,0.1) var(--value, 0%));
+    background: linear-gradient(to right, #ee2a7b var(--value, 0%), #e2e8f0 var(--value, 0%));
 }
-.custom-slider-teal::-webkit-slider-thumb { border-color: #10b981; }
-.custom-slider-teal::-moz-range-thumb    { border-color: #10b981; }
+.custom-slider-teal::-webkit-slider-thumb { border-color: #ee2a7b; }
+.custom-slider-teal::-moz-range-thumb    { border-color: #ee2a7b; }
 
-/* Footer row dark */
+/* Footer row */
 .card-footer-dark {
-    border-top-color: rgba(255,255,255,0.08) !important;
+    border-top-color: #f1f5f9 !important;
 }
 
 /* CTA button premium teal */
 .btn-avancar-premium {
-    background: linear-gradient(90deg, #10b981, #059669);
-    color: #000;
+    background: linear-gradient(90deg, #f9ce34, #ee2a7b, #6228d7);
+    color: #fff;
     font-weight: 900;
     font-size: 1.2rem;
     padding: 1.25rem;
     border-radius: 1rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+    box-shadow: 0 10px 25px rgba(238, 42, 123, 0.3);
     transition: all 0.3s ease;
     width: 100%;
 }
 .btn-avancar-premium:hover {
     filter: brightness(1.1);
     transform: translateY(-3px);
-    box-shadow: 0 15px 30px rgba(16, 185, 129, 0.5);
+    box-shadow: 0 15px 30px rgba(238, 42, 123, 0.5);
 }
 
 
@@ -928,10 +928,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     BENEFITS
 ============================ */
 .benefits-section { padding: 5rem 0; background: white; }
-.benefits-grid { display: grid; grid-template-columns: 1fr; gap: 3rem; margin-top: 4rem; }
-@media (min-width: 640px) { .benefits-grid { grid-template-columns: 1fr 1fr; } }
-@media (min-width: 1024px) { .benefits-grid { grid-template-columns: repeat(4, 1fr); } }
-.benefit-item { padding: 1rem; }
+.benefits-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 3rem; margin-top: 4rem; }
+.benefit-item { padding: 1rem; width: 100%; max-width: 240px; }
 .b-icon { font-size: 3rem; margin-bottom: 1rem; }
 .benefit-item h4 { font-size: 1.125rem; font-weight: 700; margin-bottom: 0.5rem; }
 .benefit-item p { color: var(--text-muted); font-size: 0.9rem; }
@@ -991,18 +989,46 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .delay-2 { transition-delay: 0.2s; }
 .delay-3 { transition-delay: 0.3s; }
 .delay-4 { transition-delay: 0.4s; }
+.delay-5 { transition-delay: 0.5s; }
 
 /* =========================================
-   CHECKOUT E UPSELL (PROMO)
+   CHECKOUT E UPSELL (PROMO) - MODAL
 ========================================= */
 
-#checkout-panel {
-    animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.checkout-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(8px);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
-@keyframes slideUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+.checkout-modal-overlay.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+.modal-card {
+    max-width: 500px;
+    width: 95%;
+    max-height: 90vh; /* Permite scroll no card se tela for pequena */
+    overflow-y: auto;
+    margin: auto;
+    transform: scale(0.95) translateY(20px);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.checkout-modal-overlay.show .modal-card {
+    transform: scale(1) translateY(0);
 }
 
 /* =========================================

@@ -468,12 +468,23 @@ document.addEventListener('DOMContentLoaded', () => {
         feather.replace();
 
         // Alternar Telas
-        calculatorSetup.style.display = 'none';
-        checkoutPanel.style.display = 'block';
+        document.getElementById('checkout-modal-overlay').classList.add('show');
+        document.body.style.overflow = 'hidden'; // Evita rolagem do fundo
         updateCheckoutTotal();
-        
-        // Scroll para o topo do card
-        checkoutPanel.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    window.closeCheckoutModal = function() {
+        document.getElementById('checkout-modal-overlay').classList.remove('show');
+        document.body.style.overflow = ''; 
+    };
+
+    const modalOverlay = document.getElementById('checkout-modal-overlay');
+    if (modalOverlay) {
+        modalOverlay.addEventListener('click', (e) => {
+            if(e.target.id === 'checkout-modal-overlay') {
+                closeCheckoutModal();
+            }
+        });
     }
 
     function createPromoCard(type, originalItem) {

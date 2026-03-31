@@ -181,7 +181,7 @@
                         <span class="at-symbol-dark">@</span>
                         <input type="text" id="order-username" placeholder="seu_perfil_aqui" class="header-input-dark form-glow">
                     </div>
-                    <p style="font-size:0.75rem; color:rgba(255,255,255,0.45); margin-top:0.5rem; font-weight:600;">Onde vamos entregar seus seguidores?</p>
+                    <p style="font-size:0.75rem; color:#64748b; margin-top:0.5rem; font-weight:600;">Onde vamos entregar seus seguidores?</p>
                 </div>
                 
                 <div class="sliders-wrapper">
@@ -221,10 +221,10 @@
 
                 <!-- Footer do card -->
                 <div class="card-footer-row card-footer-dark">
-                    <span class="total-label-text" style="color:rgba(255,255,255,0.7);">Total</span>
+                    <span class="total-label-text" style="color:#1e293b;">Total</span>
                     <div class="total-prices">
                         <span class="total-old" id="bottom-old-price">R$ 8,85</span>
-                        <span class="total-current" style="color:#10f4b0;" id="bottom-current-price">R$ 5,90</span>
+                        <span class="total-current" style="color:#ee2a7b;" id="bottom-current-price">R$ 5,90</span>
                     </div>
                 </div>
                 
@@ -232,15 +232,19 @@
 
             </div>
             </div> <!-- close calculator-setup -->
-            
-            <!-- NOVO: Checkout Panel -->
-            <div id="checkout-panel" class="monte-pedido-card" style="display: none;">
-                <div class="card-header">
-                    <div style="display:flex; align-items:center; gap:0.75rem;">
-                        <i data-feather="arrow-left" id="btn-voltar-checkout" style="cursor: pointer; width:20px; color:var(--primary);" onclick="document.getElementById('checkout-panel').style.display='none'; document.getElementById('calculator-setup').style.display='block'; feather.replace();"></i>
-                        <h3 style="margin:0;">Finalizar pedido</h3>
-                    </div>
+        </div>
+        </div>
+    </section>
+
+    <!-- NOVO: Checkout Panel Modal Overlay -->
+    <div id="checkout-modal-overlay" class="checkout-modal-overlay">
+        <div id="checkout-panel" class="monte-pedido-card modal-card">
+            <div class="card-header" style="display:flex; justify-content: space-between; align-items:center; margin-bottom: 2rem;">
+                <h3 style="margin:0; font-size:1.6rem; font-weight:900; color:#1e293b;">Finalizar pedido</h3>
+                <div style="cursor: pointer; padding: 0.5rem;" onclick="closeCheckoutModal()">
+                    <i data-feather="x" style="width:24px; height:24px; color:#94a3b8;"></i>
                 </div>
+            </div>
                 
                 <div id="checkout-dynamic-inputs" class="checkout-form" style="margin-top: 1rem;">
                     <div class="input-wrap highlighted-input-wrap" style="margin-bottom: 1rem; border-color: var(--primary);">
@@ -314,8 +318,6 @@
                 <button class="btn btn-primary btn-block" id="btn-fechar-pedido">Fechar pedido &rarr;</button>
             </div>
         </div>
-        </div>
-    </section>
 
     <!-- Benefits Section -->
     <section class="benefits-section">
@@ -342,6 +344,11 @@
                     <div class="b-icon">🎧</div>
                     <h4>Suporte 24h</h4>
                     <p>Equipe pronta para te ajudar a qualquer momento do dia ou da noite.</p>
+                </div>
+                <div class="benefit-item reveal delay-5">
+                    <div class="b-icon">🔄</div>
+                    <h4>Reposição Garantida</h4>
+                    <p>Qualquer conta que parar de seguir nos primeiros dias é reposta automaticamente.</p>
                 </div>
             </div>
         </div>
