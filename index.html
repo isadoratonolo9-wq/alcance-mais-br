@@ -1,216 +1,198 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br" data-platform="instagram">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alcance Mais BR – Perfil Relevante em Minutos</title>
-    <meta name="description" content="Receba seguidores brasileiros, reais e relevantes com entrega automática e reposição garantida no Alcance Mais BR.">
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- CSS -->
+    <title>Alcance Mais BR | Seguidores e Curtidas Reais</title>
+    <!-- Outfit Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    
-    <!-- Feather Icons for lightweight SVGs -->
+    <!-- Feather Icons -->
     <script src="https://unpkg.com/feather-icons"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 </head>
 <body>
-    
-    <!-- Header -->
+
+    <!-- Header / Navbar -->
     <header class="navbar">
-        <div class="container">
-            <a href="#" class="logo">Alcance <span>Mais BR</span></a>
+        <div class="container container-nav">
+            <div class="logo">
+                <span class="logo-icon">🚀</span>
+                <span class="logo-text">Alcance Mais <span class="accent">BR</span></span>
+            </div>
             <nav class="nav-links">
-                <a href="#custom-order">Serviços</a>
+                <a href="#inicio">Início</a>
+                <a href="#como-funciona">Como funciona</a>
+                <a href="#servicos">Serviços</a>
                 <a href="#faq">Dúvidas</a>
-                <a href="https://wa.me/554497085637" class="btn btn-outline" target="_blank">Contato</a>
             </nav>
+            <a href="https://wa.me/5544997162210" class="btn btn-outline btn-sm hide-mobile">Suporte VIP</a>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="hero" style="position: relative; overflow: hidden;" id="home">
-        <canvas id="hero-particles"></canvas>
-        
-        <!-- FLUTUANTES 3D (NOVOS LOGOS) -->
-        <div class="floating-brand instagram-float-1">
-            <i data-feather="instagram"></i>
-            <div class="zap-badge">⚡</div>
-        </div>
-        <div class="floating-brand tiktok-float-1">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9a8.2 8.2 0 0 0 4.79 1.52V7.07a4.85 4.85 0 0 1-1.02-.38z"/>
-            </svg>
-            <div class="zap-badge">⚡</div>
-        </div>
-        <div class="floating-brand instagram-float-2">
-            <i data-feather="instagram"></i>
-            <div class="zap-badge">⚡</div>
-        </div>
-        <div class="floating-brand tiktok-float-2">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9a8.2 8.2 0 0 0 4.79 1.52V7.07a4.85 4.85 0 0 1-1.02-.38z"/>
-            </svg>
-            <div class="zap-badge">⚡</div>
-        </div>
-
-        <div class="container hero-grid" style="position: relative; z-index: 10;">
-            <div class="hero-content reveal">
-                <div class="hero-social-proof">
-                    <div class="avatars">
-                        <img src="https://i.pravatar.cc/100?img=47" alt="User 1">
-                        <img src="https://i.pravatar.cc/100?img=12" alt="User 2">
-                        <img src="https://i.pravatar.cc/100?img=33" alt="User 3">
-                        <img src="https://i.pravatar.cc/100?img=11" alt="User 4">
-                    </div>
-                    <div class="proof-text">
-                        <div class="proof-count">+20.000 de Clientes Satisfeitos</div>
-                        <div class="proof-rating">
-                            <span class="stars">⭐⭐⭐⭐⭐</span>
-                            <span class="rating-desc">4.8 de 5 (2.613 Avaliações)</span>
-                        </div>
-                    </div>
+    <section class="hero-section" id="inicio">
+        <div class="container grid-hero">
+            <div class="hero-content">
+                <div class="badge-promo">🔥 OFERTA DE PRIMEIRA COMPRA</div>
+                <h1 class="hero-title">Turbine seu Perfil com <span class="gradient-text">Seguidores Reais</span></h1>
+                <p class="hero-subtitle">Aumente sua autoridade e alcance no Instagram e TikTok de forma rápida, segura e sem senhas.</p>
+                
+                <div class="hero-features">
+                    <div class="feature-tag"><i data-feather="check-circle"></i> Entrega Imediata</div>
+                    <div class="feature-tag"><i data-feather="check-circle"></i> Sem Perda</div>
+                    <div class="feature-tag"><i data-feather="check-circle"></i> 100% Seguro</div>
                 </div>
-                
-                <h1 class="headline">Deixe seu perfil relevante em minutos com mais <span class="highlight">seguidores</span> e <span class="highlight">curtidas</span></h1>
-                <p class="subheadline">Receba seguidores brasileiros, reais e relevantes com entrega automática e reposição garantida.</p>
-                
-                <div class="cta-wrapper reveal delay-1" style="align-items:center;">
-                    <a href="#evidencia" class="btn-cta-hero" style="box-shadow: 0 10px 25px rgba(238, 42, 123, 0.4); text-transform: uppercase;">Começar agora 🚀</a>
-                    <p class="cta-micro-details">✔ Sem senha • ✔ Entrega automática • ✔ 100% seguro</p>
+            </div>
+
+            <!-- Hero Promo Card -->
+            <div class="package-card hero" id="promo-hero-card">
+                <div class="card-badge">MAIS VENDIDO</div>
+                <div class="package-header">
+                    <span class="package-qty">1.000 <small>+ 300 Bônus</small></span>
+                    <p class="package-subtitle">Pacote Especial de Boas-vindas</p>
+                </div>
+                <div class="package-pricing">
+                    <span class="package-old-price">De R$ 59,90</span>
+                    <span class="package-current-price">R$ 39,90</span>
+                </div>
+                <ul class="package-features">
+                    <li><i data-feather="users"></i> Seguidores Reais & Brasileiros</li>
+                    <li><i data-feather="zap"></i> Início em 5 minutos</li>
+                    <li><i data-feather="shield"></i> Reposição de 30 dias</li>
+                    <li><i data-feather="check"></i> Sem necessidade de senha</li>
+                </ul>
+                <button class="btn btn-primary btn-block btn-cta-hero" onclick="selectPromoPackage()">Quero este agora! &rarr;</button>
+                <div class="promo-timer-box">
+                    A oferta expira em: <span class="promo-timer">15:00</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Social Buttons Section -->
-    <section class="social-section" id="evidencia">
-        <div class="container text-center">
-            <h2 class="section-title reveal">Onde você quer crescer agora?</h2>
-            <p class="section-subtitle reveal delay-1">Selecione a rede e comece em poucos minutos</p>
-            
-            <div class="social-pills-grid instagram-tiktok-only reveal delay-2">
-                <a href="javascript:void(0)" class="social-pill pill-instagram pill-featured" onclick="changePlatform('instagram')">
-                    <div class="featured-tag">🔥 Mais escolhido</div>
-                    <div class="icon-3d-coin insta-coin">
-                        <i data-feather="instagram"></i>
-                    </div>
-                    <div class="pill-text-wrapper">
-                        <span class="pill-title">Crescer no Instagram</span>
-                        <span class="pill-desc">(seguidores e curtidas reais)</span>
-                    </div>
-                    <i data-feather="chevron-right" class="pill-action"></i>
-                    <div class="pill-bg-glow insta-glow"></div>
-                </a>
-                
-                <a href="javascript:void(0)" class="social-pill pill-tiktok" onclick="changePlatform('tiktok')">
-                    <div class="icon-3d-coin tiktok-coin">
-                        <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="tiktok-svg"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
-                    </div>
-                    <div class="pill-text-wrapper">
-                        <span class="pill-title">Crescer no TikTok</span>
-                        <span class="pill-desc">(seguidores e views reais)</span>
-                    </div>
-                    <i data-feather="chevron-right" class="pill-action"></i>
-                    <div class="pill-bg-glow tiktok-glow"></div>
-                </a>
+    <!-- Services Section -->
+    <section class="services-section" id="servicos">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2 class="section-title reveal">Escolha sua plataforma</h2>
+                <div class="platform-selector">
+                    <button class="platform-btn active" onclick="changePlatform('instagram')">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="Instagram">
+                        Instagram
+                    </button>
+                    <button class="platform-btn" onclick="changePlatform('tiktok')">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/34/Ionicons_logo-tiktok.svg" alt="TikTok">
+                        TikTok
+                    </button>
+                </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Custom Order Section (Calculadora) -->
-    <section class="custom-order-section" id="custom-order">
-        <div class="container custom-order-container reveal">
-            <div id="selection-steps">
-                
-                <!-- Step 2: Service Selection (Seguidores, Curtidas, Views) -->
-                <div id="service-selection-container" class="service-selection-section reveal" style="display: none;">
-                    <h3 class="step-title-premium">O que você quer aumentar no seu perfil?</h3>
-                    <div id="service-buttons-grid" class="service-grid">
-                        <!-- Botões injetados via JS -->
+            <div id="service-selection-container" class="selection-steps">
+                <div class="service-grid">
+                    <div class="service-card serv-seguidores" onclick="selectService('seguidores')">
+                        <div class="s-icon">🚀</div>
+                        <h3>Seguidores</h3>
+                        <p>Aumente sua audiência e credibilidade.</p>
+                    </div>
+                    <div class="service-card serv-curtidas" onclick="selectService('curtidas')">
+                        <div class="s-icon">❤️</div>
+                        <h3>Curtidas</h3>
+                        <p>Mais engajamento em suas fotos e vídeos.</p>
                     </div>
                 </div>
+            </div>
 
-                <!-- Step 3: Package Grid -->
-                <div id="package-selection-container" class="package-selection-section reveal" style="display: none; margin-top: 3rem;">
-                    <h3 class="step-title-premium">Escolha o pacote ideal</h3>
-                    
-                    <!-- Destaque (Hero Card) -->
-                    <div id="package-hero" class="package-hero-container"></div>
-
-                    <!-- Grade Principal -->
+            <div id="package-selection-container" class="selection-steps" style="display: none;">
+                <div class="back-link" onclick="backToServices()">
+                    <i data-feather="arrow-left"></i> Escolher outro serviço
+                </div>
+                <h2 class="section-title text-center" style="margin-top: 1rem;" id="package-section-title">Escolha a quantidade</h2>
+                
+                <div class="package-selection-grid">
                     <div id="package-grid" class="package-grid">
-                        <!-- Cards de pacotes injetados via JS -->
+                        <!-- Packages will be injected here -->
                     </div>
-
-                    <!-- Outras Opções (Lista) -->
-                    <div id="package-others" class="package-others-container"></div>
                 </div>
-
-            </div> <!-- close selection-steps -->
-        </div>
+            </div>
         </div>
     </section>
 
     <!-- NOVO: Checkout Panel Modal Overlay (Premium Dark) -->
     <div id="checkout-modal-overlay" class="checkout-modal-overlay">
-                    <div id="dynamic-bumps-container"></div>
-                    
-                    <!-- Static Order Bump -->
-                    <div class="order-bump-box" id="order-bump-card">
-                        <input type="checkbox" id="chk-order-bump" class="bump-checkbox">
-                        <div class="bump-badge-discount" style="background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2); margin-top: 0; margin-bottom: 0.75rem;">🔥 20% OFF EXTRA</div>
-                        <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom: 0.25rem;">
-                            <i data-feather="zap" style="color:#6366f1; width:20px;"></i>
-                            <strong style="color:#4338ca; font-size:1rem;">OFERTA: +1.300 Seguidores</strong>
-                        </div>
-                        <p style="font-size:0.875rem; color:#6b7280; font-weight:600; margin: 0;">Adicione mais uma remessa agora por apenas <strong>R$ 31,92</strong>.</p>
-                    </div>
-
-                    <div class="checkout-total-row" style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center;">
-                        <span style="font-weight: 800; color: var(--text-dark); font-size: 1.2rem;">Total:</span>
-                        <div style="text-align: right;">
-                            <span class="old-price" id="checkout-old-price" style="display: none; font-size: 1rem; color: #94a3b8; text-decoration: line-through; margin-right: 0.5rem;"></span>
-                            <span class="current-price" id="checkout-final-price-main" style="font-size: 2rem; font-weight: 900; color: var(--primary);">R$ 0,00</span>
-                        </div>
-                    </div>
+        <div id="checkout-panel" class="modal-card">
+            
+            <div class="modal-header-premium">
+                <h3>Finalizar Compra</h3>
+                <div class="modal-close-icon" onclick="resetCheckout()">
+                    <i data-feather="x"></i>
                 </div>
-
-                <div class="checkout-summary" style="margin-top: 2rem;">
-                    <div class="checkout-total-row" style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e2e8f0; padding-bottom:1rem; margin-bottom:1rem;">
-                        <span style="font-size:1.25rem; font-weight:700; color:var(--text-dark);">Total:</span>
-                        <div class="total-prices">
-                            <span class="total-old" id="checkout-old-price" style="display:none; text-decoration:line-through; font-size:1rem; margin-right:0.5rem;">R$ 0,00</span>
-                            <span class="total-current" id="checkout-final-price-summary" style="font-size:1.5rem; font-weight:800; color:var(--text-dark);">R$ 0,00</span>
-                        </div>
-                    </div>
-                    
-                    <div class="payment-method" style="margin-bottom: 2rem;">
-                        <span style="display:block; margin-bottom: 0.75rem; font-weight:700; color:var(--text-dark); font-size:1.1rem;">Forma de Pagamento</span>
-                        <label class="pix-label" style="display:flex; align-items:center; gap:0.5rem; padding:1.25rem 2.5rem 1.25rem 1.25rem;
-    background: #ffffff;
-    border-radius: 1.5rem; border: 2px solid #f1f5f9;
-    font-weight: 700; font-size: 1.15rem; color: var(--text-dark);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
-    transform-style: preserve-3d;
-    z-index: 1; cursor:default;">
-                            <input type="radio" checked disabled style="accent-color:var(--primary); width:18px; height:18px;">
-                            <i data-feather="grid" style="color:var(--primary); width:20px;"></i> <strong style="color:var(--text-dark);">PIX</strong>
-                        </label>
-                    </div>
-                </div>
-                <!-- NOVO BOTÃO DE FECHAR PEDIDO COM CADEADO -->
-                <button class="btn btn-primary btn-block" id="btn-fechar-pedido" style="display:flex; justify-content:center; align-items:center; gap:0.5rem; text-transform:uppercase; font-weight:800;">
-                    <i data-feather="lock" style="width:18px;"></i> Fechar pedido &rarr;
-                </button>
             </div>
 
+            <!-- Product Header Summary -->
+            <div id="modal-product-header" class="modal-product-summary">
+                <span id="txt-qty-header" class="product-qty-label">...</span>
+                <span id="txt-price-header" class="product-price-label">R$ 0,00</span>
+            </div>
+
+            <div class="modal-content-premium">
+                <!-- Input Link Section -->
+                <div class="input-section-premium">
+                    <label class="premium-label">Link do Perfil do Instagram/TikTok *</label>
+                    <div class="premium-input-wrap">
+                        <input type="text" id="chk-username" placeholder="Insira seu link aqui" required>
+                    </div>
+                    <p class="premium-input-help">Cole o link completo do perfil ou seu @usuário</p>
+                </div>
+
+                <!-- Warning Box -->
+                <div class="warning-box-premium">
+                    <i data-feather="lock"></i>
+                    <span>Atenção! Seu perfil precisa estar <strong>público</strong></span>
+                </div>
+
+                <!-- Order Bump Card -->
+                <div class="order-bump-premium" id="order-bump-card">
+                    <div class="bump-header-badge">
+                        <span class="badge-text"><i data-feather="check"></i> MAIS VENDIDO</span>
+                    </div>
+                    
+                    <label class="bump-checkbox-wrapper" for="chk-order-bump">
+                        <div class="bump-checkbox-custom">
+                            <input type="checkbox" id="chk-order-bump">
+                            <span class="checkmark"></span>
+                        </div>
+                        <div class="bump-offer-text">
+                            <span class="offer-header"><i data-feather="mail"></i> OFERTA EXCLUSIVA!</span>
+                            <h4 id="bump-title-text">Adicione mais agora com desconto</h4>
+                            <div class="bump-prices">
+                                <span class="price-current" id="bump-price-current">R$ 0,00</span>
+                                <span class="price-old" id="bump-price-old">De R$ 0,00</span>
+                                <span class="discount-pill" id="bump-discount-percent">ECONOMIZE 20%</span>
+                            </div>
+                            
+                            <div class="bump-scarcity-row">
+                                <div class="bump-timer">Expira em: <span id="bump-countdown">05:00</span></div>
+                                <div class="bump-proof"><span id="txt-fomo-count">534</span> adicionaram hoje</div>
+                            </div>
+
+                            <div class="bump-stock-container">
+                                <div class="stock-label">Estoque limitado</div>
+                                <div class="stock-progress-bar">
+                                    <div class="stock-fill" style="width: 95%;"></div>
+                                </div>
+                                <div class="stock-percent">95% vendidos</div>
+                            </div>
+                            
+                            <div class="stock-urgency">
+                                <i data-feather="zap"></i> Restam poucos!
+                            </div>
+                        </div>
+                    </label>
+                </div>
+
+                <!-- CTA Button -->
+                <button class="btn-continuar-premium" id="btn-fechar-pedido">
+                    Continuar
+                </button>
             </div>
         </div>
     </div>
@@ -254,76 +236,81 @@
     <section class="faq-section" id="faq">
         <div class="container">
             <h2 class="section-title text-center reveal">Dúvidas Frequentes</h2>
-            <div class="accordion reveal delay-1">
-                
-                <div class="accordion-item">
-                    <button class="accordion-header">
-                        É seguro comprar interações? 
-                        <i data-feather="chevron-down"></i>
-                    </button>
+            
+            <div class="faq-accordion">
+                <div class="accordion-item reveal">
+                    <div class="accordion-header">Os seguidores são brasileiros? <i data-feather="chevron-down"></i></div>
                     <div class="accordion-body">
-                        <p>Sim! É totalmente seguro. Nosso método atua dentro dos termos de uso das plataformas, e jamais colocaríamos sua conta em risco. É o mesmo processo utilizado por agências gigantes de publicidade.</p>
+                        <p>Sim! Trabalhamos prioritariamente com contas brasileiras e reais para garantir a maior naturalidade possível ao seu perfil.</p>
                     </div>
                 </div>
-
-                <div class="accordion-item">
-                    <button class="accordion-header">
-                        Preciso passar minha senha? 
-                        <i data-feather="chevron-down"></i>
-                    </button>
+                <div class="accordion-item reveal">
+                    <div class="accordion-header">Corro risco de perder minha conta? <i data-feather="chevron-down"></i></div>
                     <div class="accordion-body">
-                        <p>Nunca! Nós jamais solicitaremos sua senha. Precisamos apenas do seu nome de usuário (excesso: seu perfil deve estar definido como público durante o tempo do serviço).</p>
+                        <p>Nenhum risco. Nossos métodos seguem as diretrizes das plataformas e não solicitamos sua senha em nenhum momento.</p>
                     </div>
                 </div>
-
-                <div class="accordion-item">
-                    <button class="accordion-header">
-                        Quando recebo meu pedido? 
-                        <i data-feather="chevron-down"></i>
-                    </button>
+                <div class="accordion-item reveal">
+                    <div class="accordion-header">Qual o prazo de entrega? <i data-feather="chevron-down"></i></div>
                     <div class="accordion-body">
-                        <p>A entrega normalmente inicia imediatamente ou em minutos após a confirmação do pagamento. O tempo total pode variar com o tamanho e tipo de pedido de horas a até dias em volumes enormes.</p>
+                        <p>O início é imediato após a confirmação. Dependendo da quantidade, o processo completo pode levar de alguns minutos a algumas horas.</p>
                     </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Final CTA Section -->
-    <section class="final-cta-section" style="padding: 2rem 1rem 5rem; background: #fff;">
-        <div class="container" style="max-width: 800px;">
-            <div class="final-cta-card reveal" style="background: linear-gradient(135deg, #ee2a7b, #6228d7); border-radius: 2rem; padding: 4rem 2rem; text-align: center; color: white; box-shadow: 0 20px 40px rgba(98, 40, 215, 0.25);">
-                <h2 style="font-size: 2.5rem; font-weight: 900; margin-bottom: 1rem; line-height: 1.2;">Agora é sua vez de crescer</h2>
-                <p style="font-size: 1.1rem; margin-bottom: 2.5rem; color: rgba(255,255,255,0.9); max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.6;">Mesmo depois da entrega, seu perfil continua protegido: todos os serviços têm reposição garantida para sustentar seu crescimento.</p>
-                
-                <button class="btn btn-cta-pulse" onclick="document.getElementById('custom-order').scrollIntoView({ behavior: 'smooth' })">Mudei de ideia e quero turbinar meu perfil 🚀</button>
-                
-                <div style="margin-top: 1.5rem; font-size: 0.9rem; font-weight: 600; color: rgba(255,255,255,0.8); display: flex; align-items: center; justify-content: center; gap: 0.4rem;">
-                    <i data-feather="zap" style="width: 16px; height: 16px; color: #f9ce34;"></i> Oferta por tempo limitado
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="site-footer">
-        <div class="container text-center">
-            <h3 class="footer-logo">Alcance Mais BR</h3>
-            <div class="footer-links">
-                <a href="#">Termos de Uso</a>
-                <a href="#">Política de Privacidade</a>
-                <a href="https://wa.me/554497085637" target="_blank">Contato</a>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <span class="logo-icon">🚀</span>
+                        <span class="logo-text">Alcance Mais <span class="accent">BR</span></span>
+                    </div>
+                    <p>Líder em crescimento social no Brasil. Qualidade, rapidez e segurança para o seu perfil.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Links Úteis</h4>
+                    <a href="#">Termos de Uso</a>
+                    <a href="#">Privacidade</a>
+                    <a href="#">Trabalhe Conosco</a>
+                </div>
+                <div class="footer-social">
+                    <h4>Nossas Redes</h4>
+                    <div class="social-icons">
+                        <a href="#"><i data-feather="instagram"></i></a>
+                        <a href="#"><i data-feather="twitter"></i></a>
+                    </div>
+                </div>
             </div>
-            <p class="copyright">&copy; 2026 Alcance Mais BR. Todos os direitos reservados. Cresça com profissionalismo.</p>
+            <div class="footer-bottom">
+                &copy; 2026 Alcance Mais BR. Todos os direitos reservados.
+            </div>
         </div>
     </footer>
 
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <script>
+        // Init Feather
         feather.replace();
+
+        // Reveal Animation on Scroll
+        const reveals = document.querySelectorAll('.reveal');
+        window.addEventListener('scroll', () => {
+            reveals.forEach(reveal => {
+                const windowHeight = window.innerHeight;
+                const revealTop = reveal.getBoundingClientRect().top;
+                const revealPoint = 150;
+
+                if (revealTop < windowHeight - revealPoint) {
+                    reveal.classList.add('active');
+                }
+            });
+        });
     </script>
 </body>
 </html>
