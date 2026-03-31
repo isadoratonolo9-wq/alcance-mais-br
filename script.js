@@ -703,25 +703,27 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('order-bump-card')?.classList.remove('active');
         }
 
-        // Parar Timer
-        if(window.pixInterval) clearInterval(window.pixInterval);
-
         // Resetar UI do Modal
         const defaultHeader = document.getElementById('modal-default-header');
         if (defaultHeader) defaultHeader.style.display = 'flex';
         
-        document.getElementById('checkout-dynamic-inputs').style.display = 'block';
-        document.querySelector('.checkout-summary').style.display = 'block';
-        document.getElementById('btn-fechar-pedido').style.display = 'flex';
+        const dynamicInputs = document.getElementById('checkout-dynamic-inputs');
+        if (dynamicInputs) dynamicInputs.style.display = 'block';
+
+        const summary = document.querySelector('.checkout-summary');
+        if (summary) summary.style.display = 'block';
+
+        const finishBtn = document.getElementById('btn-fechar-pedido');
+        if (finishBtn) finishBtn.style.display = 'flex';
         
-        document.getElementById('checkout-panel').classList.remove('modal-expanded');
-        document.getElementById('checkout-pix-screen').style.display = 'none';
+        const panel = document.getElementById('checkout-panel');
+        if (panel) {
+            panel.classList.remove('modal-expanded');
+            panel.scrollTop = 0;
+        }
 
         // Fechar Modal
         closeCheckoutModal();
-        
-        // Forçar scroll para o início do modal
-        document.getElementById('checkout-panel').scrollTop = 0;
     }
 
     // Persistência de Dados (Local Storage)
