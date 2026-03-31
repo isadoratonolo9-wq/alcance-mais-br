@@ -110,45 +110,72 @@
         <div class="container custom-order-container reveal">
             <div class="calculator-container">
             <div id="calculator-setup">
-                <!-- Header bar with username -->
-                <div class="header-flex" style="padding-bottom: 2.5rem; border-bottom: 1px solid #f1f5f9; margin-bottom: 2rem;">
-                    <div class="bar-left" style="display:flex; align-items:center; gap:0.75rem;">
-                        <div class="bar-icon-wrapper" id="top-bar-icon-container" style="width:40px; height:40px;">
-                            <i data-feather="instagram" class="bar-icon"></i>
-                        </div>
-                        <strong id="top-bar-title" style="font-size:1.15rem; color:var(--text-dark);">Serviços Instagram</strong>
-                    </div>
-                </div>
-                </div>
-                <div class="bar-right" style="display: none;">
-                    <span class="detail-label">Detalhes do pedido</span>
-                    <span class="old-price" id="top-old-price">R$ 0,00</span>
-                    <span class="current-price" id="top-current-price">R$ 0,00</span>
-                </div>
-            </div>
-
-            <!-- Featured First Purchase Offer -->
-            <div class="promo-package-card reveal delay-1">
-                <div class="promo-badge-hot">🔥 OFERTA DE PRIMEIRA COMPRA</div>
                 
-                <div class="promo-content">
-                    <div class="promo-text">
-                        <h3 class="promo-title">Pague por 1.000 seguidores e receba 1.300 automaticamente</h3>
-                        <ul class="promo-bullets">
-                            <li><i data-feather="check-circle" class="bullet-icon"></i> Seguidores brasileiros reais</li>
-                            <li><i data-feather="plus-circle" class="bullet-icon"></i> +300 seguidores bônus grátis</li>
-                            <li><i data-feather="zap" class="bullet-icon"></i> Entrega automática e gradual (parece natural)</li>
-                            <li><i data-feather="refresh-cw" class="bullet-icon"></i> Reposição garantida</li>
-                        </ul>
+                <!-- Instagram Premium Promo -->
+                <div id="promo-instagram" class="promo-premium-card promo-insta reveal">
+                    <div class="promo-premium-badge">🔥 Oferta de Primeira Compra</div>
+                    <div class="promo-premium-icon">
+                        <div class="insta-logo-3d">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <circle cx="12" cy="12" r="4.5"></circle>
+                                <circle cx="17.5" cy="6.5" r="1.2" fill="white" stroke="none"></circle>
+                            </svg>
+                        </div>
                     </div>
-                    <div class="promo-pricing-box">
-                        <div class="price-old">R$ 59,85</div>
-                        <div class="price-current">R$ 39,90</div>
-                        <button class="btn btn-primary btn-promo-cta" onclick="selectPromoPackage()">Começar com esse pacote 🚀</button>
-                        <p class="promo-scarcity">⚠️ Oferta exclusiva para novos clientes — pode sair do ar a qualquer momento</p>
+                    <h3 class="promo-premium-title">1.300 Seguidores</h3>
+                    <div class="promo-premium-subtitle">
+                        <i data-feather="zap" style="width:20px; color:#f59e0b;"></i>
+                        <span style="color:white; font-weight:800;">Pelo preço de 1.000 seguidores.</span>
+                    </div>
+                    
+                    <div class="promo-premium-price-box">
+                        <div class="promo-premium-old-price">de R$ 59,85</div>
+                        <div class="promo-premium-current-price">R$ 39,90</div>
+                        <div style="color: #10b981; font-size: 0.85rem; font-weight: 700; margin-top: 0.5rem;">por R$ 39,90 - Oferta exclusiva</div>
+                    </div>
+                    
+                    <button class="promo-premium-btn" onclick="selectPromoPackage()">Comprar Agora</button>
+                    
+                    <div class="promo-premium-footer">
+                        <div class="promo-footer-item">
+                            <i data-feather="shopping-cart"></i>
+                            <span>Mais de 11.357 vendas realizadas</span>
+                        </div>
                     </div>
                 </div>
-            </div>
+
+                <!-- TikTok Premium Promo -->
+                <div id="promo-tiktok" class="promo-premium-card promo-tiktok reveal" style="display: none;">
+                    <div class="promo-premium-badge">⚡ Oferta Relâmpago ⚡</div>
+                    <div class="promo-premium-icon">
+                        <div class="tiktok-logo-3d">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" stroke="none">
+                                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9a8.2 8.2 0 0 0 4.79 1.52V7.07a4.85 4.85 0 0 1-1.02-.38z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <h3 class="promo-premium-title">1.300 Seguidores</h3>
+                    <div class="promo-premium-subtitle">
+                        <i data-feather="zap" style="width:20px; color:#00f2fe;"></i>
+                        <span style="color:white; font-weight:800;">Pelo preço de 1.000 seguidores.</span>
+                    </div>
+                    
+                    <div class="promo-premium-price-box">
+                        <div class="promo-premium-old-price">de R$ 86,85</div>
+                        <div class="promo-premium-current-price">R$ 57,90</div>
+                        <div style="color: #00f2fe; font-size: 0.85rem; font-weight: 700; margin-top: 0.5rem;">por R$ 57,90 - Oferta limitada</div>
+                    </div>
+                    
+                    <button class="promo-premium-btn" style="background: linear-gradient(90deg, #00f2fe, #3b82f6); box-shadow: 0 10px 20px rgba(0, 242, 254, 0.2);" onclick="selectPromoPackage()">Comprar Agora</button>
+                    
+                    <div class="promo-premium-footer">
+                        <div class="promo-footer-item">
+                            <i data-feather="shopping-cart"></i>
+                            <span>Mais de 11.357 vendas realizadas</span>
+                        </div>
+                    </div>
+                </div>
 
             <!-- Card Monte seu pedido -->
             <div class="monte-pedido-card">

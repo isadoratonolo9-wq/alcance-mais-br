@@ -252,17 +252,15 @@ document.addEventListener('DOMContentLoaded', () => {
         rCur.value = 0;
         rView.value = 0;
         
-        const topBarTitle = document.getElementById('top-bar-title');
-        const topBarIcon = document.getElementById('top-bar-icon-container');
-        
+        const promoInsta = document.getElementById('promo-instagram');
+        const promoTiktok = document.getElementById('promo-tiktok');
+
         if (platform === 'instagram') {
-            topBarTitle.textContent = 'Serviços Instagram';
-            topBarIcon.innerHTML = '<i data-feather="instagram" class="bar-icon"></i>';
-            topBarIcon.style.background = 'linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)';
+            if(promoInsta) promoInsta.style.display = 'block';
+            if(promoTiktok) promoTiktok.style.display = 'none';
         } else {
-            topBarTitle.textContent = 'Serviços TikTok';
-            topBarIcon.innerHTML = '<svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="bar-icon"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>';
-            topBarIcon.style.background = '#000000';
+            if(promoInsta) promoInsta.style.display = 'none';
+            if(promoTiktok) promoTiktok.style.display = 'block';
         }
         
         if(window.feather) { feather.replace(); }
@@ -695,14 +693,10 @@ document.addEventListener('DOMContentLoaded', () => {
        SOCIAL PROOF NOTIFICATIONS (FOMO)
     ========================================= */
     const socialProofData = {
-        names: ["Sofia O.", "Marcos R.", "Ana B.", "Gabriel S.", "Julia M.", "Lucas P.", "Beatriz F.", "Rodrigo T.", "Camila L.", "Felipe G."],
-        locations: ["São Paulo", "Rio de Janeiro", "Curitiba", "Belo Horizonte", "Salvador", "Porto Alegre", "Brasília", "Fortaleza"],
+        names: ["Lucas P.", "Mariana S.", "Gabriel R.", "Beatriz F.", "Rodrigo T.", "Ana C.", "Felipe M.", "Camila L.", "Thiago A.", "Larissa B.", "Carlos E.", "Juliana N.", "Diego F.", "Rafaela O.", "Bruno H."],
         services: [
-            { type: "seguidores", platform: "Instagram", amounts: ["500", "1.000", "2.000", "5.000"] },
-            { type: "curtidas", platform: "Instagram", amounts: ["100", "500", "1.000"] },
-            { type: "views", platform: "Instagram", amounts: ["1.000", "5.000", "10.000"] },
-            { type: "seguidores", platform: "TikTok", amounts: ["500", "1.000", "2.500"] },
-            { type: "curtidas", platform: "TikTok", amounts: ["200", "1.000", "2.000"] }
+            { platform: "Instagram", amounts: ["500", "1.000", "1.300", "2.000", "3.000", "5.000", "10.000"] },
+            { platform: "TikTok",    amounts: ["500", "1.000", "1.300", "2.000", "2.500", "3.000", "5.000"] }
         ]
     };
 
@@ -716,18 +710,18 @@ document.addEventListener('DOMContentLoaded', () => {
     function showNotification() {
         const container = document.getElementById('social-proof-container') || createSocialProofContainer();
         
-        const name = socialProofData.names[Math.floor(Math.random() * socialProofData.names.length)];
+        const name    = socialProofData.names[Math.floor(Math.random() * socialProofData.names.length)];
         const service = socialProofData.services[Math.floor(Math.random() * socialProofData.services.length)];
-        const amount = service.amounts[Math.floor(Math.random() * service.amounts.length)];
-        const time = Math.floor(Math.random() * 55) + 2; // 2 a 57 minutos
+        const amount  = service.amounts[Math.floor(Math.random() * service.amounts.length)];
+        const time    = Math.floor(Math.random() * 55) + 2; // 2 a 57 minutos
 
         const html = `
             <div class="social-notification">
                 <div class="social-avatar">${name[0]}</div>
                 <div class="social-content">
-                    <strong>${name}</strong> acaba de encomendar<br>
-                    <strong>${amount} ${service.type}</strong> no ${service.platform}.
-                    <span class="social-time">${time} minutos atrás</span>
+                    <strong>${name}</strong> comprou<br>
+                    <strong>${amount} seguidores no ${service.platform}</strong>
+                    <span class="social-time">${time} min atrás</span>
                 </div>
             </div>
         `;
@@ -743,6 +737,7 @@ document.addEventListener('DOMContentLoaded', () => {
             notification.classList.remove('show');
         }, 6000);
     }
+
 
     // Start cycling every 25 seconds
     setInterval(showNotification, 25000);
