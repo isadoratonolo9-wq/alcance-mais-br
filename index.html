@@ -44,7 +44,7 @@
                         <img src="https://i.pravatar.cc/100?img=11" alt="User 4">
                     </div>
                     <div class="proof-text">
-                        <div class="proof-count">+10.000 de Clientes Satisfeitos</div>
+                        <div class="proof-count">+20.000 de Clientes Satisfeitos</div>
                         <div class="proof-rating">
                             <span class="stars">⭐⭐⭐⭐⭐</span>
                             <span class="rating-desc">4.8 de 5 (2.613 Avaliações)</span>
@@ -55,17 +55,10 @@
                 <h1 class="headline">Deixe seu perfil relevante em minutos com mais <span class="highlight">seguidores</span> e <span class="highlight">curtidas</span></h1>
                 <p class="subheadline">Receba seguidores brasileiros, reais e relevantes com entrega automática e reposição garantida.</p>
                 
-                <div class="cta-wrapper reveal delay-1">
+                <div class="cta-wrapper reveal delay-1" style="align-items:center;">
                     <a href="#evidencia" class="btn-cta-hero">Começar agora 🚀</a>
                     <p class="cta-micro-details">✔ Sem senha • ✔ Entrega automática • ✔ 100% seguro</p>
                 </div>
-            </div>
-            
-            <div class="hero-image-wrapper reveal delay-2">
-                <div class="floating-element float-1">❤️</div>
-                <div class="floating-element float-2">💬</div>
-                <div class="floating-element float-3">+10k</div>
-                <img src="hero_image.png" alt="Pessoa alegre usando celular ganhando curtidas" class="hero-image">
             </div>
         </div>
     </section>
@@ -178,63 +171,64 @@
                 </div>
 
             <!-- Card Monte seu pedido -->
-            <div class="monte-pedido-card">
-                <h3 class="manual-order-title">OU MONTE SEU PEDIDO</h3>
+            <div class="monte-pedido-card monte-pedido-premium">
+                <div class="monte-pedido-badge">⭐ Mais Escolhido</div>
+                <h3 class="manual-order-title-premium">Monte seu pedido</h3>
+                <p class="manual-order-subtitle-premium">Personalize exatamente o que você precisa</p>
                 
-                <div class="card-profile-input" style="margin-bottom: 2rem;">
-                    <div class="input-wrap highlighted-input-wrap">
-                        <span class="at-symbol">@</span>
-                        <input type="text" id="order-username" placeholder="seu_perfil_aqui" class="header-input form-glow">
+                <div class="card-profile-input" style="margin-bottom: 1.5rem;">
+                    <div class="input-wrap highlighted-input-wrap-dark">
+                        <span class="at-symbol-dark">@</span>
+                        <input type="text" id="order-username" placeholder="seu_perfil_aqui" class="header-input-dark form-glow">
                     </div>
-                    <p style="font-size:0.75rem; color:var(--text-muted); margin-top:0.5rem; font-weight:600;">Onde vamos entregar seus seguidores?</p>
+                    <p style="font-size:0.75rem; color:rgba(255,255,255,0.45); margin-top:0.5rem; font-weight:600;">Onde vamos entregar seus seguidores?</p>
                 </div>
-                <p class="card-desc">Personalize seu pacote e escolha os serviços que mais combinam com suas necessidades no Instagram.</p>
                 
                 <div class="sliders-wrapper">
                     <!-- Slider 1 -->
                     <div class="slider-group">
                         <div class="slider-info">
-                            <span class="slider-label" id="label-seguidores">100 seguidores</span>
-                            <span class="slider-price highlight-price" id="price-seguidores">R$ 5,90</span>
+                            <span class="slider-label slider-label-dark" id="label-seguidores">100 seguidores</span>
+                            <span class="slider-price slider-price-dark" id="price-seguidores">R$ 5,90</span>
                         </div>
                         <div class="slider-control">
-                            <input type="range" id="range-seguidores" class="custom-slider" min="0" max="5" value="0">
+                            <input type="range" id="range-seguidores" class="custom-slider custom-slider-teal" min="0" max="5" value="0">
                         </div>
                     </div>
 
                     <!-- Slider 2 -->
                     <div class="slider-group">
                         <div class="slider-info">
-                            <span class="slider-label" id="label-curtidas">0 curtidas</span>
-                            <span class="slider-price highlight-price" id="price-curtidas">R$ 0,00</span>
+                            <span class="slider-label slider-label-dark" id="label-curtidas">0 curtidas</span>
+                            <span class="slider-price slider-price-dark" id="price-curtidas">R$ 0,00</span>
                         </div>
                         <div class="slider-control">
-                            <input type="range" id="range-curtidas" class="custom-slider" min="0" max="4" value="0">
+                            <input type="range" id="range-curtidas" class="custom-slider custom-slider-teal" min="0" max="4" value="0">
                         </div>
                     </div>
 
                     <!-- Slider 3 -->
                     <div class="slider-group">
                         <div class="slider-info">
-                            <span class="slider-label" id="label-views">0 views</span>
-                            <span class="slider-price highlight-price" id="price-views">R$ 0,00</span>
+                            <span class="slider-label slider-label-dark" id="label-views">0 views</span>
+                            <span class="slider-price slider-price-dark" id="price-views">R$ 0,00</span>
                         </div>
                         <div class="slider-control">
-                            <input type="range" id="range-views" class="custom-slider" min="0" max="4" value="0">
+                            <input type="range" id="range-views" class="custom-slider custom-slider-teal" min="0" max="4" value="0">
                         </div>
                     </div>
                 </div>
 
                 <!-- Footer do card -->
-                <div class="card-footer-row">
-                    <span class="total-label-text">Total</span>
+                <div class="card-footer-row card-footer-dark">
+                    <span class="total-label-text" style="color:rgba(255,255,255,0.7);">Total</span>
                     <div class="total-prices">
                         <span class="total-old" id="bottom-old-price">R$ 8,85</span>
-                        <span class="total-current" id="bottom-current-price">R$ 5,90</span>
+                        <span class="total-current" style="color:#10f4b0;" id="bottom-current-price">R$ 5,90</span>
                     </div>
                 </div>
                 
-                <button class="btn btn-primary btn-block btn-avancar" id="btn-avancar">Avançar &rarr;</button>
+                <button class="btn btn-block btn-avancar-premium" id="btn-avancar">Montar meu pacote &rarr;</button>
 
             </div>
             </div> <!-- close calculator-setup -->

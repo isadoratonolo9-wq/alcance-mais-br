@@ -247,31 +247,28 @@ document.addEventListener('DOMContentLoaded', () => {
     window.changePlatform = function(platform) {
         activePlatform = platform;
         
-        // Reset sliders to 0 or 1 depending on preference. Let's reset to 0 to be safe.
+        // Reset sliders
         rSeg.value = 0;
         rCur.value = 0;
         rView.value = 0;
         
-        const promoInsta = document.getElementById('promo-instagram');
+        const promoInsta  = document.getElementById('promo-instagram');
         const promoTiktok = document.getElementById('promo-tiktok');
 
         if (platform === 'instagram') {
-            if(promoInsta) promoInsta.style.display = 'block';
+            if(promoInsta)  promoInsta.style.display  = 'block';
             if(promoTiktok) promoTiktok.style.display = 'none';
+            // Rola direto para a oferta de primeira compra do Instagram
+            setTimeout(() => promoInsta && promoInsta.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
         } else {
-            if(promoInsta) promoInsta.style.display = 'none';
+            if(promoInsta)  promoInsta.style.display  = 'none';
             if(promoTiktok) promoTiktok.style.display = 'block';
+            // Rola direto para a oferta de primeira compra do TikTok
+            setTimeout(() => promoTiktok && promoTiktok.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
         }
         
         if(window.feather) { feather.replace(); }
-        
         updateCart();
-        
-        // Smooth scroll to section and focus input
-        document.getElementById('custom-order').scrollIntoView({ behavior: 'smooth' });
-        setTimeout(() => {
-            document.getElementById('order-username').focus();
-        }, 500);
     }
 
     /* --- Scroll Reveal Logic --- */
