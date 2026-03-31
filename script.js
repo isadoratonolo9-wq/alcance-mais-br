@@ -159,6 +159,9 @@ document.addEventListener('DOMContentLoaded', () => {
         activePlatform = platform;
         activeService = null;
         
+        // Update data attribute for CSS themes
+        document.documentElement.setAttribute('data-platform', platform);
+
         // UI Highlights
         document.querySelectorAll('.social-pill').forEach(p => p.classList.remove('pill-featured'));
         const activePill = document.querySelector(`.pill-${platform}`);
@@ -188,21 +191,23 @@ document.addEventListener('DOMContentLoaded', () => {
         grid.innerHTML = '';
 
         const services = [
-            { id: 'seguidores', label: 'Seguidores', icon: 'user-plus' },
-            { id: 'curtidas', label: 'Curtidas', icon: 'heart' }
+            { id: 'seguidores', label: 'Seguidores', icon: '🚀', subtitle: '(aumente sua credibilidade)' },
+            { id: 'curtidas', label: 'Curtidas', icon: '❤️', subtitle: '(mais engajamento)' }
         ];
 
         if (activePlatform === 'tiktok') {
-            services.push({ id: 'views', label: 'Visualizações', icon: 'eye' });
+            services.push({ id: 'views', label: 'Views', icon: '👀', subtitle: '(viralize agora)' });
         }
 
         services.forEach(s => {
             const card = document.createElement('div');
-            card.className = 'service-card ripple';
+            card.className = `service-card serv-${s.id} ripple`;
+            if (activeService === s.id) card.classList.add('active');
+            
             card.onclick = () => selectService(s.id);
             card.innerHTML = `
-                <div class="s-icon"><i data-feather="${s.icon}"></i></div>
-                <h4>${s.label}</h4>
+                <h4>${s.icon} ${s.label}</h4>
+                <div class="service-subtitle">${s.subtitle}</div>
             `;
             grid.appendChild(card);
         });
@@ -233,64 +238,179 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderPackages() {
-        const grid = document.getElementById('package-grid');
-        if (!grid) return;
-        grid.innerHTML = '';
+        const heroContainer = document.getElementById('package-hero');
+        const gridContainer = document.getElementById('package-grid');
+        const othersContainer = document.getElementById('package-others');
 
-        const data = pricingData[activePlatform][activeService];
+        if (!heroContainer || !gridContainer || !othersContainer) return;
+
+        heroContainer.innerHTML = '';
+        gridContainer.innerHTML = '';
+        othersContainer.innerHTML = '';
+
+        const allData = pricingData[activePlatform][activeService];
         
-        // Se for seguidores, injetamos a oferta especial como primeiro item
+        // Helper function for safe parsing
+        const parseQty = (label) => parseInt(label.replace(/\D/g, ''));
+
+        // --- 1. HERO OFFER (1300 for 1000) ---
+        const price1kItem = allData.find(p => parseQty(p.label) === 1000);
+        const price1k = price1kItem ? price1kItem.price : 0;
+        const old1k = price1kItem ? price1kItem.old : 0;
+
+        const heroPkg = {
+            label: "1.300",
+            price: price1k,
+            old: old1k,
+            title: "🔥 Oferta de Primeira Compra",
+            subtitle: `Pague por 1.000 ${activeService} e receba 1.300 automaticamente`,
+            features: [
+                `${activeService.charAt(0).toUpperCase() + activeService.slice(1)} brasileiros reais`,
+                `+300 ${activeService} bônus grátis`,
+                "Entrega automática e gradual",
+                "Reposição garantida"
+            ],
+            btnText: "Começar com esse pacote 🚀",
+            hero: true
+        };
+        heroContainer.appendChild(createPackageCard(heroPkg));
+
+        // --- 2. MAIN GRID (Starter, Boost, Pro, Premium) ---
+        let mainGridItems = [];
         if (activeService === 'seguidores') {
-            const promo = {
-                label: "1.300",
-                price: activePlatform === 'instagram' ? 39.90 : 57.90,
-                old: activePlatform === 'instagram' ? 59.85 : 86.85,
-                tag: "OFERTA DISPONÍVEL",
-                featured: true,
-                desc: "Oferta de Primeira Compra"
-            };
-            grid.appendChild(createPackageCard(promo));
+            mainGridItems = [
+                { qty: 500, type: 'Starter', desc: 'Ideal para começar a crescer' },
+                { qty: 1000, type: 'Boost', desc: 'Mais visibilidade no perfil', featured: true, badge: 'MAIS ESCOLHIDO' },
+                { qty: 3000, type: 'Pro', desc: 'Crescimento acelerado' },
+                { qty: 5000, type: 'Premium', desc: 'Máximo impacto no perfil' }
+            ];
+        } else if (activeService === 'curtidas') {
+            mainGridItems = [
+                { qty: 1000, type: 'Starter', desc: 'Ideal para engajamento inicial' },
+                { qty: 3000, type: 'Boost', desc: 'Mais destaque no algoritmo', featured: true, badge: 'MAIS ESCOLHIDO' },
+                { qty: 5000, type: 'Pro', desc: 'Alto engajamento nos posts' },
+                { qty: 10000, type: 'Premium', desc: 'Máximo impacto nos posts' }
+            ];
+        } else {
+            // Fallback para Views ou outros
+            mainGridItems = [
+                { qty: 1000, type: 'Starter', desc: 'Ideal para começar' },
+                { qty: 5000, type: 'Boost', desc: 'Destaque garantido', featured: true, badge: 'MAIS ESCOLHIDO' },
+                { qty: 10000, type: 'Pro', desc: 'Perfil relevante' },
+                { qty: 20000, type: 'Premium', desc: 'Impacto total' }
+            ];
         }
 
-        // Renderizamos os outros pacotes do pricingData (filtrando o '0')
-        data.forEach((pkg, index) => {
-            if (pkg.price === 0) return;
-            // Para não duplicar o de 1000 se já for o da promo
-            if (activeService === 'seguidores' && pkg.label.includes("1.000")) return;
-            
-            grid.appendChild(createPackageCard({
-                label: pkg.label.split(' ')[0],
-                price: pkg.price,
-                old: pkg.old,
-                tag: pkg.confetti ? "MAIS VENDIDO" : null,
-                featured: pkg.confetti || false,
-                desc: pkg.label.split(' ')[1] || activeService
-            }));
+        mainGridItems.forEach(item => {
+            const pkgData = allData.find(p => parseQty(p.label) === item.qty);
+            if (pkgData) {
+                gridContainer.appendChild(createPackageCard({
+                    label: pkgData.label.split(' ')[0],
+                    price: pkgData.price,
+                    old: pkgData.old,
+                    type: item.type,
+                    desc: item.desc,
+                    featured: item.featured,
+                    tag: item.badge,
+                    features: [
+                        item.desc,
+                        activeService === 'curtidas' ? "Aumenta a relevância" : "Entrega rápida e segura",
+                        "Reposição garantida"
+                    ],
+                    btnText: item.type === 'Boost' ? "Quero esse 🚀" : "Começar agora 🚀"
+                }));
+            }
         });
+
+        // --- 3. OTHER OPTIONS (Lista Simples) ---
+        const usedQtys = [1300, ...mainGridItems.map(i => i.qty)];
+        const others = allData.filter(p => p.price > 0 && !usedQtys.includes(parseQty(p.label)));
+
+        if (others.length > 0) {
+            const othersWrap = document.createElement('div');
+            othersWrap.className = 'others-section-inner';
+            othersWrap.innerHTML = `
+                <h4 class="package-others-title">Outras quantidades disponíveis:</h4>
+                <div class="others-list"></div>
+            `;
+            const list = othersWrap.querySelector('.others-list');
+            others.forEach(p => {
+                const btn = document.createElement('div');
+                btn.className = 'other-item-btn';
+                btn.innerText = p.label;
+                btn.onclick = () => buyPackage(p.label, p.price);
+                list.appendChild(btn);
+            });
+            othersContainer.appendChild(othersWrap);
+        }
     }
 
     function createPackageCard(pkg) {
         const card = document.createElement('div');
-        card.className = `package-card ${pkg.featured ? 'featured' : ''} reveal active`;
+        // Card Hero mantém o tema dark, outros usam o novo tema light
+        card.className = `package-card ${pkg.hero ? 'hero' : 'light-theme'} ${pkg.featured ? 'featured' : ''} reveal active`;
         
-        card.innerHTML = `
-            ${pkg.tag ? `<div class="package-badge">${pkg.tag}</div>` : ''}
-            <div class="package-qty">${pkg.label}</div>
-            <div class="package-label">${pkg.desc}</div>
-            
-            <div class="package-price-box">
-                ${pkg.old > pkg.price ? `<span class="package-old-price">de R$ ${pkg.old.toFixed(2).replace('.', ',')}</span>` : ''}
-                <div class="package-current-price"><span>R$</span> ${pkg.price.toFixed(2).split('.')[0]}<span>,${pkg.price.toFixed(2).split('.')[1]}</span></div>
-            </div>
+        if (pkg.hero) {
+            const iconHtml = activePlatform === 'instagram' 
+                ? `
+                <div class="promo-premium-icon">
+                    <div class="insta-logo-3d">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    </div>
+                </div>` 
+                : `
+                <div class="promo-premium-icon">
+                    <div class="tiktok-logo-3d">
+                        <svg viewBox="0 0 24 24" fill="white"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
+                    </div>
+                </div>`;
 
-            <button class="btn-package" onclick="buyPackage('${pkg.label}', ${pkg.price})">Eu Quero Agora! 🚀</button>
+            card.innerHTML = `
+                <div class="package-hero-badge">Oferta de Primeira Compra</div>
+                <div class="hero-icon-container">
+                    ${iconHtml}
+                </div>
+                <div class="package-qty">1.300 ${activeService}</div>
+                <div class="package-subtitle">pelo preço de 1.000</div>
+                
+                <div class="package-price-box">
+                    <div class="package-old-price">de R$ ${pkg.old.toFixed(2).replace('.', ',')}</div>
+                    <div class="package-current-price"><span>R$</span> ${pkg.price.toFixed(2).split('.')[0]}<span>,${pkg.price.toFixed(2).split('.')[1]}</span></div>
+                </div>
 
-            <div class="package-features">
-                <div class="feature-item"><i data-feather="check-circle"></i> <span>Entrega automática</span></div>
-                <div class="feature-item"><i data-feather="check-circle"></i> <span>Reposição garantida</span></div>
-                <div class="feature-item"><i data-feather="check-circle"></i> <span>Sem senha necessária</span></div>
-            </div>
-        `;
+                <button class="btn-package" onclick="buyPackage('1.300 ${activeService}', ${pkg.price})">COMPRAR AGORA</button>
+                
+                <div style="margin-top: 1.5rem; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 0.9rem; opacity: 0.6; color: white;">
+                    <i data-feather="shopping-cart" style="width: 16px;"></i> <span>402 vendas realizadas hoje</span>
+                </div>
+            `;
+        } else {
+            const badgeHTML = pkg.featured ? `<div class="package-lightning-badge">⚡ MAIS VENDIDO ⚡</div>` : '';
+            card.innerHTML = `
+                ${badgeHTML}
+                <div class="package-type-badge">${pkg.type}</div>
+                
+                <div class="package-card-body" style="text-align: center; margin-top: 1rem;">
+                    <div class="package-qty">${pkg.label}</div>
+                    <div class="package-label">${activeService}</div>
+                    
+                    <div class="package-price-box" style="margin: 1.5rem 0;">
+                        ${pkg.old > pkg.price ? `<div class="package-old-price">de R$ ${pkg.old.toFixed(2).replace('.', ',')}</div>` : ''}
+                        <div class="package-current-price"><span>R$</span> ${pkg.price.toFixed(2).split('.')[0]}<span>,${pkg.price.toFixed(2).split('.')[1]}</span></div>
+                    </div>
+
+                    <div class="package-features" style="margin-bottom: 2rem;">
+                        ${pkg.features.map(f => `<div class="feature-item"><i data-feather="check-circle"></i> <span>${f}</span></div>`).join('')}
+                    </div>
+
+                    <button class="btn-package" onclick="buyPackage('${pkg.label} ${activeService}', ${pkg.price})">Começar agora 🚀</button>
+                    
+                    <div style="margin-top: 1.5rem; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.8rem; opacity: 0.5;">
+                        <i data-feather="shield" style="width: 14px; height: 14px;"></i> <span>Compra 100% Segura</span>
+                    </div>
+                </div>
+            `;
+        }
         
         feather.replace();
         return card;
@@ -302,7 +422,8 @@ document.addEventListener('DOMContentLoaded', () => {
         message += `🛒 *ÍTENS ESCOLHIDOS:* \n`;
         message += `- ${label} ${activeService} no ${activePlatform}\n`;
         message += `💰 *VALOR TOTAL:* R$ ${price.toFixed(2).replace('.', ',')}\n`;
-        message += `💳 *FORMA DE PAGAMENTO:* PIX`;
+        message += `💳 *FORMA DE PAGAMENTO:* PIX\n\n`;
+        message += `Aguardo instruções para pagamento!`;
 
         const whatsappURL = `https://wa.me/5544997162210?text=${encodeURIComponent(message)}`;
         window.open(whatsappURL, '_blank');
