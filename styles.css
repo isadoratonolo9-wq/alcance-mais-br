@@ -2915,35 +2915,27 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 /* Card Input & Button Redesign (3D Premium) */
 .card-input-wrapper {
     width: 100%;
-    max-height: 0;
+    display: none; /* Escondido totalmente por padrão */
     opacity: 0;
-    overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    margin-bottom: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    margin-bottom: 1rem;
 }
 
 .card-input-wrapper.active {
-    max-height: 120px;
+    display: block;
     opacity: 1;
-    margin-bottom: 2rem;
-    margin-top: 1rem;
+    transform: translateY(0);
 }
 
 .card-input-container {
     position: relative;
     display: flex;
     align-items: center;
-    background: rgba(255, 255, 255, 0.03) !important;
-    border: 2px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.4) !important; /* Fundo escuro fixo */
+    border: 2px solid rgba(255, 255, 255, 0.15);
     border-radius: 12px;
     padding: 0 1rem;
-    transition: all 0.3s ease;
-}
-
-.card-input-container:focus-within {
-    border-color: #f9ce34;
-    box-shadow: 0 0 15px rgba(249, 206, 52, 0.3);
-    background: rgba(255, 255, 255, 0.08) !important;
 }
 
 .card-input-field {
@@ -2951,25 +2943,29 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     background: transparent !important;
     border: none !important;
     outline: none !important;
-    color: #fff !important;
+    color: #ffffff !important; /* Texto branco */
     font-weight: 600;
     font-size: 1rem;
     padding: 0.85rem 0;
     text-align: center;
     box-shadow: none !important;
-    -webkit-appearance: none;
-    appearance: none;
 }
 
-.card-input-field::placeholder {
-    color: #475569;
+/* Forçar remoção de estilos de autofill do navegador que deixam branco */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: white !important;
+  -webkit-box-shadow: 0 0 0px 1000px #0d0d0d inset !important;
+  transition: background-color 5000s ease-in-out 0s;
 }
 
 .card-btn-buy {
     position: relative;
+    z-index: 10;
     width: 100%;
-    background: linear-gradient(to bottom, #f9ce34, #ee9617);
-    color: #000;
+    background: linear-gradient(to bottom, #f9ce34, #ee9617) !important;
+    color: #000 !important;
     font-weight: 900;
     font-size: 1.3rem;
     padding: 1.15rem;
@@ -2977,12 +2973,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     border: none;
     cursor: pointer;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    
-    /* 3D Effect */
-    box-shadow: 0 6px 0 #b47d0b, 0 12px 20px rgba(0,0,0,0.3);
+    box-shadow: 0 6px 0 #b47d0b;
     transform: translateY(-4px);
-    transition: all 0.15s ease;
+    transition: all 0.1s ease;
 }
 
 .card-btn-buy:hover {

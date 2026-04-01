@@ -276,19 +276,21 @@ document.addEventListener('DOMContentLoaded', () => {
         card.innerHTML = `
             <div style="display:flex;flex-direction:column;align-items:center;">
                 ${logoHtml}
+                <!-- CONTEUDO DO CARD (PRECO E INFOS) -->
                 <h2 style="font-size:2rem;font-weight:900;margin:0 0 0.4rem;letter-spacing:-1px;">${pkg.label} <span style="font-size:1rem;color:#94a3b8;text-transform:uppercase;">${pkg.serviceText}</span></h2>
                 <div style="font-size:0.85rem;color:#94a3b8;font-weight:600;margin-bottom:1.25rem;">⚡ ${pkg.subtitle}</div>
 
                 <div style="font-size:3.5rem;font-weight:950;color:#fff;line-height:1;letter-spacing:-2px;margin-bottom:0.4rem;">R$ ${pkg.price.toFixed(2).replace('.', ',')}</div>
                 <div style="font-size:0.82rem;color:#64748b;margin-bottom:1.5rem;">de <span style="text-decoration:line-through;">R$ ${pkg.old.toFixed(2).replace('.', ',')}</span> por <span style="color:#10b981;font-weight:800;">R$ ${pkg.price.toFixed(2).replace('.', ',')}</span></div>
 
-                <!-- CAMPO DE USUARIO NO CARD -->
-                <div class="card-input-wrapper" style="margin-top: 1rem;">
-                    <div class="card-input-container" id="container-${inputId}">
-                        <input type="text" class="card-input-field" id="${inputId}" placeholder="Seu @usuário ou link" required>
+                <!-- CAMPO DE USUARIO (SÓ APARECE NO CLIQUE) -->
+                <div class="card-input-wrapper">
+                    <div class="card-input-container" id="container-${inputId}" style="background: rgba(0,0,0,0.6) !important; border: 1px solid rgba(255,255,255,0.2);">
+                        <input type="text" class="card-input-field" id="${inputId}" placeholder="Seu @usuário ou link" style="background:transparent !important; color: white !important;">
                     </div>
                 </div>
 
+                <!-- BOTAO SEMPRE VISIVEL -->
                 <button class="card-btn-buy" onclick="processPurchase('${inputId}', '${pkg.label} ${pkg.serviceText}', ${pkg.price})">
                     COMPRAR AGORA
                 </button>
