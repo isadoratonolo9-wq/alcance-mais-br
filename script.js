@@ -345,7 +345,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Populate Bump Fields (+x por apenas y)
         const discountPrice = price * 0.8; // 20% discount on the duplicate bump item
-        document.getElementById('bump-title-text').textContent = `Adicione +${label.toLowerCase()} por apenas ${formatMoney(discountPrice)}`;
+        document.getElementById('bump-title-text').textContent = `Adicione +${label.toLowerCase()} por apenas`;
         document.getElementById('bump-price-current').textContent = formatMoney(discountPrice);
         document.getElementById('bump-price-old').textContent = `De ${formatMoney(price)}`;
         document.getElementById('bump-discount-percent').textContent = `ECONOMIZE 20%`;

@@ -197,7 +197,7 @@
                 <!-- Order Bump Card -->
                 <div class="order-bump-premium" id="order-bump-card">
                     <div class="bump-header-badge">
-                        <span class="badge-text"><i data-feather="check"></i> MAIS VENDIDO</span>
+                        <span class="badge-text" style="display: flex; align-items: center; gap: 6px; letter-spacing: 0.5px;">🔥 MAIS VENDIDO</span>
                     </div>
                     
                     <label class="bump-checkbox-wrapper" for="chk-order-bump">
@@ -207,11 +207,13 @@
                         </div>
                         <div class="bump-offer-text">
                             <span class="offer-header"><i data-feather="mail"></i> OFERTA EXCLUSIVA!</span>
-                            <h4 id="bump-title-text">Adicione mais agora com desconto</h4>
-                            <div class="bump-prices">
-                                <span class="price-current" id="bump-price-current">R$ 0,00</span>
-                                <span class="price-old" id="bump-price-old">De R$ 0,00</span>
-                                <span class="discount-pill" id="bump-discount-percent">ECONOMIZE 20%</span>
+                            <h4 id="bump-title-text" style="font-size: 1.15rem; font-weight: 600; line-height: 1.4; color: #f8fafc; margin-bottom: 12px; max-width: 90%;">Adicione mais agora com desconto</h4>
+                            <div class="bump-prices" style="display: flex; flex-direction: column; align-items: flex-start; gap: 10px; margin-bottom: 16px;">
+                                <span class="price-current" id="bump-price-current" style="font-size: 1.6rem; font-weight: 800; color: #fff; line-height: 1;">R$ 0,00</span>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <span class="price-old" id="bump-price-old" style="font-size: 0.95rem; color: #64748b; text-decoration: line-through; font-weight: 500;">De R$ 0,00</span>
+                                    <span class="discount-pill" id="bump-discount-percent" style="background: #ef4444; color: white; padding: 4px 10px; font-size: 0.75rem; font-weight: 800; border-radius: 99px;">ECONOMIZE 20%</span>
+                                </div>
                             </div>
                             
                             <div class="bump-scarcity-row">
