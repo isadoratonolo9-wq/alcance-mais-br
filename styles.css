@@ -2912,6 +2912,86 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     }
 }
 
+/* Card Input Field Stylization */
+.card-input-wrapper {
+    width: 100%;
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.card-input-label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: #64748b;
+    margin-bottom: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.card-input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    padding: 0 1.25rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-input-container:focus-within {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--accent-hover, #f9ce34);
+    box-shadow: 0 0 20px rgba(249, 206, 52, 0.2);
+}
+
+.card-input-icon {
+    color: #64748b;
+    margin-right: 0.75rem;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+}
+
+.card-input-field {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 1rem 0;
+    font-family: inherit;
+}
+
+.card-input-field::placeholder {
+    color: #475569;
+    font-weight: 500;
+}
+
+/* Error State */
+.card-input-container.error {
+    border-color: #ef4444 !important;
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.3) !important;
+    animation: fieldShake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes fieldShake {
+    10%, 90% { transform: translate3d(-1px, 0, 0); }
+    20%, 80% { transform: translate3d(2px, 0, 0); }
+    30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+    40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
+/* Modal and old checkout styles removal placeholder (if any left) */
+.checkout-modal-overlay, .modal-card, .modal-header-premium { display: none !important; }
+
+@media (max-width: 1024px) {
+    .hero-scroll-btn { display: none; }
+}
+
 /* =========================================
    HERO SCROLL BUTTON
 ========================================= */
@@ -2946,5 +3026,4 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     0%, 100% { transform: translateX(-50%) translateY(0); }
     50% { transform: translateX(-50%) translateY(8px); }
 }
-
 }

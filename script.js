@@ -206,34 +206,35 @@ document.addEventListener('DOMContentLoaded', () => {
     function createPackageCard(pkg) {
         const isHero = !!pkg.hero;
         const isFeatured = !!pkg.featured;
-        const neonColor = activePlatform === 'instagram' ? '#00ff88' : '#00f2ea';
+        const neonColor = activePlatform === 'instagram' ? '#ee2a7b' : '#00f2ea';
         const borderColor = isHero ? '#f9ce34' : neonColor;
-        const glowColor = isHero ? 'rgba(249,206,52,0.3)' : (activePlatform === 'instagram' ? 'rgba(0,255,136,0.25)' : 'rgba(0,242,234,0.25)');
+        const glowColor = isHero ? 'rgba(249,206,52,0.3)' : (activePlatform === 'instagram' ? 'rgba(238,42,123,0.25)' : 'rgba(0,242,234,0.25)');
 
         const viewsCount = Math.floor(Math.random() * (5000 - 3000) + 3000);
         const salesCount = Math.floor(Math.random() * (450 - 350) + 350);
 
-        // Logo inline
+        // Identificador unico para o input deste card
+        const inputId = `user-${pkg.label.replace(/\D/g, '')}-${pkg.serviceText}`;
+
         const logoHtml = activePlatform === 'instagram'
-            ? `<div style="width:90px;height:90px;border-radius:22px;background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285AEB 90%);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;box-shadow:0 8px 20px rgba(0,0,0,0.5);">
-                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="46" height="46"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            ? `<div style="width:70px;height:70px;border-radius:18px;background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285AEB 90%);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;box-shadow:0 8px 20px rgba(0,0,0,0.5);">
+                <i data-feather="instagram" style="color:white;width:34px;height:34px;"></i>
               </div>`
-            : `<div style="width:90px;height:90px;border-radius:22px;background:#111;border:2px solid rgba(0,242,234,0.4);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;box-shadow:0 8px 20px rgba(0,0,0,0.5);">
-                <svg viewBox="0 0 24 24" fill="white" width="46" height="46"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9a8.2 8.2 0 0 0 4.79 1.52V7.07a4.85 4.85 0 0 1-1.02-.38z"/></svg>
+            : `<div style="width:70px;height:70px;border-radius:18px;background:#111;border:2px solid rgba(0,242,234,0.4);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;box-shadow:0 8px 20px rgba(0,0,0,0.5);">
+                <svg viewBox="0 0 24 24" fill="white" width="34" height="34"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9a8.2 8.2 0 0 0 4.79 1.52V7.07a4.85 4.85 0 0 1-1.02-.38z"/></svg>
               </div>`;
 
-        // WRAPPER: tem overflow:visible e padding-top para o badge flutuar acima sem ser cortado
         const wrapper = document.createElement('div');
+        wrapper.className = 'package-card-wrapper';
         wrapper.style.cssText = `
             position:relative;
             padding-top:${(isHero || isFeatured) ? '22px' : '0'};
             max-width:${isHero ? '480px' : '290px'};
-            margin:${isHero ? '0 auto' : '0 auto'};
+            margin:0 auto;
             width:100%;
             overflow:visible;
         `;
 
-        // Badge: fica no wrapper, nao no card — escapa de qualquer overflow do card
         if (isHero || isFeatured) {
             const badge = document.createElement('div');
             badge.style.cssText = `
@@ -252,258 +253,79 @@ document.addEventListener('DOMContentLoaded', () => {
                 white-space:nowrap;
                 z-index:100;
                 box-shadow:0 5px 15px rgba(249,206,52,0.4);
-                font-family:inherit;
             `;
             badge.textContent = `⚡ ${pkg.tag || 'OFERTA RELÂMPAGO'} ⚡`;
             wrapper.appendChild(badge);
         }
 
-        // Card
         const card = document.createElement('div');
+        card.className = 'package-card-premium';
         card.style.cssText = `
             position:relative;
             background:#0d0d0d;
             border-radius:28px;
             border:2.5px solid ${borderColor};
             box-shadow:0 0 35px ${glowColor}, 0 15px 40px rgba(0,0,0,0.4);
-            padding:${isHero ? '3rem 2.5rem 2.5rem' : '2.5rem 1.75rem 2rem'};
+            padding:${isHero ? '3rem 2.5rem 2.5rem' : '2rem 1.75rem 2rem'};
             text-align:center;
             color:#fff;
             width:100%;
-            box-sizing:border-box;
-            transition:transform 0.3s ease, box-shadow 0.3s ease;
+            transition:transform 0.3s ease;
         `;
-
-        card.onmouseenter = () => {
-            card.style.transform = 'translateY(-6px)';
-            card.style.boxShadow = `0 0 50px ${glowColor}, 0 20px 50px rgba(0,0,0,0.5)`;
-        };
-        card.onmouseleave = () => {
-            card.style.transform = 'translateY(0)';
-            card.style.boxShadow = `0 0 35px ${glowColor}, 0 15px 40px rgba(0,0,0,0.4)`;
-        };
 
         card.innerHTML = `
             <div style="display:flex;flex-direction:column;align-items:center;">
                 ${logoHtml}
-                <h2 style="font-size:${isHero ? '2.8rem' : '2.2rem'};font-weight:900;color:#fff;margin:0 0 0.4rem;letter-spacing:-1px;line-height:1;font-family:inherit;">${pkg.label} <span style="font-size:${isHero ? '1.4rem' : '1.1rem'};font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:2px;">${pkg.serviceText}</span></h2>
-                <div style="font-size:0.95rem;color:#94a3b8;font-weight:600;margin-bottom:1.25rem;font-family:inherit;">⚡ ${pkg.subtitle}</div>
+                <h2 style="font-size:2rem;font-weight:900;margin:0 0 0.4rem;letter-spacing:-1px;">${pkg.label} <span style="font-size:1rem;color:#94a3b8;text-transform:uppercase;">${pkg.serviceText}</span></h2>
+                <div style="font-size:0.85rem;color:#94a3b8;font-weight:600;margin-bottom:1.25rem;">⚡ ${pkg.subtitle}</div>
 
-                <div style="display:inline-flex;align-items:center;gap:0.5rem;background:rgba(239,68,68,0.12);color:#ef4444;padding:0.4rem 1.1rem;border-radius:99px;font-size:0.82rem;font-weight:800;margin-bottom:1.5rem;border:1px solid rgba(239,68,68,0.2);font-family:inherit;">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                    ${viewsCount} visualizações
+                <div style="font-size:3.5rem;font-weight:950;color:#fff;line-height:1;letter-spacing:-2px;margin-bottom:0.4rem;">R$ ${pkg.price.toFixed(2).replace('.', ',')}</div>
+                <div style="font-size:0.82rem;color:#64748b;margin-bottom:1.5rem;">de <span style="text-decoration:line-through;">R$ ${pkg.old.toFixed(2).replace('.', ',')}</span> por <span style="color:#10b981;font-weight:800;">R$ ${pkg.price.toFixed(2).replace('.', ',')}</span></div>
+
+                <!-- CAMPO DE USUARIO NO CARD -->
+                <div class="card-input-wrapper">
+                    <label class="card-input-label">Seu perfil do ${activePlatform}</label>
+                    <div class="card-input-container" id="container-${inputId}">
+                        <div class="card-input-icon">
+                            <i data-feather="${activePlatform === 'instagram' ? 'instagram' : 'user'}" style="width:18px;height:18px;"></i>
+                        </div>
+                        <input type="text" class="card-input-field" id="${inputId}" placeholder="@usuario ou link" required>
+                    </div>
                 </div>
 
-                <div style="font-size:${isHero ? '4.5rem' : '3.5rem'};font-weight:950;color:#fff;line-height:1;letter-spacing:-3px;margin-bottom:0.4rem;font-family:inherit;">R$ ${pkg.price.toFixed(2).replace('.', ',')}</div>
-                <div style="font-size:0.88rem;color:#64748b;margin-bottom:2rem;font-family:inherit;">de <span style="text-decoration:line-through;color:#f59e0b;">R$ ${pkg.old.toFixed(2).replace('.', ',')}</span> por <span style="color:#10b981;font-weight:800;">R$ ${pkg.price.toFixed(2).replace('.', ',')}</span> - Oferta exclusiva</div>
-
-                <button onclick="openCheckoutWithPackage('${pkg.label} ${pkg.serviceText}', ${pkg.price})" style="display:block;width:100%;background:#f9ce34;color:#000;padding:1.2rem;border-radius:14px;font-size:1.2rem;font-weight:900;border:none;cursor:pointer;box-shadow:0 8px 22px rgba(249,206,52,0.45);letter-spacing:0.5px;font-family:inherit;text-transform:uppercase;margin-bottom:1.25rem;">
+                <button onclick="processPurchase('${inputId}', '${pkg.label} ${pkg.serviceText}', ${pkg.price})" style="display:block;width:100%;background:#f9ce34;color:#000;padding:1.1rem;border-radius:14px;font-size:1.15rem;font-weight:900;border:none;cursor:pointer;box-shadow:0 8px 22px rgba(249,206,52,0.45);text-transform:uppercase;margin-bottom:1rem;">
                     COMPRAR AGORA
                 </button>
 
-                <div style="display:flex;align-items:center;justify-content:center;gap:0.5rem;font-size:0.88rem;font-weight:700;color:#64748b;font-family:inherit;">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-                    ${salesCount} vendas realizadas
+                <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.85rem;font-weight:700;color:#64748b;">
+                    <i data-feather="shopping-cart" style="width:14px;height:14px;"></i>
+                    ${salesCount} vendas hoje
                 </div>
             </div>
         `;
 
         wrapper.appendChild(card);
-        return wrapper; // Retorna o wrapper, nao o card diretamente
+        // Refresh icons for the newly added card
+        setTimeout(() => { if(window.feather) feather.replace(); }, 10);
+        return wrapper;
     }
 
-    document.addEventListener('change', (e) => {
-        if (e.target.id === 'chk-order-bump') {
-            const card = document.getElementById('order-bump-card');
-            if (e.target.checked) {
-                card.classList.add('active');
-                fireConfetti();
-            } else {
-                card.classList.remove('active');
-            }
-            updateCheckoutTotal();
-        }
-    });
-    let selectedPackage = { label: '', price: 0 };
+    window.processPurchase = function(inputId, label, price) {
+        const input = document.getElementById(inputId);
+        const container = document.getElementById(`container-${inputId}`);
+        const userValue = input.value.trim();
 
-    window.updateCheckoutTotal = function() {
-        const isBump = document.getElementById('chk-order-bump').checked;
-        const finalPrice = isBump ? (selectedPackage.price * 1.8) : selectedPackage.price;
-        document.getElementById('txt-price-header').textContent = formatMoney(finalPrice);
+        if (!userValue) {
+            container.classList.add('error');
+            input.focus();
+            setTimeout(() => container.classList.remove('error'), 800);
+            return;
+        }
+
+        // Por enquanto, redireciona para o WhatsApp (fallback ate ter os links da Yampi)
+        const msg = `🚀 *NOVO PEDIDO*\n\nPerfil: ${userValue}\nPacote: ${label}\nTotal: R$ ${price.toFixed(2).replace('.', ',')}`;
+        window.location.href = `https://wa.me/5544997162210?text=${encodeURIComponent(msg)}`;
     };
-
-    window.openCheckoutWithPackage = function(label, price) {
-        selectedPackage = { label, price };
-        
-        // Populate Header
-        document.getElementById('txt-qty-header').textContent = label;
-        
-        // Reset checkbox & trigger total update logic
-        const bumpCheck = document.getElementById('chk-order-bump');
-        bumpCheck.checked = false;
-        document.getElementById('order-bump-card').classList.remove('active');
-        
-        // Populate Bump Fields (+x por apenas y)
-        const discountPrice = price * 0.8; // 20% discount on the duplicate bump item
-        document.getElementById('bump-title-text').textContent = `Adicione +${label.toLowerCase()} por apenas`;
-        document.getElementById('bump-price-current').textContent = formatMoney(discountPrice);
-        document.getElementById('bump-price-old').textContent = `De ${formatMoney(price)}`;
-        document.getElementById('bump-discount-percent').textContent = `ECONOMIZE 20%`;
-
-        updateCheckoutTotal();
-
-        // Reveal the Modal
-        document.getElementById('checkout-modal-overlay').classList.add('show');
-        document.body.style.overflow = 'hidden';
-        
-        // Trigger visual engagement
-        if(window.randomizeScarcity) window.randomizeScarcity();
-        if(window.startBumpCountdown) window.startBumpCountdown();
-    };
-
-    window.resetCheckout = function() {
-        document.getElementById('checkout-modal-overlay').classList.remove('show');
-        document.body.style.overflow = '';
-    }
-
-    window.randomizeScarcity = function() {
-        const count = document.getElementById('txt-fomo-count');
-        if (count) count.textContent = Math.floor(Math.random() * 200 + 300);
-    }
-
-    let bumpTimerInterval;
-    window.startBumpCountdown = function() {
-        if (bumpTimerInterval) clearInterval(bumpTimerInterval);
-        let timeLeft = 300;
-        const display = document.getElementById('bump-countdown');
-        bumpTimerInterval = setInterval(() => {
-            let mins = Math.floor(timeLeft / 60);
-            let secs = timeLeft % 60;
-            if (display) display.textContent = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
-            if (timeLeft-- <= 0) clearInterval(bumpTimerInterval);
-        }, 1000);
-    }
-
-    const btnFechar = document.getElementById('btn-fechar-pedido');
-    if (btnFechar) {
-        btnFechar.addEventListener('click', () => {
-            const user = document.getElementById('chk-username').value;
-            if (!user) { alert('Insira seu perfil!'); return; }
-            
-            const isBump = document.getElementById('chk-order-bump').checked;
-            const total = selectedPackage.price * (isBump ? 1.8 : 1);
-
-            let msg = `🚀 *NOVO PEDIDO*\n\nPerfil: ${user}\nPacote: ${selectedPackage.label}\nOrder Bump: ${isBump ? 'Sim' : 'Não'}\nTotal: ${formatMoney(total)}`;
-            window.location.href = `https://wa.me/5544997162210?text=${encodeURIComponent(msg)}`;
-        });
-    }
-
-    /* --- Hero Particles System --- */
-    const canvas = document.getElementById('hero-particles');
-    if (canvas) {
-        const ctx = canvas.getContext('2d');
-        let width = canvas.width = window.innerWidth;
-        let height = canvas.height = document.querySelector('.hero').offsetHeight;
-
-        let particles = [];
-        const mouse = { x: null, y: null, radius: 150 };
-
-        window.addEventListener('resize', () => {
-            width = canvas.width = window.innerWidth;
-            const heroEl = document.querySelector('.hero');
-            if(heroEl) height = canvas.height = heroEl.offsetHeight;
-            initParticles();
-        });
-
-        const heroSection = document.querySelector('.hero');
-        if(heroSection) {
-            heroSection.addEventListener('mousemove', (e) => {
-                const rect = canvas.getBoundingClientRect();
-                mouse.x = e.clientX - rect.left;
-                mouse.y = e.clientY - rect.top;
-            });
-            heroSection.addEventListener('mouseleave', () => {
-                mouse.x = null;
-                mouse.y = null;
-            });
-        }
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.size = Math.random() * 2 + 1;
-                this.baseX = this.x;
-                this.baseY = this.y;
-                this.density = (Math.random() * 30) + 1;
-                this.vx = (Math.random() - 0.5) * 1.2;
-                this.vy = (Math.random() - 0.5) * 1.2;
-            }
-            draw() {
-                ctx.fillStyle = activePlatform === 'instagram' ? 'rgba(221, 36, 118, 0.4)' : 'rgba(0, 242, 234, 0.4)';
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.closePath();
-                ctx.fill();
-            }
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-
-                if (this.x < 0 || this.x > width) this.vx = -this.vx;
-                if (this.y < 0 || this.y > height) this.vy = -this.vy;
-
-                if (mouse.x != null) {
-                    let dx = mouse.x - this.x;
-                    let dy = mouse.y - this.y;
-                    let distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < mouse.radius) {
-                        let force = (mouse.radius - distance) / mouse.radius;
-                        let directionX = (dx / distance) * force * this.density;
-                        let directionY = (dy / distance) * force * this.density;
-                        this.x -= directionX;
-                        this.y -= directionY;
-                    }
-                }
-            }
-        }
-
-        function initParticles() {
-            particles = [];
-            let numberOfParticles = (canvas.width * canvas.height) / 9000;
-            for (let i = 0; i < numberOfParticles; i++) {
-                particles.push(new Particle());
-            }
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, width, height);
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update();
-                particles[i].draw();
-                // Connect particles
-                for (let j = i; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < 100) {
-                        ctx.strokeStyle = activePlatform === 'instagram' ? 
-                            `rgba(221, 36, 118, ${(1 - distance/100) * 0.15})` : 
-                            `rgba(0, 242, 234, ${(1 - distance/100) * 0.15})`;
-                        ctx.lineWidth = 1;
-                        ctx.beginPath();
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-            requestAnimationFrame(animate);
-        }
-
-        initParticles();
-        animate();
-    }
 
     // Scroll Reveal Initializer
     const observer = new IntersectionObserver((entries) => {
