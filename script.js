@@ -308,9 +308,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.processPurchase = function(inputId, label, price) {
         const input = document.getElementById(inputId);
+        const wrapper = input.closest('.card-input-wrapper');
         const container = document.getElementById(`container-${inputId}`);
         const userValue = input.value.trim();
 
+        // Se o campo ainda não está visível, vamos mostrá-lo
+        if (!wrapper.classList.contains('active')) {
+            wrapper.classList.add('active');
+            input.focus();
+            return; // Para aqui no primeiro clique
+        }
+
+        // Se já está visível, validamos o preenchimento
         if (!userValue) {
             container.classList.add('error');
             input.focus();
@@ -318,7 +327,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Por enquanto, redireciona para o WhatsApp (fallback ate ter os links da Yampi)
+        // Tudo ok! Redireciona para o WhatsApp
         const msg = `🚀 *NOVO PEDIDO*\n\nPerfil: ${userValue}\nPacote: ${label}\nTotal: R$ ${price.toFixed(2).replace('.', ',')}`;
         window.location.href = `https://wa.me/5544997162210?text=${encodeURIComponent(msg)}`;
     };
