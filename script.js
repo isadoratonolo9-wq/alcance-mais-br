@@ -265,12 +265,12 @@ document.addEventListener('DOMContentLoaded', () => {
             background:#0d0d0d;
             border-radius:28px;
             border:2.5px solid ${borderColor};
-            box-shadow:0 0 35px ${glowColor}, 0 15px 40px rgba(0,0,0,0.4);
-            padding:${isHero ? '3rem 2.5rem 2.5rem' : '2rem 1.75rem 2rem'};
+            box-shadow:0 0 35px ${glowColor}, 0 20px 50px rgba(0,0,0,0.5);
+            padding:${isHero ? '3rem 2rem 2.5rem' : '2.5rem 1.75rem 2rem'};
             text-align:center;
             color:#fff;
             width:100%;
-            transition:transform 0.3s ease;
+            transition:all 0.3s ease;
         `;
 
         card.innerHTML = `
@@ -283,21 +283,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div style="font-size:0.82rem;color:#64748b;margin-bottom:1.5rem;">de <span style="text-decoration:line-through;">R$ ${pkg.old.toFixed(2).replace('.', ',')}</span> por <span style="color:#10b981;font-weight:800;">R$ ${pkg.price.toFixed(2).replace('.', ',')}</span></div>
 
                 <!-- CAMPO DE USUARIO NO CARD -->
-                <div class="card-input-wrapper">
-                    <label class="card-input-label">Seu perfil do ${activePlatform}</label>
+                <div class="card-input-wrapper" style="margin-top: 1rem;">
                     <div class="card-input-container" id="container-${inputId}">
-                        <div class="card-input-icon">
-                            <i data-feather="${activePlatform === 'instagram' ? 'instagram' : 'user'}" style="width:18px;height:18px;"></i>
-                        </div>
-                        <input type="text" class="card-input-field" id="${inputId}" placeholder="@usuario ou link" required>
+                        <input type="text" class="card-input-field" id="${inputId}" placeholder="Seu @usuário ou link" required>
                     </div>
                 </div>
 
-                <button onclick="processPurchase('${inputId}', '${pkg.label} ${pkg.serviceText}', ${pkg.price})" style="display:block;width:100%;background:#f9ce34;color:#000;padding:1.1rem;border-radius:14px;font-size:1.15rem;font-weight:900;border:none;cursor:pointer;box-shadow:0 8px 22px rgba(249,206,52,0.45);text-transform:uppercase;margin-bottom:1rem;">
+                <button class="card-btn-buy" onclick="processPurchase('${inputId}', '${pkg.label} ${pkg.serviceText}', ${pkg.price})">
                     COMPRAR AGORA
                 </button>
 
-                <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.85rem;font-weight:700;color:#64748b;">
+                <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.85rem;font-weight:700;color:#64748b;margin-top: 1.5rem;">
                     <i data-feather="shopping-cart" style="width:14px;height:14px;"></i>
                     ${salesCount} vendas hoje
                 </div>

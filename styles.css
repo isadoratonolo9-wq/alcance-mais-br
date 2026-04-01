@@ -2912,21 +2912,11 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     }
 }
 
-/* Card Input Field Stylization */
+/* Card Input & Button Redesign (3D Premium) */
 .card-input-wrapper {
     width: 100%;
-    margin-bottom: 1.5rem;
-    text-align: left;
-}
-
-.card-input-label {
-    display: block;
-    font-size: 0.8rem;
-    font-weight: 800;
-    color: #64748b;
-    margin-bottom: 0.6rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    margin-bottom: 2rem;
+    text-align: center;
 }
 
 .card-input-container {
@@ -2935,23 +2925,16 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     align-items: center;
     background: rgba(255, 255, 255, 0.05);
     border: 2px solid rgba(255, 255, 255, 0.1);
-    border-radius: 14px;
-    padding: 0 1.25rem;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 12px;
+    padding: 0 1rem;
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
 }
 
 .card-input-container:focus-within {
+    border-color: #f9ce34;
+    box-shadow: 0 0 15px rgba(249, 206, 52, 0.3);
     background: rgba(255, 255, 255, 0.08);
-    border-color: var(--accent-hover, #f9ce34);
-    box-shadow: 0 0 20px rgba(249, 206, 52, 0.2);
-}
-
-.card-input-icon {
-    color: #64748b;
-    margin-right: 0.75rem;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
 }
 
 .card-input-field {
@@ -2962,27 +2945,39 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     color: #fff;
     font-weight: 600;
     font-size: 1rem;
-    padding: 1rem 0;
-    font-family: inherit;
+    padding: 0.85rem 0;
+    text-align: center;
 }
 
-.card-input-field::placeholder {
-    color: #475569;
-    font-weight: 500;
+.card-btn-buy {
+    position: relative;
+    width: 100%;
+    background: linear-gradient(to bottom, #f9ce34, #ee9617);
+    color: #000;
+    font-weight: 900;
+    font-size: 1.3rem;
+    padding: 1.15rem;
+    border-radius: 16px;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    
+    /* 3D Effect */
+    box-shadow: 0 6px 0 #b47d0b, 0 12px 20px rgba(0,0,0,0.3);
+    transform: translateY(-4px);
+    transition: all 0.15s ease;
 }
 
-/* Error State */
-.card-input-container.error {
-    border-color: #ef4444 !important;
-    box-shadow: 0 0 15px rgba(239, 68, 68, 0.3) !important;
-    animation: fieldShake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+.card-btn-buy:hover {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 0 #b47d0b, 0 8px 15px rgba(0,0,0,0.2);
 }
 
-@keyframes fieldShake {
-    10%, 90% { transform: translate3d(-1px, 0, 0); }
-    20%, 80% { transform: translate3d(2px, 0, 0); }
-    30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
-    40%, 60% { transform: translate3d(4px, 0, 0); }
+.card-btn-buy:active {
+    transform: translateY(2px);
+    box-shadow: 0 0px 0 #b47d0b, 0 2px 5px rgba(0,0,0,0.1);
 }
 
 /* Modal and old checkout styles removal placeholder (if any left) */
