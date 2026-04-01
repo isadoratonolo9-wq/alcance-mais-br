@@ -258,6 +258,14 @@ document.addEventListener('DOMContentLoaded', () => {
             wrapper.appendChild(badge);
         }
 
+        // Lógica de Selos (Premium e Pró)
+        let badgeHtml = '';
+        if (pkg.label.includes('5.000') || pkg.label.includes('5k')) {
+            badgeHtml = `<div style="position:absolute;top:-18px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg, #f09433, #e6683c);color:#fff;padding:6px 20px;border-radius:20px;font-weight:900;font-size:0.8rem;white-space:nowrap;box-shadow:0 10px 20px rgba(230,104,60,0.4);z-index:100;letter-spacing:1px;text-transform:uppercase;">🔥 PREMIUM 🔥</div>`;
+        } else if (pkg.label.includes('10.000') || pkg.label.includes('10k')) {
+            badgeHtml = `<div style="position:absolute;top:-18px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg, #5a2cc9, #3b82f6);color:#fff;padding:6px 20px;border-radius:20px;font-weight:900;font-size:0.8rem;white-space:nowrap;box-shadow:0 10px 20px rgba(90,44,201,0.3);z-index:100;letter-spacing:1px;text-transform:uppercase;">PLANO PRÓ</div>`;
+        }
+
         const card = document.createElement('div');
         card.className = 'package-card-premium';
         card.style.cssText = `
@@ -274,6 +282,7 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
 
         card.innerHTML = `
+            ${badgeHtml}
             <div style="display:flex;flex-direction:column;align-items:center;">
                 ${logoHtml}
                 <!-- CONTEUDO DO CARD (PRECO E INFOS) -->
@@ -284,14 +293,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div style="font-size:0.82rem;color:#64748b;margin-bottom:1.5rem;">de <span style="text-decoration:line-through;">R$ ${pkg.old.toFixed(2).replace('.', ',')}</span> por <span style="color:#10b981;font-weight:800;">R$ ${pkg.price.toFixed(2).replace('.', ',')}</span></div>
 
                 <!-- CAMPO DE USUARIO (SÓ APARECE NO CLIQUE) -->
-                <div class="card-input-wrapper">
-                    <div class="card-input-container" id="container-${inputId}" style="background: rgba(0,0,0,0.6) !important; border: 1px solid rgba(255,255,255,0.2);">
-                        <input type="text" class="card-input-field" id="${inputId}" placeholder="Seu @usuário ou link" style="background:transparent !important; color: white !important;">
+                <div class="card-input-wrapper" style="display:none; opacity:0; margin:1rem 0;">
+                    <div class="card-input-container" id="container-${inputId}" style="background:rgba(40,40,40,0.9); border:2px solid #f9ce34; border-radius:12px; padding:10px;">
+                        <input type="text" class="card-input-field" id="${inputId}" placeholder="Seu @usuário ou link" style="background:transparent; border:none; outline:none; color:white; width:100%; text-align:center; font-weight:700;">
                     </div>
                 </div>
 
-                <!-- BOTAO SEMPRE VISIVEL -->
-                <button class="card-btn-buy" onclick="processPurchase('${inputId}', '${pkg.label} ${pkg.serviceText}', ${pkg.price})">
+                <!-- BOTAO SEMPRE VISIVEL (AMARELO OURO) -->
+                <button class="card-btn-buy" 
+                    onclick="processPurchase('${inputId}', '${pkg.label} ${pkg.serviceText}', ${pkg.price})"
+                    style="width:100%; background:#f9ce34; color:#000; padding:1.2rem; border-radius:16px; font-weight:900; font-size:1.2rem; border:none; cursor:pointer; box-shadow:0 6px 0 #b47d0b; text-transform:uppercase; display:block !important;">
                     COMPRAR AGORA
                 </button>
 
@@ -314,14 +325,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const container = document.getElementById(`container-${inputId}`);
         const userValue = input.value.trim();
 
-        // Se o campo ainda não está visível, vamos mostrá-lo
-        if (!wrapper.classList.contains('active')) {
-            wrapper.classList.add('active');
+        // Se o campo está escondido (estilo inline), vamos mostrá-lo
+        if (wrapper.style.display === 'none') {
+            wrapper.style.display = 'block';
+            setTimeout(() => wrapper.style.opacity = '1', 50);
             input.focus();
-            return; // Para aqui no primeiro clique
+            return; 
         }
 
-        // Se já está visível, validamos o preenchimento
+        // Se já está visível, validamos
         if (!userValue) {
             container.classList.add('error');
             input.focus();
@@ -329,7 +341,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Tudo ok! Redireciona para o WhatsApp
+        // Sucesso!
         const msg = `🚀 *NOVO PEDIDO*\n\nPerfil: ${userValue}\nPacote: ${label}\nTotal: R$ ${price.toFixed(2).replace('.', ',')}`;
         window.location.href = `https://wa.me/5544997162210?text=${encodeURIComponent(msg)}`;
     };

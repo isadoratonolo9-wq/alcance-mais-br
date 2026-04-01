@@ -2912,122 +2912,67 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     }
 }
 
-/* Card Input & Button Redesign (3D Premium) */
+/* =========================================
+   CARD PREMIUM - CHECKOUT DIRETO
+========================================= */
 .card-input-wrapper {
     width: 100%;
-    display: none; /* Escondido totalmente por padrão */
+    display: none !important; /* ESCONDIDO POR PADRÃO */
     opacity: 0;
-    transform: translateY(10px);
+    visibility: hidden;
+    margin: 1.5rem 0;
     transition: all 0.3s ease;
-    margin-bottom: 1rem;
 }
 
 .card-input-wrapper.active {
-    display: block;
-    opacity: 1;
-    transform: translateY(0);
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 
 .card-input-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    background: rgba(0, 0, 0, 0.4) !important; /* Fundo escuro fixo */
-    border: 2px solid rgba(255, 255, 255, 0.15);
+    background: rgba(40, 40, 40, 0.9) !important;
+    border: 2px solid #f9ce34 !important; /* Borda dourada no campo */
     border-radius: 12px;
-    padding: 0 1rem;
+    padding: 5px 15px;
 }
 
 .card-input-field {
-    width: 100%;
+    width: 100% !important;
     background: transparent !important;
     border: none !important;
     outline: none !important;
-    color: #ffffff !important; /* Texto branco */
-    font-weight: 600;
-    font-size: 1rem;
-    padding: 0.85rem 0;
-    text-align: center;
-    box-shadow: none !important;
-}
-
-/* Forçar remoção de estilos de autofill do navegador que deixam branco */
-input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus {
-  -webkit-text-fill-color: white !important;
-  -webkit-box-shadow: 0 0 0px 1000px #0d0d0d inset !important;
-  transition: background-color 5000s ease-in-out 0s;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    font-size: 1.1rem !important;
+    padding: 10px 0 !important;
+    text-align: center !important;
 }
 
 .card-btn-buy {
-    position: relative;
-    z-index: 10;
-    width: 100%;
-    background: linear-gradient(to bottom, #f9ce34, #ee9617) !important;
-    color: #000 !important;
-    font-weight: 900;
-    font-size: 1.3rem;
-    padding: 1.15rem;
-    border-radius: 16px;
-    border: none;
-    cursor: pointer;
-    text-transform: uppercase;
-    box-shadow: 0 6px 0 #b47d0b;
-    transform: translateY(-4px);
-    transition: all 0.1s ease;
+    width: 100% !important;
+    background: linear-gradient(180deg, #f9ce34 0%, #ee9617 100%) !important;
+    color: #000000 !important;
+    font-weight: 900 !important;
+    font-size: 1.3rem !important;
+    padding: 1.25rem !important;
+    border-radius: 16px !important;
+    border: none !important;
+    cursor: pointer !important;
+    text-transform: uppercase !important;
+    box-shadow: 0 6px 0 #b47d0b, 0 10px 20px rgba(0,0,0,0.3) !important;
+    display: block !important;
+    transform: translateY(-4px) !important;
+    transition: all 0.1s ease !important;
 }
 
 .card-btn-buy:hover {
     filter: brightness(1.1);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 0 #b47d0b, 0 8px 15px rgba(0,0,0,0.2);
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 0 #b47d0b, 0 8px 15px rgba(0,0,0,0.2) !important;
 }
 
 .card-btn-buy:active {
-    transform: translateY(2px);
-    box-shadow: 0 0px 0 #b47d0b, 0 2px 5px rgba(0,0,0,0.1);
-}
-
-/* Modal and old checkout styles removal placeholder (if any left) */
-.checkout-modal-overlay, .modal-card, .modal-header-premium { display: none !important; }
-
-@media (max-width: 1024px) {
-    .hero-scroll-btn { display: none; }
-}
-
-/* =========================================
-   HERO SCROLL BUTTON
-========================================= */
-.hero-scroll-btn {
-    position: absolute;
-    bottom: 2.5rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 52px;
-    height: 52px;
-    background: rgba(255, 255, 255, 0.15);
-    border: 2px solid rgba(255, 255, 255, 0.4);
-    border-radius: 50%;
-    color: white;
-    backdrop-filter: blur(8px);
-    transition: all 0.3s ease;
-    z-index: 20;
-    animation: bounceDown 2s infinite;
-    text-decoration: none;
-}
-
-.hero-scroll-btn:hover {
-    background: rgba(255, 255, 255, 0.3);
-    border-color: rgba(255, 255, 255, 0.8);
-    transform: translateX(-50%) scale(1.1);
-}
-
-@keyframes bounceDown {
-    0%, 100% { transform: translateX(-50%) translateY(0); }
-    50% { transform: translateX(-50%) translateY(8px); }
-}
+    transform: translateY(2px) !important;
+    box-shadow: 0 0px 0 #b47d0b, 0 2px 5px rgba(0,0,0,0.1) !important;
 }
