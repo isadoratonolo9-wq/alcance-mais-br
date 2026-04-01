@@ -95,6 +95,13 @@ document.addEventListener('DOMContentLoaded', () => {
         document.documentElement.setAttribute('data-platform', platform);
         renderServiceButtons();
         initialLoad = false;
+        
+        const container = document.getElementById('service-selection-container');
+        if (container) {
+            setTimeout(() => {
+                container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+        }
     }
 
     function renderServiceButtons() {
@@ -114,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const card = document.createElement('div');
             card.className = `service-card serv-${s.id}`;
             card.onclick = () => selectService(s.id);
-            card.innerHTML = `<h3>${s.icon} ${s.label}</h3>`;
+            card.innerHTML = `<h4>${s.icon} ${s.label}</h4>`;
             grid.appendChild(card);
         });
     }
@@ -146,13 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const allData = pricingData[activePlatform][activeService];
         const parseQty = (label) => parseInt(label.replace(/\D/g, ''));
 
-        // --- 1. HEADLINE DINÂMICA ---
-        const stepTitle = document.querySelector('#package-selection-container .step-title-premium');
-        if (stepTitle) {
-            stepTitle.textContent = activeService === 'curtidas' ? 
-                "O que você quer impulsionar nos seus posts?" : 
-                "Escolha o pacote ideal para o seu perfil";
-        }
+
 
         // --- 2. HERO OFFER (1.300 pelo preço de 1.000) ---
         const price1kItem = allData.find(p => parseQty(p.label) === 1000);
@@ -323,6 +324,42 @@ document.addEventListener('DOMContentLoaded', () => {
             updateCheckoutTotal();
         }
     });
+    let selectedPackage = { label: '', price: 0 };
+
+    window.updateCheckoutTotal = function() {
+        const isBump = document.getElementById('chk-order-bump').checked;
+        const finalPrice = isBump ? (selectedPackage.price * 1.8) : selectedPackage.price;
+        document.getElementById('txt-price-header').textContent = formatMoney(finalPrice);
+    };
+
+    window.openCheckoutWithPackage = function(label, price) {
+        selectedPackage = { label, price };
+        
+        // Populate Header
+        document.getElementById('txt-qty-header').textContent = label;
+        
+        // Reset checkbox & trigger total update logic
+        const bumpCheck = document.getElementById('chk-order-bump');
+        bumpCheck.checked = false;
+        document.getElementById('order-bump-card').classList.remove('active');
+        
+        // Populate Bump Fields (+x por apenas y)
+        const discountPrice = price * 0.8; // 20% discount on the duplicate bump item
+        document.getElementById('bump-title-text').textContent = `Adicione +${label.toLowerCase()} por apenas ${formatMoney(discountPrice)}`;
+        document.getElementById('bump-price-current').textContent = formatMoney(discountPrice);
+        document.getElementById('bump-price-old').textContent = `De ${formatMoney(price)}`;
+        document.getElementById('bump-discount-percent').textContent = `ECONOMIZE 20%`;
+
+        updateCheckoutTotal();
+
+        // Reveal the Modal
+        document.getElementById('checkout-modal-overlay').classList.add('show');
+        document.body.style.overflow = 'hidden';
+        
+        // Trigger visual engagement
+        if(window.randomizeScarcity) window.randomizeScarcity();
+        if(window.startBumpCountdown) window.startBumpCountdown();
+    };
 
     window.resetCheckout = function() {
         document.getElementById('checkout-modal-overlay').classList.remove('show');

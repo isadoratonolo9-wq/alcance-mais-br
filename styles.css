@@ -2011,7 +2011,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 
 /* SEARCH PROFILE TWEAKS */
 .search-input-group input {
-    color: #1e293b !important;
+    color: #ffffff !important;
 }
 .search-input-group .btn:hover {
     background: #7c3aed !important;
@@ -2125,16 +2125,15 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 
 .custom-order-section h2 {
-    color: #1e293b !important;
+    color: #ffffff !important;
     margin-bottom: 3rem;
 }
 
 .service-grid {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 1.5rem;
-    max-width: 1000px;
+    max-width: 900px;
     margin: 0 auto;
 }
 
@@ -2142,16 +2141,16 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     position: relative;
     background: white;
     border: none;
-    border-radius: 24px;
-    padding: 2rem;
+    border-radius: 16px;
+    padding: 1.5rem 1rem;
     text-align: center;
     cursor: pointer;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0.85rem;
-    min-width: 280px;
+    gap: 0.5rem;
+    min-width: 150px;
     
     /* 3D Realistic Depth - Premium style */
     transform: translateY(-8px);
@@ -2201,14 +2200,14 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 
 .service-card h4 {
-    font-size: 1.5rem;
-    font-weight: 900;
+    font-size: 1.25rem;
+    font-weight: 800;
     margin: 0;
     letter-spacing: 0.5px;
     text-transform: uppercase;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
 }
 
 .service-card .service-subtitle {
@@ -2320,16 +2319,15 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 
 .custom-order-section h2 {
-    color: #1e293b !important;
+    color: #ffffff !important;
     margin-bottom: 3rem;
 }
 
 .service-grid {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 1.5rem;
-    max-width: 1000px;
+    max-width: 900px;
     margin: 0 auto;
 }
 
@@ -2337,16 +2335,16 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     position: relative;
     background: white;
     border: none;
-    border-radius: 24px;
-    padding: 2rem;
+    border-radius: 16px;
+    padding: 1.5rem 1rem;
     text-align: center;
     cursor: pointer;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0.85rem;
-    min-width: 280px;
+    gap: 0.5rem;
+    min-width: 150px;
     
     /* 3D Realistic Depth - Premium style */
     transform: translateY(-8px);
@@ -2396,14 +2394,14 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 
 .service-card h4 {
-    font-size: 1.5rem;
-    font-weight: 900;
+    font-size: 1.25rem;
+    font-weight: 800;
     margin: 0;
     letter-spacing: 0.5px;
     text-transform: uppercase;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
 }
 
 .service-card .service-subtitle {
@@ -2938,4 +2936,6 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 @keyframes bounceDown {
     0%, 100% { transform: translateX(-50%) translateY(0); }
     50% { transform: translateX(-50%) translateY(8px); }
+}
+
 }
