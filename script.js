@@ -15,6 +15,48 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Mapeamento de Links Yampi
+    const yampiLinks = {
+        instagram: {
+            seguidores: {
+                "1000": "https://alcance-group.pay.yampi.com.br/r/FR1SI2PCOH",
+                "1300": "https://alcance-group.pay.yampi.com.br/r/E8CJQB6RQN",
+                "3000": "https://alcance-group.pay.yampi.com.br/r/HL6GS5O49L",
+                "5000": "https://alcance-group.pay.yampi.com.br/r/OU2LVAOA3Q",
+                "10000": "https://alcance-group.pay.yampi.com.br/r/IBKH9MM60B"
+            },
+            curtidas: {
+                "1000": "https://alcance-group.pay.yampi.com.br/r/8AAUM3KXDD",
+                "1300": "https://alcance-group.pay.yampi.com.br/r/2EH0DUIYJO",
+                "3000": "https://alcance-group.pay.yampi.com.br/r/DXFTQ5RDD2",
+                "5000": "https://alcance-group.pay.yampi.com.br/r/CDDMG0GN43",
+                "10000": "https://alcance-group.pay.yampi.com.br/r/CQIX81DBS9"
+            }
+        },
+        tiktok: {
+            seguidores: {
+                "1000": "https://alcance-group.pay.yampi.com.br/r/1EF1XUJ6TD",
+                "1300": "https://alcance-group.pay.yampi.com.br/r/LXDG4FTOSQ",
+                "3000": "https://alcance-group.pay.yampi.com.br/r/379ZM7GDIV",
+                "5000": "https://alcance-group.pay.yampi.com.br/r/DAFDIBIUNT",
+                "10000": "https://alcance-group.pay.yampi.com.br/r/S5S26N00ZW"
+            },
+            curtidas: {
+                "1000": "https://alcance-group.pay.yampi.com.br/r/HBEAALGPNR",
+                "1300": "https://alcance-group.pay.yampi.com.br/r/EMTU9WHN9C",
+                "3000": "https://alcance-group.pay.yampi.com.br/r/DFEJYZAADX",
+                "5000": "https://alcance-group.pay.yampi.com.br/r/KW4L11RO2B",
+                "10000": "https://alcance-group.pay.yampi.com.br/r/MWEW9NOBH6"
+            },
+            views: {
+                "1000": "https://alcance-group.pay.yampi.com.br/r/J5VZ1NZ943",
+                "1300": "https://alcance-group.pay.yampi.com.br/r/KSQ8VY4ZLQ",
+                "5000": "https://alcance-group.pay.yampi.com.br/r/J5VZ1NZ943",
+                "10000": "https://alcance-group.pay.yampi.com.br/r/CBKK1R5DQ8"
+            }
+        }
+    };
+
     /* Pricing Calculator Data */
     const pricingData = {
         instagram: {
@@ -320,7 +362,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // URL de Integração Google Sheets
-    const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbylXsHgZ_cX9T64StGOjIUTCXkKd5br2OvxtFzAZE_Fyfy8Fd7gBqh-deqLiRVGg2wI/exec";
+    const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbySoGW8LeVG7iaFGtBRUJt1YiKf7sbPHTtGcuP_8KWJUEG6ElXH1TaUBH3Lf1J13kFl3w/exec";
 
     async function saveOrderToSheet(data) {
         try {
@@ -376,9 +418,19 @@ document.addEventListener('DOMContentLoaded', () => {
             platform: activePlatform
         });
 
-        // Sucesso e Redirecionamento!
-        const msg = `🚀 *NOVO PEDIDO*\n\nPerfil: ${userValue}\nPacote: ${label}\nTotal: R$ ${price.toFixed(2).replace('.', ',')}`;
-        window.location.href = `https://wa.me/5544997162210?text=${encodeURIComponent(msg)}`;
+        // Redirecionamento Final (Yampi com Rastro ou WhatsApp Backup)
+        const qtyKey = label.split(' ')[0].replace(/\D/g, ''); // Extrai o número do label
+        const yampiUrl = yampiLinks[activePlatform][activeService] ? yampiLinks[activePlatform][activeService][qtyKey] : null;
+
+        if (yampiUrl) {
+            // Ir para a Yampi com o rastro do perfil
+            const finalUrl = `${yampiUrl}${yampiUrl.includes('?') ? '&' : '?'}utm_content=${encodeURIComponent(userValue)}`;
+            window.location.href = finalUrl;
+        } else {
+            // Backup para WhatsApp se não houver link direto
+            const msg = `🚀 *NOVO PEDIDO*\n\nPerfil: ${userValue}\nPacote: ${label}\nTotal: R$ ${price.toFixed(2).replace('.', ',')}`;
+            window.location.href = `https://wa.me/5544997162210?text=${encodeURIComponent(msg)}`;
+        }
     };
 
     // Scroll Reveal Initializer
@@ -390,5 +442,48 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    /* --- SALES NOTIFICATION LOGIC --- */
+    const snNames = ['Gabriel S.', 'Maria L.', 'Lucas S.', 'Ana P.', 'Felipe R.', 'Juliana M.', 'Bruno C.', 'Carla O.', 'Marcos V.', 'Paula T.', 'Ricardo F.', 'Fernanda G.', 'Thiago M.', 'Beatriz S.', 'Rodrigo A.', 'Amanda K.'];
+    const snActions = ['acabou de comprar', 'garantiu agora', 'acaba de adquirir', 'comprou'];
+    const snProducts = [
+        '1.000 seguidores', '3.000 seguidores', '5.000 seguidores', '10.000 seguidores',
+        '1.000 curtidas', '3.000 curtidas', '5.000 curtidas',
+        '5.000 views', '10.000 views'
+    ];
+    const snTimes = ['agora mesmo', 'há 1 min', 'há 2 min', 'há 3 min', 'há 30 seg', 'há 45 seg'];
+
+    const snElement = document.getElementById('sales-notification');
+    const snNameEl = document.getElementById('sn-name');
+    const snProductEl = document.getElementById('sn-product');
+    const snTimeEl = document.getElementById('sn-time');
+
+    function showRandomNotification() {
+        if (!snElement) return;
+
+        // Pick random data
+        const name = snNames[Math.floor(Math.random() * snNames.length)];
+        const product = snProducts[Math.floor(Math.random() * snProducts.length)];
+        const time = snTimes[Math.floor(Math.random() * snTimes.length)];
+
+        // Update content
+        snNameEl.textContent = name;
+        snProductEl.textContent = product;
+        snTimeEl.textContent = time;
+
+        // Show
+        snElement.classList.add('active');
+
+        // Hide after 6 seconds
+        setTimeout(() => {
+            snElement.classList.remove('active');
+        }, 6000);
+    }
+
+    // Start loop (first one after 8 seconds, then every 25 seconds)
+    setTimeout(() => {
+        showRandomNotification();
+        setInterval(showRandomNotification, 25000);
+    }, 8000);
 
 });
