@@ -319,7 +319,27 @@ document.addEventListener('DOMContentLoaded', () => {
         return wrapper;
     }
 
-    window.processPurchase = function(inputId, label, price) {
+    // URL de Integração Google Sheets
+    const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbylXsHgZ_cX9T64StGOjIUTCXkKd5br2OvxtFzAZE_Fyfy8Fd7gBqh-deqLiRVGg2wI/exec";
+
+    async function saveOrderToSheet(data) {
+        try {
+            // Usamos mode: 'no-cors' para garantir que o envio funcione 
+            // mesmo que o Google Apps Script não retorne um cabeçalho CORS explícito para POST.
+            await fetch(GOOGLE_SHEETS_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+        } catch (error) {
+            console.error("Erro ao salvar na planilha:", error);
+        }
+    }
+
+    window.processPurchase = async function(inputId, label, price) {
         const input = document.getElementById(inputId);
         const wrapper = input.closest('.card-input-wrapper');
         const container = document.getElementById(`container-${inputId}`);
@@ -341,7 +361,22 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Sucesso!
+        // Feedback visual rápido no botão
+        const btn = container.closest('.package-card-premium').querySelector('.card-btn-buy');
+        const originalText = btn.textContent;
+        btn.textContent = "PROCESSANDO...";
+        btn.style.opacity = "0.7";
+        btn.disabled = true;
+
+        // Salvar na Planilha Google (silenciosamente)
+        await saveOrderToSheet({
+            userValue: userValue,
+            label: label,
+            price: price,
+            platform: activePlatform
+        });
+
+        // Sucesso e Redirecionamento!
         const msg = `🚀 *NOVO PEDIDO*\n\nPerfil: ${userValue}\nPacote: ${label}\nTotal: R$ ${price.toFixed(2).replace('.', ',')}`;
         window.location.href = `https://wa.me/5544997162210?text=${encodeURIComponent(msg)}`;
     };
