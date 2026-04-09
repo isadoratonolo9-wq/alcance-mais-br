@@ -61,29 +61,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const pricingData = {
         instagram: {
             seguidores: [
-                { label: "0 seguidores", price: 0.00, old: 0.00 },
-                { label: "100 seguidores", price: 5.90, old: 8.85 },
-                { label: "500 seguidores", price: 19.90, old: 29.85 },
-                { label: "1.000 seguidores", price: 39.90, old: 59.85 },
-                { label: "1.500 seguidores", price: 59.90, old: 89.85 },
-                { label: "2.000 seguidores", price: 79.90, old: 119.85 },
-                { label: "3.000 seguidores", price: 99.90, old: 149.85, confetti: true },
-                { label: "4.000 seguidores", price: 139.90, old: 209.85 },
-                { label: "5.000 seguidores", price: 179.90, old: 269.85 },
-                { label: "10.000 seguidores", price: 299.90, old: 449.85, confetti: true },
-                { label: "20.000 seguidores", price: 599.90, old: 899.85 },
-                { label: "30.000 seguidores", price: 899.90, old: 1349.85, confetti: true }
+                { label: "100 seguidores", price: 4.90, old: 0.00, tag: "Baratinho pra testar", tagColor: "#ec4899", subText: "" },
+                { label: "200 seguidores", price: 6.90, old: 0.00, subText: "⚡ 30% off — aproveite agora!" },
+                { label: "400 seguidores", price: 9.90, old: 0.00, subText: "⚡ 49% off — aproveite agora!" },
+                { label: "500 seguidores", price: 10.90, old: 0.00, subText: "⚡ 56% off — aproveite agora!" },
+                { label: "1.000 seguidores", price: 14.90, old: 0.00, tag: "Mais vendido", tagColor: "#f59e0b", subText: "⚡ 70% off — aproveite agora!" },
+                { label: "2.000 seguidores", price: 29.90, old: 0.00, subText: "⚡ 69% off — aproveite agora!" },
+                { label: "3.000 seguidores", price: 44.90, old: 0.00, subText: "⚡ 69% off — aproveite agora!" },
+                { label: "5.000 seguidores", price: 72.90, old: 0.00, tag: "Melhor custo-benefício", tagColor: "#10b981", subText: "⚡ 70% off — aproveite agora!" }
             ],
             curtidas: [
-                { label: "0 curtidas", price: 0.00, old: 0.00 },
-                { label: "100 curtidas", price: 8.90, old: 13.35 },
-                { label: "500 curtidas", price: 19.90, old: 29.85 },
-                { label: "1.000 curtidas", price: 29.90, old: 44.85, confetti: true },
-                { label: "2.000 curtidas", price: 54.90, old: 82.35 },
-                { label: "3.000 curtidas", price: 85.90, old: 128.85 },
-                { label: "5.000 curtidas", price: 142.90, old: 214.35, confetti: true },
-                { label: "10.000 curtidas", price: 279.90, old: 419.85, confetti: true },
-                { label: "20.000 curtidas", price: 549.90, old: 824.85 }
+                { label: "100 curtidas", price: 3.90, old: 0.00, tag: "Baratinho pra testar", tagColor: "#ec4899", subText: "" },
+                { label: "500 curtidas", price: 9.90, old: 0.00, subText: "⚡ 49% off — aproveite agora!" },
+                { label: "1.000 curtidas", price: 14.90, old: 0.00, subText: "⚡ 62% off — aproveite agora!" },
+                { label: "5.000 curtidas", price: 49.90, old: 0.00, subText: "⚡ 74% off — aproveite agora!" },
+                { label: "10.000 curtidas", price: 89.90, old: 0.00, subText: "⚡ 77% off — aproveite agora!" },
+                { label: "20.000 curtidas", price: 169.90, old: 0.00, subText: "⚡ 78% off — aproveite agora!" }
             ],
             views: [
                 { label: "0 views", price: 0.00, old: 0.00 },
@@ -95,19 +88,24 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         tiktok: {
             seguidores: [
-                { label: "0 seguidores", price: 0.00, old: 0.00 },
-                { label: "500 seguidores", price: 29.90, old: 44.85 },
-                { label: "1.000 seguidores", price: 57.90, old: 86.85 },
-                { label: "3.000 seguidores", price: 149.90, old: 224.85 },
-                { label: "5.000 seguidores", price: 239.90, old: 359.85, confetti: true },
-                { label: "10.000 seguidores", price: 439.90, old: 659.85, confetti: true }
+                { label: "100 seguidores", price: 5.90, old: 0.00, tag: "Baratinho pra testar", tagColor: "#ec4899", subText: "" },
+                { label: "200 seguidores", price: 9.90, old: 0.00, subText: "⚡ 16% off — aproveite agora!" },
+                { label: "500 seguidores", price: 16.90, old: 0.00, subText: "⚡ 43% off — aproveite agora!" },
+                { label: "1.000 seguidores", price: 29.90, old: 0.00, tag: "Mais vendido", tagColor: "#f59e0b", subText: "⚡ 49% off — aproveite agora!" },
+                { label: "2.000 seguidores", price: 49.90, old: 0.00, subText: "⚡ 58% off — aproveite agora!" },
+                { label: "5.000 seguidores", price: 99.90, old: 0.00, tag: "Melhor custo-benefício", tagColor: "#10b981", subText: "⚡ 66% off — aproveite agora!" },
+                { label: "10.000 seguidores", price: 189.90, old: 0.00, tag: "Atrai seguidores reais!", tagColor: "#3b82f6", subText: "⚡ 68% off — aproveite agora!" }
             ],
             curtidas: [
-                { label: "500 curtidas", price: 34.90, old: 52.35 },
-                { label: "1.000 curtidas", price: 59.90, old: 89.85, confetti: true },
-                { label: "3.000 curtidas", price: 159.90, old: 239.85 },
-                { label: "5.000 curtidas", price: 249.90, old: 374.85 },
-                { label: "10.000 curtidas", price: 479.90, old: 719.85 }
+                { label: "100 curtidas", price: 4.90, old: 0.00, tag: "Baratinho pra testar", tagColor: "#ec4899", subText: "" },
+                { label: "200 curtidas", price: 6.90, old: 0.00, subText: "⚡ 30% off — aproveite agora!" },
+                { label: "500 curtidas", price: 9.90, old: 0.00, subText: "⚡ 60% off — aproveite agora!" },
+                { label: "1.000 curtidas", price: 14.90, old: 0.00, subText: "⚡ 70% off — aproveite agora!" },
+                { label: "2.000 curtidas", price: 19.90, old: 0.00, subText: "⚡ 80% off — aproveite agora!" },
+                { label: "5.000 curtidas", price: 29.90, old: 0.00, subText: "⚡ 88% off — aproveite agora!" },
+                { label: "10.000 curtidas", price: 49.90, old: 0.00, subText: "⚡ 90% off — aproveite agora!" },
+                { label: "20.000 curtidas", price: 69.90, old: 0.00, subText: "⚡ 93% off — aproveite agora!" },
+                { label: "50.000 curtidas", price: 99.90, old: 0.00, subText: "⚡ 96% off — aproveite agora!" }
             ],
             views: [
                 { label: "1.000 views", price: 9.90, old: 14.85 },
@@ -157,7 +155,6 @@ document.addEventListener('DOMContentLoaded', () => {
             { id: 'seguidores', label: 'Seguidores', icon: '🚀' },
             { id: 'curtidas', label: 'Curtidas', icon: '❤️' }
         ];
-        if (activePlatform === 'tiktok') services.push({ id: 'views', label: 'Views', icon: '👀' });
 
         services.forEach(s => {
             const card = document.createElement('div');
@@ -195,7 +192,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const allData = pricingData[activePlatform][activeService];
         const parseQty = (label) => parseInt(label.replace(/\D/g, ''));
 
+        const useListLayout = (activePlatform === 'instagram' && (activeService === 'seguidores' || activeService === 'curtidas')) || (activePlatform === 'tiktok' && (activeService === 'seguidores' || activeService === 'curtidas'));
 
+        if (useListLayout) {
+            gridContainer.style.cssText = 'display:flex; flex-direction:column; gap:1.25rem; width:100%; max-width:600px; margin:0 auto;';
+            allData.forEach(pkg => {
+                gridContainer.appendChild(createListPackageCard(pkg));
+            });
+            return;
+        }
+
+        gridContainer.style.cssText = '';
 
         // --- 2. HERO OFFER (1.300 pelo preço de 1.000) ---
         const price1kItem = allData.find(p => parseQty(p.label) === 1000);
@@ -243,6 +250,63 @@ document.addEventListener('DOMContentLoaded', () => {
                 }));
             }
         });
+    }
+
+    function createListPackageCard(pkg) {
+        const inputId = `user-${pkg.label.replace(/\D/g, '')}-${activeService}`;
+        const neonColor = activePlatform === 'instagram' ? '#ee2a7b' : '#00f2ea';
+        const shadowColor = activePlatform === 'instagram' ? '238,42,123' : '0,242,234';
+        const wrapper = document.createElement('div');
+        wrapper.className = 'package-list-item';
+        wrapper.style.cssText = `
+            background: #0d0d0d;
+            border: 1.5px solid ${neonColor};
+            border-radius: 16px;
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            box-shadow: 0 10px 20px rgba(${shadowColor},0.15);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        `;
+
+        const topSection = document.createElement('div');
+        topSection.style.cssText = 'display:flex; justify-content:space-between; align-items:center;';
+        
+        let subTextHtml = pkg.subText ? `<div style="font-size:0.85rem; color:#10b981; font-weight:700; margin-top:0.25rem;">${pkg.subText}</div>` : '';
+        let tagHtml = pkg.tag ? `<div style="display:inline-block; font-size:0.75rem; font-weight:800; color:${pkg.tagColor}; background:${pkg.tagColor}20; padding:0.25rem 0.75rem; border-radius:99px; margin-top:0.25rem;">⚡ ${pkg.tag}</div>` : '';
+
+        topSection.innerHTML = `
+            <div style="text-align:left;">
+                <h3 style="font-size:1.3rem; font-weight:800; color:#fff; margin:0;">${pkg.label}</h3>
+                ${subTextHtml}
+            </div>
+            <div style="text-align:right;">
+                <div style="font-size:1.5rem; font-weight:900; color:#fff; line-height:1;">R$ ${pkg.price.toFixed(2).replace('.', ',')}</div>
+                ${tagHtml}
+            </div>
+        `;
+
+        const actionSection = document.createElement('div');
+        actionSection.style.cssText = 'display:flex; flex-direction:column; gap:0.75rem; margin-top:0.5rem;';
+        
+        actionSection.innerHTML = `
+            <div class="card-input-wrapper" style="display:none; transition:opacity 0.3s;">
+                <div class="card-input-container" id="container-${inputId}" style="background:rgba(40,40,40,0.9); border:2px solid #f9ce34; border-radius:10px; padding:10px;">
+                    <input type="text" class="card-input-field" id="${inputId}" placeholder="Seu @usuário ou link" style="background:transparent; border:none; outline:none; color:white; width:100%; text-align:center; font-weight:700; font-size:1rem;">
+                </div>
+            </div>
+            <button class="card-btn-buy" 
+                onclick="processPurchase('${inputId}', '${pkg.label}', ${pkg.price})"
+                style="width:100%; background:#f9ce34; color:#000; padding:1.2rem; border-radius:12px; font-weight:900; font-size:1.1rem; border:none; cursor:pointer; text-transform:uppercase; box-shadow:0 5px 0 #b47d0b; display:block !important;">
+                COMPRAR AGORA
+            </button>
+        `;
+
+        wrapper.appendChild(topSection);
+        wrapper.appendChild(actionSection);
+
+        return wrapper;
     }
 
     function createPackageCard(pkg) {
