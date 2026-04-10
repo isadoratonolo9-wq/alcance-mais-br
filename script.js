@@ -478,11 +478,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Feedback visual rápido no botão
-        const btn = container.closest('.package-card-premium').querySelector('.card-btn-buy');
-        const originalText = btn.textContent;
-        btn.textContent = "PROCESSANDO...";
-        btn.style.opacity = "0.7";
-        btn.disabled = true;
+        const cardParent = container.closest('.package-card-premium') || container.closest('.package-list-item');
+        const btn = cardParent ? cardParent.querySelector('.card-btn-buy') : null;
+        if (btn) {
+            btn.textContent = "PROCESSANDO...";
+            btn.style.opacity = "0.7";
+            btn.disabled = true;
+        }
 
         // Salvar na Planilha Google (silenciosamente)
         await saveOrderToSheet({
