@@ -19,34 +19,44 @@ document.addEventListener('DOMContentLoaded', () => {
     const yampiLinks = {
         instagram: {
             seguidores: {
-                "1000": "https://alcance-group.pay.yampi.com.br/r/FR1SI2PCOH",
-                "1300": "https://alcance-group.pay.yampi.com.br/r/E8CJQB6RQN",
-                "3000": "https://alcance-group.pay.yampi.com.br/r/HL6GS5O49L",
-                "5000": "https://alcance-group.pay.yampi.com.br/r/OU2LVAOA3Q",
-                "10000": "https://alcance-group.pay.yampi.com.br/r/IBKH9MM60B"
+                "100": "https://alcance-group.pay.yampi.com.br/r/2YOTBLF27P",
+                "200": "https://alcance-group.pay.yampi.com.br/r/44UPK629XH",
+                "400": "https://alcance-group.pay.yampi.com.br/r/93M99ZWLEM",
+                "500": "https://alcance-group.pay.yampi.com.br/r/CS4L1ZR7JR",
+                "1000": "https://alcance-group.pay.yampi.com.br/r/3S2U9REL84",
+                "2000": "https://alcance-group.pay.yampi.com.br/r/BFTR1O5GK7",
+                "3000": "https://alcance-group.pay.yampi.com.br/r/604Z75NZZ8",
+                "5000": "https://alcance-group.pay.yampi.com.br/r/6DX0JHFKT1"
             },
             curtidas: {
-                "1000": "https://alcance-group.pay.yampi.com.br/r/8AAUM3KXDD",
-                "1300": "https://alcance-group.pay.yampi.com.br/r/2EH0DUIYJO",
-                "3000": "https://alcance-group.pay.yampi.com.br/r/DXFTQ5RDD2",
-                "5000": "https://alcance-group.pay.yampi.com.br/r/CDDMG0GN43",
-                "10000": "https://alcance-group.pay.yampi.com.br/r/CQIX81DBS9"
+                "100": "https://alcance-group.pay.yampi.com.br/r/AGHO5X1FHX",
+                "500": "https://alcance-group.pay.yampi.com.br/r/TT5N3ZEDQ3",
+                "1000": "https://alcance-group.pay.yampi.com.br/r/134VNC11X2",
+                "5000": "https://alcance-group.pay.yampi.com.br/r/4LZ4B9DQFR",
+                "10000": "https://alcance-group.pay.yampi.com.br/r/GXNI3P0YIA",
+                "20000": "https://alcance-group.pay.yampi.com.br/r/FH02O784TZ"
             }
         },
         tiktok: {
             seguidores: {
-                "1000": "https://alcance-group.pay.yampi.com.br/r/1EF1XUJ6TD",
-                "1300": "https://alcance-group.pay.yampi.com.br/r/LXDG4FTOSQ",
-                "3000": "https://alcance-group.pay.yampi.com.br/r/379ZM7GDIV",
-                "5000": "https://alcance-group.pay.yampi.com.br/r/DAFDIBIUNT",
-                "10000": "https://alcance-group.pay.yampi.com.br/r/S5S26N00ZW"
+                "100": "https://alcance-group.pay.yampi.com.br/r/54Z03BTI1F",
+                "200": "https://alcance-group.pay.yampi.com.br/r/35HRREGQ51",
+                "500": "https://alcance-group.pay.yampi.com.br/r/43HWUJ2ABT",
+                "1000": "https://alcance-group.pay.yampi.com.br/r/MY1ZR5OOU4",
+                "2000": "https://alcance-group.pay.yampi.com.br/r/KMJPWI1CA8",
+                "5000": "https://alcance-group.pay.yampi.com.br/r/LFZKL2KA16",
+                "10000": "https://alcance-group.pay.yampi.com.br/r/DCG4JS74C6"
             },
             curtidas: {
-                "1000": "https://alcance-group.pay.yampi.com.br/r/HBEAALGPNR",
-                "1300": "https://alcance-group.pay.yampi.com.br/r/EMTU9WHN9C",
-                "3000": "https://alcance-group.pay.yampi.com.br/r/DFEJYZAADX",
-                "5000": "https://alcance-group.pay.yampi.com.br/r/KW4L11RO2B",
-                "10000": "https://alcance-group.pay.yampi.com.br/r/MWEW9NOBH6"
+                "100": "https://alcance-group.pay.yampi.com.br/r/1NM16Q2SA5",
+                "200": "https://alcance-group.pay.yampi.com.br/r/TB2PXYK5YI",
+                "500": "https://alcance-group.pay.yampi.com.br/r/8FXFPRP4DK",
+                "1000": "https://alcance-group.pay.yampi.com.br/r/1G0LVQIO7X",
+                "2000": "https://alcance-group.pay.yampi.com.br/r/ERJ8A2W697",
+                "5000": "https://alcance-group.pay.yampi.com.br/r/1VCBXZZ35V",
+                "10000": "https://alcance-group.pay.yampi.com.br/r/N1T5VISCDR",
+                "20000": "https://alcance-group.pay.yampi.com.br/r/PKWBHLX59Z",
+                "50000": "https://alcance-group.pay.yampi.com.br/r/IHS04BCIPP"
             },
             views: {
                 "1000": "https://alcance-group.pay.yampi.com.br/r/J5VZ1NZ943",
