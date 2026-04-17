@@ -247,9 +247,17 @@ document.addEventListener('DOMContentLoaded', () => {
         let subTextHtml = pkg.subText ? `<div style="font-size:0.85rem; color:#10b981; font-weight:700; margin-top:0.25rem;">${pkg.subText}</div>` : '';
         let tagHtml = pkg.tag ? `<div style="display:inline-block; font-size:0.75rem; font-weight:800; color:${pkg.tagColor}; background:${pkg.tagColor}20; padding:0.25rem 0.75rem; border-radius:99px; margin-top:0.25rem;">⚡ ${pkg.tag}</div>` : '';
 
+        let displayLabelHtml = pkg.label;
+        if (pkg.label.includes(' — ')) {
+            const parts = pkg.label.split(' — ');
+            const planName = parts[0];
+            const productDesc = parts[1];
+            displayLabelHtml = `<span style="color:${neonColor}; font-size:0.95rem; text-transform:uppercase; font-weight:900; letter-spacing:0.5px; display:block; margin-bottom:0.1rem;">${planName}</span><span style="font-size:1.4rem; color:#fff;">${productDesc}</span>`;
+        }
+
         topSection.innerHTML = `
             <div style="text-align:left;">
-                <h3 style="font-size:1.3rem; font-weight:800; color:#fff; margin:0;">${pkg.label}</h3>
+                <h3 style="font-size:1.3rem; font-weight:800; color:#fff; margin:0; line-height:1.2;">${displayLabelHtml}</h3>
                 ${subTextHtml}
             </div>
             <div style="text-align:right;">
