@@ -19,50 +19,34 @@ document.addEventListener('DOMContentLoaded', () => {
     const yampiLinks = {
         instagram: {
             seguidores: {
-                "100": "https://alcance-group.pay.yampi.com.br/r/2YOTBLF27P",
-                "200": "https://alcance-group.pay.yampi.com.br/r/44UPK629XH",
-                "400": "https://alcance-group.pay.yampi.com.br/r/93M99ZWLEM",
-                "500": "https://alcance-group.pay.yampi.com.br/r/CS4L1ZR7JR",
-                "1000": "https://alcance-group.pay.yampi.com.br/r/3S2U9REL84",
-                "2000": "https://alcance-group.pay.yampi.com.br/r/BFTR1O5GK7",
-                "3000": "https://alcance-group.pay.yampi.com.br/r/604Z75NZZ8",
-                "5000": "https://alcance-group.pay.yampi.com.br/r/6DX0JHFKT1"
+                "100": "",
+                "250": "",
+                "500": "",
+                "1000": "",
+                "2000": ""
             },
             curtidas: {
-                "100": "https://alcance-group.pay.yampi.com.br/r/AGHO5X1FHX",
-                "500": "https://alcance-group.pay.yampi.com.br/r/TT5N3ZEDQ3",
-                "1000": "https://alcance-group.pay.yampi.com.br/r/134VNC11X2",
-                "5000": "https://alcance-group.pay.yampi.com.br/r/4LZ4B9DQFR",
-                "10000": "https://alcance-group.pay.yampi.com.br/r/GXNI3P0YIA",
-                "20000": "https://alcance-group.pay.yampi.com.br/r/FH02O784TZ"
+                "100": "",
+                "250": "",
+                "500": "",
+                "1000": "",
+                "2000": ""
             }
         },
         tiktok: {
             seguidores: {
-                "100": "https://alcance-group.pay.yampi.com.br/r/54Z03BTI1F",
-                "200": "https://alcance-group.pay.yampi.com.br/r/35HRREGQ51",
-                "500": "https://alcance-group.pay.yampi.com.br/r/43HWUJ2ABT",
-                "1000": "https://alcance-group.pay.yampi.com.br/r/MY1ZR5OOU4",
-                "2000": "https://alcance-group.pay.yampi.com.br/r/KMJPWI1CA8",
-                "5000": "https://alcance-group.pay.yampi.com.br/r/LFZKL2KA16",
-                "10000": "https://alcance-group.pay.yampi.com.br/r/DCG4JS74C6"
+                "100": "",
+                "250": "",
+                "500": "",
+                "1000": "",
+                "2000": ""
             },
             curtidas: {
-                "100": "https://alcance-group.pay.yampi.com.br/r/1NM16Q2SA5",
-                "200": "https://alcance-group.pay.yampi.com.br/r/TB2PXYK5YI",
-                "500": "https://alcance-group.pay.yampi.com.br/r/8FXFPRP4DK",
-                "1000": "https://alcance-group.pay.yampi.com.br/r/1G0LVQIO7X",
-                "2000": "https://alcance-group.pay.yampi.com.br/r/ERJ8A2W697",
-                "5000": "https://alcance-group.pay.yampi.com.br/r/1VCBXZZ35V",
-                "10000": "https://alcance-group.pay.yampi.com.br/r/N1T5VISCDR",
-                "20000": "https://alcance-group.pay.yampi.com.br/r/PKWBHLX59Z",
-                "50000": "https://alcance-group.pay.yampi.com.br/r/IHS04BCIPP"
-            },
-            views: {
-                "1000": "https://alcance-group.pay.yampi.com.br/r/J5VZ1NZ943",
-                "1300": "https://alcance-group.pay.yampi.com.br/r/KSQ8VY4ZLQ",
-                "5000": "https://alcance-group.pay.yampi.com.br/r/J5VZ1NZ943",
-                "10000": "https://alcance-group.pay.yampi.com.br/r/CBKK1R5DQ8"
+                "100": "",
+                "250": "",
+                "500": "",
+                "1000": "",
+                "2000": ""
             }
         }
     };
@@ -71,57 +55,34 @@ document.addEventListener('DOMContentLoaded', () => {
     const pricingData = {
         instagram: {
             seguidores: [
-                { label: "100 seguidores", price: 4.90, old: 0.00, tag: "Baratinho pra testar", tagColor: "#ec4899", subText: "" },
-                { label: "200 seguidores", price: 6.90, old: 0.00, subText: "⚡ 30% off — aproveite agora!" },
-                { label: "400 seguidores", price: 9.90, old: 0.00, subText: "⚡ 49% off — aproveite agora!" },
-                { label: "500 seguidores", price: 10.90, old: 0.00, subText: "⚡ 56% off — aproveite agora!" },
-                { label: "1.000 seguidores", price: 14.90, old: 0.00, tag: "Mais vendido", tagColor: "#f59e0b", subText: "⚡ 70% off — aproveite agora!" },
-                { label: "2.000 seguidores", price: 29.90, old: 0.00, subText: "⚡ 69% off — aproveite agora!" },
-                { label: "3.000 seguidores", price: 44.90, old: 0.00, subText: "⚡ 69% off — aproveite agora!" },
-                { label: "5.000 seguidores", price: 72.90, old: 0.00, tag: "Melhor custo-benefício", tagColor: "#10b981", subText: "⚡ 70% off — aproveite agora!" }
+                { label: "Plano Teste — 100 Seguidores", price: 7.99, old: 0.00, subText: "⚡ Entrega rápida e segura!" },
+                { label: "Plano Início — 250 Seguidores", price: 14.99, old: 0.00, subText: "⚡ 30% off — aproveite agora!" },
+                { label: "Plano Crescimento 🔥 — 500 Seguidores", price: 19.99, old: 0.00, tag: "Mais escolhido", tagColor: "#f59e0b", subText: "⚡ 49% off — aproveite agora!" },
+                { label: "Plano Autoridade — 1000 Seguidores", price: 34.99, old: 0.00, subText: "⚡ 60% off — aproveite agora!" },
+                { label: "Plano Dominação — 2000 Seguidores", price: 59.99, old: 0.00, tag: "Melhor custo-benefício", tagColor: "#10b981", subText: "⚡ 70% off — aproveite agora!" }
             ],
             curtidas: [
-                { label: "100 curtidas", price: 3.90, old: 0.00, tag: "Baratinho pra testar", tagColor: "#ec4899", subText: "" },
-                { label: "500 curtidas", price: 9.90, old: 0.00, subText: "⚡ 49% off — aproveite agora!" },
-                { label: "1.000 curtidas", price: 14.90, old: 0.00, subText: "⚡ 62% off — aproveite agora!" },
-                { label: "5.000 curtidas", price: 49.90, old: 0.00, subText: "⚡ 74% off — aproveite agora!" },
-                { label: "10.000 curtidas", price: 89.90, old: 0.00, subText: "⚡ 77% off — aproveite agora!" },
-                { label: "20.000 curtidas", price: 169.90, old: 0.00, subText: "⚡ 78% off — aproveite agora!" }
-            ],
-            views: [
-                { label: "0 views", price: 0.00, old: 0.00 },
-                { label: "1.000 views", price: 8.90, old: 13.35 },
-                { label: "5.000 views", price: 44.90, old: 67.35, confetti: true },
-                { label: "10.000 views", price: 89.90, old: 134.85, confetti: true },
-                { label: "50.000 views", price: 259.90, old: 389.85, confetti: true }
+                { label: "Plano Engajamento Inicial — 100 Curtidas", price: 5.99, old: 0.00, subText: "⚡ Para começar bem!" },
+                { label: "Plano Engajamento — 250 Curtidas", price: 9.99, old: 0.00, subText: "⚡ 49% off — aproveite agora!" },
+                { label: "Plano Destaque 🔥 — 500 Curtidas", price: 14.99, old: 0.00, tag: "Mais buscado", tagColor: "#f59e0b", subText: "⚡ 62% off — aproveite agora!" },
+                { label: "Plano Viral — 1000 Curtidas", price: 24.99, old: 0.00, subText: "⚡ 74% off — aproveite agora!" },
+                { label: "Plano Impacto — 2000 Curtidas", price: 44.99, old: 0.00, tag: "Super desconto", tagColor: "#10b981", subText: "⚡ 78% off — aproveite agora!" }
             ]
         },
         tiktok: {
             seguidores: [
-                { label: "100 seguidores", price: 5.90, old: 0.00, tag: "Baratinho pra testar", tagColor: "#ec4899", subText: "" },
-                { label: "200 seguidores", price: 9.90, old: 0.00, subText: "⚡ 16% off — aproveite agora!" },
-                { label: "500 seguidores", price: 16.90, old: 0.00, subText: "⚡ 43% off — aproveite agora!" },
-                { label: "1.000 seguidores", price: 29.90, old: 0.00, tag: "Mais vendido", tagColor: "#f59e0b", subText: "⚡ 49% off — aproveite agora!" },
-                { label: "2.000 seguidores", price: 49.90, old: 0.00, subText: "⚡ 58% off — aproveite agora!" },
-                { label: "5.000 seguidores", price: 99.90, old: 0.00, tag: "Melhor custo-benefício", tagColor: "#10b981", subText: "⚡ 66% off — aproveite agora!" },
-                { label: "10.000 seguidores", price: 189.90, old: 0.00, tag: "Atrai seguidores reais!", tagColor: "#3b82f6", subText: "⚡ 68% off — aproveite agora!" }
+                { label: "Plano Teste TikTok — 100 Seguidores", price: 6.99, old: 0.00, subText: "⚡ Atraia novos públicos!" },
+                { label: "Plano Início TikTok — 250 Seguidores", price: 12.99, old: 0.00, subText: "⚡ 16% off — aproveite agora!" },
+                { label: "Plano Crescimento TikTok 🔥 — 500 Seguidores", price: 19.99, old: 0.00, tag: "Mais vendido", tagColor: "#f59e0b", subText: "⚡ 43% off — aproveite agora!" },
+                { label: "Plano Autoridade TikTok — 1000 Seguidores", price: 34.99, old: 0.00, subText: "⚡ 49% off — aproveite agora!" },
+                { label: "Plano Explosão — 2000 Seguidores", price: 59.99, old: 0.00, tag: "Melhor custo-benefício", tagColor: "#10b981", subText: "⚡ 58% off — aproveite agora!" }
             ],
             curtidas: [
-                { label: "100 curtidas", price: 4.90, old: 0.00, tag: "Baratinho pra testar", tagColor: "#ec4899", subText: "" },
-                { label: "200 curtidas", price: 6.90, old: 0.00, subText: "⚡ 30% off — aproveite agora!" },
-                { label: "500 curtidas", price: 9.90, old: 0.00, subText: "⚡ 60% off — aproveite agora!" },
-                { label: "1.000 curtidas", price: 14.90, old: 0.00, subText: "⚡ 70% off — aproveite agora!" },
-                { label: "2.000 curtidas", price: 19.90, old: 0.00, subText: "⚡ 80% off — aproveite agora!" },
-                { label: "5.000 curtidas", price: 29.90, old: 0.00, subText: "⚡ 88% off — aproveite agora!" },
-                { label: "10.000 curtidas", price: 49.90, old: 0.00, subText: "⚡ 90% off — aproveite agora!" },
-                { label: "20.000 curtidas", price: 69.90, old: 0.00, subText: "⚡ 93% off — aproveite agora!" },
-                { label: "50.000 curtidas", price: 99.90, old: 0.00, subText: "⚡ 96% off — aproveite agora!" }
-            ],
-            views: [
-                { label: "1.000 views", price: 9.90, old: 14.85 },
-                { label: "5.000 views", price: 47.90, old: 71.85 },
-                { label: "10.000 views", price: 89.90, old: 134.85, confetti: true },
-                { label: "50.000 views", price: 269.90, old: 404.85 }
+                { label: "Plano Engajamento TikTok — 100 Curtidas", price: 4.99, old: 0.00, subText: "⚡ Para iniciar o alcance!" },
+                { label: "Plano Impulso — 250 Curtidas", price: 8.99, old: 0.00, subText: "⚡ 30% off — aproveite agora!" },
+                { label: "Plano Viral TikTok 🔥 — 500 Curtidas", price: 13.99, old: 0.00, tag: "Top escolhas", tagColor: "#f59e0b", subText: "⚡ 60% off — aproveite agora!" },
+                { label: "Plano Alcance — 1000 Curtidas", price: 22.99, old: 0.00, subText: "⚡ 70% off — aproveite agora!" },
+                { label: "Plano Explosão Viral — 2000 Curtidas", price: 39.99, old: 0.00, tag: "Oferta Máxima", tagColor: "#10b981", subText: "⚡ 80% off — aproveite agora!" }
             ]
         }
     };
@@ -495,7 +456,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Redirecionamento Final (Yampi com Rastro ou WhatsApp Backup)
-        const qtyKey = label.split(' ')[0].replace(/\D/g, ''); // Extrai o número do label
+        const qtyKey = label.replace(/\D/g, ''); // Extrai o número do label
         const yampiUrl = yampiLinks[activePlatform][activeService] ? yampiLinks[activePlatform][activeService][qtyKey] : null;
 
         if (yampiUrl) {
@@ -523,9 +484,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const snNames = ['Gabriel S.', 'Maria L.', 'Lucas S.', 'Ana P.', 'Felipe R.', 'Juliana M.', 'Bruno C.', 'Carla O.', 'Marcos V.', 'Paula T.', 'Ricardo F.', 'Fernanda G.', 'Thiago M.', 'Beatriz S.', 'Rodrigo A.', 'Amanda K.'];
     const snActions = ['acabou de comprar', 'garantiu agora', 'acaba de adquirir', 'comprou'];
     const snProducts = [
-        '1.000 seguidores', '3.000 seguidores', '5.000 seguidores', '10.000 seguidores',
-        '1.000 curtidas', '3.000 curtidas', '5.000 curtidas',
-        '5.000 views', '10.000 views'
+        '500 seguidores', '1.000 seguidores', '2.000 seguidores',
+        '500 curtidas', '1.000 curtidas', '2.000 curtidas'
     ];
     const snTimes = ['agora mesmo', 'há 1 min', 'há 2 min', 'há 3 min', 'há 30 seg', 'há 45 seg'];
 
