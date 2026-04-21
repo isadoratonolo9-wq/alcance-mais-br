@@ -15,38 +15,38 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Mapeamento de Links Yampi
-    const yampiLinks = {
+    // Mapeamento de Links Cakto
+    const checkoutLinks = {
         instagram: {
             seguidores: {
-                "100": "",
-                "250": "",
-                "500": "",
-                "1000": "",
-                "2000": ""
+                "100": "https://pay.cakto.com.br/37m8c2n_853978",
+                "250": "https://pay.cakto.com.br/mc4238s_853981",
+                "500": "https://pay.cakto.com.br/8bhpgjk_853983",
+                "1000": "https://pay.cakto.com.br/ux2udsf_853984",
+                "2000": "https://pay.cakto.com.br/gmqa2xx_853985"
             },
             curtidas: {
-                "100": "",
-                "250": "",
-                "500": "",
-                "1000": "",
-                "2000": ""
+                "100": "https://pay.cakto.com.br/39b3fqz_853987",
+                "250": "https://pay.cakto.com.br/xjoreed_853988",
+                "500": "https://pay.cakto.com.br/7krgj2j_853989",
+                "1000": "https://pay.cakto.com.br/3d3h5qw_853992",
+                "2000": "https://pay.cakto.com.br/52dsjf5_853993"
             }
         },
         tiktok: {
             seguidores: {
-                "100": "",
-                "250": "",
-                "500": "",
-                "1000": "",
-                "2000": ""
+                "100": "https://pay.cakto.com.br/hsycp5d_853994",
+                "250": "https://pay.cakto.com.br/n7zbq6a_853995",
+                "500": "https://pay.cakto.com.br/33fyome_853997",
+                "1000": "https://pay.cakto.com.br/brj7yj8_853998",
+                "2000": "https://pay.cakto.com.br/55s4r5t_853999"
             },
             curtidas: {
-                "100": "",
-                "250": "",
-                "500": "",
-                "1000": "",
-                "2000": ""
+                "100": "https://pay.cakto.com.br/tr87r5a_854001",
+                "250": "https://pay.cakto.com.br/ompmajb_854003",
+                "500": "https://pay.cakto.com.br/38d7j87_854004",
+                "1000": "https://pay.cakto.com.br/34rmuiq_854006",
+                "2000": "https://pay.cakto.com.br/nq7u9ti_854007"
             }
         }
     };
@@ -463,13 +463,13 @@ document.addEventListener('DOMContentLoaded', () => {
             platform: activePlatform
         });
 
-        // Redirecionamento Final (Yampi com Rastro ou WhatsApp Backup)
+        // Redirecionamento Final (Cakto com Rastro ou WhatsApp Backup)
         const qtyKey = label.replace(/\D/g, ''); // Extrai o número do label
-        const yampiUrl = yampiLinks[activePlatform][activeService] ? yampiLinks[activePlatform][activeService][qtyKey] : null;
+        const checkoutUrl = checkoutLinks[activePlatform][activeService] ? checkoutLinks[activePlatform][activeService][qtyKey] : null;
 
-        if (yampiUrl) {
-            // Ir para a Yampi com o rastro do perfil
-            const finalUrl = `${yampiUrl}${yampiUrl.includes('?') ? '&' : '?'}utm_content=${encodeURIComponent(userValue)}`;
+        if (checkoutUrl) {
+            // Ir para a Cakto com o rastro do perfil
+            const finalUrl = `${checkoutUrl}${checkoutUrl.includes('?') ? '&' : '?'}utm_content=${encodeURIComponent(userValue)}`;
             window.location.href = finalUrl;
         } else {
             // Backup para WhatsApp se não houver link direto
