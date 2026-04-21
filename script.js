@@ -468,8 +468,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const checkoutUrl = checkoutLinks[activePlatform][activeService] ? checkoutLinks[activePlatform][activeService][qtyKey] : null;
 
         if (checkoutUrl) {
-            // Ir para a Cakto com o rastro do perfil
-            const finalUrl = `${checkoutUrl}${checkoutUrl.includes('?') ? '&' : '?'}utm_content=${encodeURIComponent(userValue)}`;
+            // Pegar todos os parâmetros atuais da URL (UTMs das campanhas)
+            const urlParams = window.location.search;
+            
+            let finalUrl = checkoutUrl;
+            
+            // Se já existirem parâmetros na página (ex: ?utm_source=fb), repassamos para a Cakto
+            if (urlParams) {
+                finalUrl += (finalUrl.includes('?') ? '&' : '?') + urlParams.substring(1);
+            }
+            
+            // Adicionar o input do perfil do usuário como utm_content
+            finalUrl += (finalUrl.includes('?') ? '&' : '?') + 'utm_content=' + encodeURIComponent(userValue);
+            
             window.location.href = finalUrl;
         } else {
             // Backup para WhatsApp se não houver link direto
